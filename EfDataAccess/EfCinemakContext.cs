@@ -24,6 +24,9 @@ namespace EfDataAccess
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Production> Production { get; set; }
         public DbSet<Poster> Posters { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<Hall> Halls { get; set; }
+        public DbSet<Seat> Seats { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,6 +50,9 @@ namespace EfDataAccess
             modelBuilder.ApplyConfiguration(new WriterConfiguration());
             modelBuilder.ApplyConfiguration(new ProductionConfiguration());
             modelBuilder.ApplyConfiguration(new PosterConfiguration());
+            modelBuilder.ApplyConfiguration(new CommentConfiguration());
+            modelBuilder.ApplyConfiguration(new HallConfiguration());
+            modelBuilder.ApplyConfiguration(new SeatConfiguration());
         }
     }
 }

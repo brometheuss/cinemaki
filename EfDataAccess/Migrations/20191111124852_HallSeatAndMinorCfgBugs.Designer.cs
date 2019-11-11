@@ -4,14 +4,16 @@ using EfDataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EfDataAccess.Migrations
 {
     [DbContext(typeof(EfCinemakContext))]
-    partial class EfCinemakContextModelSnapshot : ModelSnapshot
+    [Migration("20191111124852_HallSeatAndMinorCfgBugs")]
+    partial class HallSeatAndMinorCfgBugs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
