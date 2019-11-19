@@ -26,5 +26,6 @@ namespace Domain
         public Production Production { get; set; }
         public ICollection<Poster> Posters { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Projection> Projections { get; set; }
     }
 }

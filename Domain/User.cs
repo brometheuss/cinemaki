@@ -14,5 +14,6 @@ namespace Domain
         public int RoleId { get; set; }
         public Role Role { get; set; }
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

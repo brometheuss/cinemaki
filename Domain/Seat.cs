@@ -11,5 +11,6 @@ namespace Domain
         public bool IsBroken { get; set; }
         public int HallId { get; set; }
         public Hall Hall { get; set; }
+        public ICollection<ReservationSeat> ReservationSeats { get; set; }
     }
 }

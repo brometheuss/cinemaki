@@ -27,6 +27,8 @@ namespace EfDataAccess
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Hall> Halls { get; set; }
         public DbSet<Seat> Seats { get; set; }
+        public DbSet<Projection> Projections { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -53,6 +55,8 @@ namespace EfDataAccess
             modelBuilder.ApplyConfiguration(new CommentConfiguration());
             modelBuilder.ApplyConfiguration(new HallConfiguration());
             modelBuilder.ApplyConfiguration(new SeatConfiguration());
+            modelBuilder.ApplyConfiguration(new ProjectionConfiguration());
+            modelBuilder.ApplyConfiguration(new ReservationConfiguration());
         }
     }
 }
