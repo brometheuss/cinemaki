@@ -20,14 +20,10 @@ namespace EfDataAccess.Configs
                 .HasMaxLength(40)
                 .IsRequired();
 
-            builder.Property(c => c.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(c => c.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(c => c.IsDeleted)
-                .HasDefaultValue(false);
+            builder.HasMany(m => m.Movies)
+                .WithOne(c => c.Country)
+                .HasForeignKey(c => c.CountryId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

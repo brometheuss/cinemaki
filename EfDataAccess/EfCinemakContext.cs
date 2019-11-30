@@ -14,13 +14,9 @@ namespace EfDataAccess
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Country> Countries { get; set; }
         public DbSet<Rated> Rateds { get; set; }
-        public DbSet<MovieGenre> MovieGenres { get; set; }
         public DbSet<Genre> Genres { get; set; }
-        public DbSet<MovieActor> MovieActors { get; set; }
         public DbSet<Actor> Actors { get; set; }
-        public DbSet<MovieLanguage> MovieLanguages { get; set; }
         public DbSet<Language> Languages { get; set; }
-        public DbSet<MovieWriter> MovieWriters { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<Production> Production { get; set; }
         public DbSet<Poster> Posters { get; set; }
@@ -33,6 +29,28 @@ namespace EfDataAccess
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-HAH0RJ9\SQLEXPRESS;Initial Catalog=Cinemak;Integrated Security=True");
+        }
+
+        public override int SaveChanges()
+        {
+            foreach(var entry in this.ChangeTracker.Entries())
+            {
+                if(entry.Entity is BaseEntity entity)
+                {
+                    switch(entry.State)
+                    {
+                        case EntityState.Modified:
+                            entity.ModifiedAt = DateTime.Now;
+                            break;
+                        case EntityState.Added:
+                            entity.CreatedAt = DateTime.Now;
+                            entity.IsActive = true;
+                            entity.IsDeleted = false;
+                            break;
+                    }
+                }
+            }
+            return base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

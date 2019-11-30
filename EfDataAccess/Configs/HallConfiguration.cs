@@ -22,15 +22,6 @@ namespace EfDataAccess.Configs
 
             builder.Property(h => h.MaximumOccupancy)
                 .IsRequired();
-
-            builder.Property(h => h.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(h => h.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(h => h.IsDeleted)
-                .HasDefaultValue(false);
         }
     }
 }

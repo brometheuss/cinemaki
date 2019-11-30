@@ -13,15 +13,6 @@ namespace EfDataAccess.Configs
         {
             builder.HasKey(r => r.Id);
 
-            builder.Property(r => r.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(r => r.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(r => r.IsDeleted)
-                .HasDefaultValue(false);
-
             builder.HasMany(rc => rc.ReservationSeats)
                 .WithOne(rs => rs.Reservation)
                 .HasForeignKey(rs => rs.ReservationId)

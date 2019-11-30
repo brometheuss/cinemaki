@@ -21,15 +21,6 @@ namespace EfDataAccess.Configs
                 .HasMaxLength(30)
                 .IsRequired();
 
-            builder.Property(a => a.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(a => a.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(a => a.IsDeleted)
-                .HasDefaultValue(false);
-
             builder.HasMany(a => a.MovieActors)
                 .WithOne(a => a.Actor)
                 .HasForeignKey(a => a.ActorId)

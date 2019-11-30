@@ -20,19 +20,10 @@ namespace EfDataAccess.Configs
             builder.Property(s => s.IsBroken)
                 .HasDefaultValue(true);
 
-            builder.Property(s => s.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(s => s.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(s => s.IsDeleted)
-                .HasDefaultValue(false);
-
             builder.HasMany(rs => rs.ReservationSeats)
                 .WithOne(rs => rs.Seat)
                 .HasForeignKey(rs => rs.SeatId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

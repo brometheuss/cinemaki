@@ -31,15 +31,6 @@ namespace EfDataAccess.Configs
             builder.Property(m => m.DebutDate)
                 .IsRequired();
 
-            builder.Property(m => m.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(m => m.IsActive)
-                .HasDefaultValue(true);
-
-            builder.Property(m => m.IsDeleted)
-                .HasDefaultValue(false);
-
             builder.HasMany(m => m.MovieGenres)
                 .WithOne(m => m.Movie)
                 .HasForeignKey(m => m.MovieId)

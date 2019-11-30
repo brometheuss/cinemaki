@@ -16,15 +16,6 @@ namespace EfDataAccess.Configs
             builder.Property(c => c.Text)
                 .HasMaxLength(256)
                 .IsRequired();
-
-            builder.Property(c => c.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(c => c.IsActive)
-                .HasDefaultValue(false);
-
-            builder.Property(c => c.IsDeleted)
-                .HasDefaultValue(false);
         }
     }
 }

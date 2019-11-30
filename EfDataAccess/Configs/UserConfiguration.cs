@@ -37,15 +37,6 @@ namespace EfDataAccess.Configs
 
             builder.Property(u => u.Password)
                 .IsRequired();
-
-            builder.Property(u => u.CreatedAt)
-                .HasDefaultValueSql("GETDATE()");
-
-            builder.Property(u => u.IsActive)
-                .HasDefaultValue(false);
-
-            builder.Property(u => u.IsDeleted)
-                .HasDefaultValue(false);
         }
     }
 }
