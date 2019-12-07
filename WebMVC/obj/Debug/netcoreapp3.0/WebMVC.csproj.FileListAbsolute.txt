@@ -9,7 +9,6 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\WebMVC.dll
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\WebMVC.pdb
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\WebMVC.Views.dll
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\WebMVC.Views.pdb
-C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.csprojAssemblyReference.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\staticwebassets\WebMVC.StaticWebAssets.Manifest.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\staticwebassets\WebMVC.StaticWebAssets.xml
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cache
@@ -33,3 +32,4 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.Vie
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.dll
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.pdb
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.csproj.CopyComplete
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.csprojAssemblyReference.cache

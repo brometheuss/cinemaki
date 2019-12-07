@@ -18,8 +18,6 @@ namespace EfCommands.RoleEfCommands
 
         public void Execute(RoleDto request)
         {
-            var query = Context.Roles.AsQueryable();
-
             if (Context.Roles.Any(r => r.Name.ToLower() == request.Name.ToLower()))
                 throw new EntityAlreadyExistsException("Role");
 

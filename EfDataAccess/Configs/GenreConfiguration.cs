@@ -17,6 +17,9 @@ namespace EfDataAccess.Configs
                 .HasMaxLength(15)
                 .IsRequired();
 
+            builder.HasIndex(g => g.Name)
+                .IsUnique();
+
             builder.HasMany(g => g.MovieGenres)
                 .WithOne(g => g.Genre)
                 .HasForeignKey(g => g.GenreId)

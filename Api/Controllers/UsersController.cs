@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.ApiResponse;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.UserCommands;
@@ -69,19 +70,15 @@ namespace Api.Controllers
             try
             {
                 addUser.Execute(dto);
-                return StatusCode(201);
+                return StatusCode(201); 
             }
-            catch (EntityNotFoundException e)
+            catch (EntityAlreadyExistsException)
             {
-                return NotFound(e.Message);
+                return StatusCode(409, new ApiStatusCodes());
             }
-            catch (EntityAlreadyExistsException e)
+            catch (Exception)
             {
-                return StatusCode(409, e.Message);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e);
+                return StatusCode(500, new ApiStatusCodes());
             }
         }
 

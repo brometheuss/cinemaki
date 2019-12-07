@@ -17,7 +17,7 @@ namespace EfCommands.RoleEfCommands
         {
             var role = Context.Roles.Find(request);
 
-            if (role == null)
+            if (role == null || role.IsDeleted == true)
                 throw new EntityNotFoundException("Role");
 
             role.IsDeleted = true;

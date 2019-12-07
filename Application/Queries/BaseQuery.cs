@@ -6,7 +6,7 @@ namespace Application.Queries
 {
     public class BaseQuery
     {
-        public int PerPage { get; set; } = 7;
+        public int PerPage { get; set; } = 10;
         public int PageNumber { get; set; } = 1;
     }
 }

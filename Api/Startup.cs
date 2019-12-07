@@ -2,8 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ICommands.CountryCommands;
+using Application.ICommands.GenreCommands;
+using Application.ICommands.MovieCommands;
+using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
+using EfCommands.CountryEfCommands;
+using EfCommands.GenreEfCommands;
+using EfCommands.MovieEfCommands;
+using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
 using EfDataAccess;
@@ -46,6 +54,32 @@ namespace Api
             services.AddTransient<IAddRoleCommand, EfAddRoleCommand>();
             services.AddTransient<IEditRoleCommand, EfEditRoleCommand>();
             services.AddTransient<IDeleteRoleCommand, EfDeleteRoleCommand>();
+
+            //MoviesController
+            services.AddTransient<IGetMoviesCommand, EfGetMoviesCommand>();
+            services.AddTransient<IGetMovieCommand, EfGetMovieCommand>();
+            services.AddTransient<IAddMovieCommand, EfAddMovieCommand>();
+
+            //GenresController
+            services.AddTransient<IGetGenresCommand, EfGetGenresCommand>();
+            services.AddTransient<IGetGenreCommand, EfGetGenreCommand>();
+            services.AddTransient<IAddGenreCommand, EfAddGenreCommand>();
+            services.AddTransient<IEditGenreCommand, EfEditGenreCommand>();
+            services.AddTransient<IDeleteGenreCommand, EfDeleteGenreCommand>();
+
+            //CountriesController
+            services.AddTransient<IGetCountriesCommand, EfGetCountriesCommand>();
+            services.AddTransient<IGetCountryCommand, EfGetCountryCommand>();
+            services.AddTransient<IAddCountryCommand, EfAddCountryCommand>();
+            services.AddTransient<IEditCountryCommand, EfEditCountryCommand>();
+            services.AddTransient<IDeleteCountryCommand, EfDeleteCountryCommand>();
+
+            //RatedsController
+            services.AddTransient<IGetRatedsCommand, EfGetRatedsCommand>();
+            services.AddTransient<IGetRatedCommand, EfGetRatedCommand>();
+            services.AddTransient<IAddRatedCommand, EfAddRatedCommand>();
+            services.AddTransient<IEditRatedCommand, EfEditRatedCommand>();
+            services.AddTransient<IDeleteRatedCommand, EfDeleteRatedCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
