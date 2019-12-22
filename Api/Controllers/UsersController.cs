@@ -41,7 +41,10 @@ namespace Api.Controllers
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
         }
 
@@ -55,11 +58,17 @@ namespace Api.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
         }
 
@@ -72,13 +81,19 @@ namespace Api.Controllers
                 addUser.Execute(dto);
                 return StatusCode(201); 
             }
-            catch (EntityAlreadyExistsException)
+            catch (EntityAlreadyExistsException e)
             {
-                return StatusCode(409, new ApiStatusCodes());
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return StatusCode(500, new ApiStatusCodes());
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
         }
 
@@ -94,15 +109,24 @@ namespace Api.Controllers
             }
             catch (EntityAlreadyExistsException e)
             {
-                return StatusCode(409, e.Message);
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
         }
 
@@ -117,11 +141,17 @@ namespace Api.Controllers
             }
             catch (EntityNotFoundException e)
             {
-                return NotFound(e.Message);
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
             catch (Exception e)
             {
-                return StatusCode(500, e);
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
         }
     }

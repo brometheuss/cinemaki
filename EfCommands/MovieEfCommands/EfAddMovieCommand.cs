@@ -35,18 +35,33 @@ namespace EfCommands.MovieEfCommands
 
             var existingGenreIds = Context.Genres.Select(z => z.Id);
 
-            if (existingGenreIds.Intersect(request.MovieGenresList).Count() != request.MovieGenresList.Count)
+            if (!request.MovieGenres.All(id => existingGenreIds.Any(e => e == id)))
             {
-                throw new EntityNotFoundException("Not all genre ids are in database.");
+                throw new EntityNotFoundException("One or more genres not found.");
             }
 
             Context.Movies.Add(movie);
 
-            request.MovieGenresList.ForEach(id =>
+            request.MovieGenres.ForEach(id =>
             {
                 movie.MovieGenres.Add(new MovieGenre
                 {
                     GenreId = id
+                });
+            });
+
+            var existingActorIds = Context.Actors.Select(a => a.Id);
+
+            if(!request.MovieActors.All(id => existingActorIds.Any(e => e == id)))
+            {
+                throw new EntityNotFoundException("One or more actors not found.");
+            }
+
+            request.MovieActors.ForEach(id =>
+            {
+                movie.MovieActors.Add(new MovieActor
+                {
+                    ActorId = id
                 });
             });
 

@@ -19,7 +19,8 @@ namespace Application.DataTransfer
         public int ProductionId { get; set; }
         public int RatedId { get; set; }
         public string CountryName { get; set; }
-        public List<int> MovieGenresList { get; set; }
+        public List<int> MovieGenres { get; set; }
         public IEnumerable<MovieGenreDto> GenresInfo { get; set; }
+        public List<int> MovieActors { get; set; }
     }
 }
