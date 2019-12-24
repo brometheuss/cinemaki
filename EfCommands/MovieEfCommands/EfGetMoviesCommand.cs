@@ -22,6 +22,8 @@ namespace EfCommands.MovieEfCommands
             var query = Context.Movies
                 .Include(mg => mg.MovieGenres)
                 .ThenInclude(g => g.Genre)
+                .Include(ma => ma.MovieActors)
+                .ThenInclude(a => a.Actor)
                 .AsQueryable();
 
             query = query.Where(m => m.IsDeleted == false);
@@ -59,6 +61,13 @@ namespace EfCommands.MovieEfCommands
                     {
                         GenreId = g.GenreId,
                         GenreName = g.Genre.Name
+                    }),
+                    ActorsInfo = m.MovieActors.Select(a => new MovieActorDto
+                    {
+                        ActorId = a.Actor.Id,
+                        FirstName = a.Actor.FirstName,
+                        LastName = a.Actor.LastName,
+                        Link = a.Actor.Link
                     })
                 })
             };
