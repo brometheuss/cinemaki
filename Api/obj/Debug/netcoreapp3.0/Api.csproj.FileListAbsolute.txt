@@ -116,3 +116,7 @@ C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\EfCommands.pd
 C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\EfDataAccess.pdb
 C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\Domain.pdb
 C:\Users\Makala\source\repos\BioskopV3\Api\obj\Debug\netcoreapp3.0\Api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Primitives.dll
+C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\System.IO.Pipelines.dll
+C:\Users\Makala\source\repos\BioskopV3\Api\bin\Debug\netcoreapp3.0\System.Runtime.CompilerServices.Unsafe.dll

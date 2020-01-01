@@ -14,14 +14,14 @@ namespace EfDataAccess.Configs
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.PosterTitle)
-                .HasMaxLength(30);
+                .HasMaxLength(100);
 
             builder.Property(p => p.Alt)
-                .HasMaxLength(30)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(p => p.Name)
-                .HasMaxLength(64)
+                .HasMaxLength(100)
                 .IsRequired();
         }
     }

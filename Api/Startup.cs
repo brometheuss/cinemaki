@@ -8,6 +8,7 @@ using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
+using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
 using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
@@ -19,6 +20,7 @@ using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
+using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
 using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
@@ -127,6 +129,9 @@ namespace Api
             services.AddTransient<IAddCommentCommand, EfAddCommentCommand>();
             services.AddTransient<IEditCommentCommand, EfEditCommentCommand>();
             services.AddTransient<IDeleteCommentCommand, EfDeleteCommentCommand>();
+
+            //PostersController
+            services.AddTransient<IAddPosterCommand, EfAddPosterCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -147,6 +152,8 @@ namespace Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseStaticFiles();
         }
     }
 }
