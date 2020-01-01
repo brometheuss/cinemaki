@@ -39,7 +39,7 @@ namespace EfDataAccess.Configs
             builder.HasMany(ma => ma.MovieActors)
                 .WithOne(ma => ma.Movie)
                 .HasForeignKey(ma => ma.MovieId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(m => m.MovieLanguages)
                 .WithOne(m => m.Movie)

@@ -68,6 +68,16 @@ namespace EfCommands.MovieEfCommands
                         FirstName = a.Actor.FirstName,
                         LastName = a.Actor.LastName,
                         Link = a.Actor.Link
+                    }),
+                    WritersInfo = m.MovieWriters.Select(w => new MovieWriterDto
+                    {
+                        WriterId = w.Writer.Id,
+                        Name = w.Writer.Name
+                    }),
+                    LanguagesInfo = m.MovieLanguages.Select(l => new MovieLanguageDto
+                    {
+                        LanguageId = l.Language.Id,
+                        LanguageName = l.Language.Name
                     })
                 })
             };

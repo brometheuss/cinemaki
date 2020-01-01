@@ -18,12 +18,16 @@ namespace Api.Controllers
         private readonly IGetMoviesCommand getMovies;
         private readonly IGetMovieCommand getMovie;
         private readonly IAddMovieCommand addMovie;
+        private readonly IEditMovieCommand editMovie;
+        private readonly IDeleteMovieCommand deleteMovie;
 
-        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie)
+        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie)
         {
             this.getMovies = getMovies;
             this.getMovie = getMovie;
             this.addMovie = addMovie;
+            this.editMovie = editMovie;
+            this.deleteMovie = deleteMovie;
         }
 
 
@@ -98,8 +102,27 @@ namespace Api.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                deleteMovie.Execute(id);
+                return StatusCode(204);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
     }
 }

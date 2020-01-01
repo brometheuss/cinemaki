@@ -20,8 +20,8 @@ namespace Domain
         public Rated Rated { get; set; }
         public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
         public ICollection<MovieActor> MovieActors { get; set; } = new List<MovieActor>();
-        public ICollection<MovieLanguage> MovieLanguages { get; set; }
-        public ICollection<MovieWriter> MovieWriters { get; set; }
+        public ICollection<MovieLanguage> MovieLanguages { get; set; } = new List<MovieLanguage>();
+        public ICollection<MovieWriter> MovieWriters { get; set; } = new List<MovieWriter>();
         public int ProductionId { get; set; }
         public Production Production { get; set; }
         public ICollection<Poster> Posters { get; set; }

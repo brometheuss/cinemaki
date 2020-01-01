@@ -776,7 +776,7 @@ namespace EfDataAccess.Migrations
                     b.HasOne("Domain.Movie", "Movie")
                         .WithMany("MovieActors")
                         .HasForeignKey("MovieId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

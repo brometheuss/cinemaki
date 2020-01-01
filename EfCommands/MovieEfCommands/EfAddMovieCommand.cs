@@ -65,6 +65,36 @@ namespace EfCommands.MovieEfCommands
                 });
             });
 
+            var existingWriterIds = Context.Writers.Select(w => w.Id);
+
+            if(!request.MovieWriters.All(id => existingWriterIds.Any(w => w == id)))
+            {
+                throw new EntityNotFoundException("One or more writers not found.");
+            }
+
+            request.MovieWriters.ForEach(id =>
+            {
+                movie.MovieWriters.Add(new MovieWriter
+                {
+                    WriterId = id
+                });
+            });
+
+            var existingLanguageIds = Context.Languages.Select(l => l.Id);
+
+            if(!request.MovieLanguages.All(id => existingLanguageIds.Any(l => l == id)))
+            {
+                throw new EntityNotFoundException("One ore more languages not found.");
+            }
+
+            request.MovieLanguages.ForEach(id =>
+            {
+                movie.MovieLanguages.Add(new MovieLanguage
+                {
+                    LanguageId = id
+                });
+            });
+
             Context.SaveChanges();
         }
     }

@@ -23,5 +23,9 @@ namespace Application.DataTransfer
         public IEnumerable<MovieGenreDto> GenresInfo { get; set; }
         public List<int> MovieActors { get; set; }
         public IEnumerable<MovieActorDto> ActorsInfo { get; set; }
+        public List<int> MovieWriters { get; set; }
+        public IEnumerable<MovieWriterDto> WritersInfo { get; set; }
+        public List<int> MovieLanguages { get; set; }
+        public IEnumerable<MovieLanguageDto> LanguagesInfo { get; set; }
     }
 }

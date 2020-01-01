@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.ICommands.ActorCommands;
+using Application.ICommands.CommentCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.LanguageCommands;
@@ -13,6 +14,7 @@ using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
+using EfCommands.CommentEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.LanguageEfCommands;
@@ -67,6 +69,8 @@ namespace Api
             services.AddTransient<IGetMoviesCommand, EfGetMoviesCommand>();
             services.AddTransient<IGetMovieCommand, EfGetMovieCommand>();
             services.AddTransient<IAddMovieCommand, EfAddMovieCommand>();
+            services.AddTransient<IEditMovieCommand, EfEditMovieCommand>();
+            services.AddTransient<IDeleteMovieCommand, EfDeleteMovieCommand>();
 
             //GenresController
             services.AddTransient<IGetGenresCommand, EfGetGenresCommand>();
@@ -116,6 +120,13 @@ namespace Api
             services.AddTransient<IAddWriterCommand, EfAddWriterCommand>();
             services.AddTransient<IEditWriterCommand, EfEditWriterCommand>();
             services.AddTransient<IDeleteWriterCommand, EfDeleteWriterCommand>();
+
+            //CommentsController
+            services.AddTransient<IGetCommentsCommand, EfGetCommentsCommand>();
+            services.AddTransient<IGetCommentCommand, EfGetCommentCommand>();
+            services.AddTransient<IAddCommentCommand, EfAddCommentCommand>();
+            services.AddTransient<IEditCommentCommand, EfEditCommentCommand>();
+            services.AddTransient<IDeleteCommentCommand, EfDeleteCommentCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
