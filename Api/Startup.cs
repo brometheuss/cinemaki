@@ -10,6 +10,7 @@ using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
+using Application.ICommands.ProjectionCommands;
 using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
@@ -22,6 +23,7 @@ using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
 using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
+using EfCommands.ProjectionEfCommands;
 using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
@@ -131,7 +133,18 @@ namespace Api
             services.AddTransient<IDeleteCommentCommand, EfDeleteCommentCommand>();
 
             //PostersController
+            services.AddTransient<IGetPostersCommand, EfGetPostersCommand>();
+            services.AddTransient<IGetPosterCommand, EfGetPosterCommand>();
             services.AddTransient<IAddPosterCommand, EfAddPosterCommand>();
+            services.AddTransient<IEditPosterCommand, EfEditPosterCommand>();
+            services.AddTransient<IDeletePosterCommand, EfDeletePosterCommand>();
+
+            //ProjectionsController
+            services.AddTransient<IGetProjectionsCommand, EfGetProjectionsCommand>();
+            services.AddTransient<IGetProjectionCommand, EfGetProjectionCommand>();
+            services.AddTransient<IAddProjectionCommand, EfAddProjectionCommand>();
+            services.AddTransient<IEditProjectionCommand, EfEditProjectionCommand>();
+            services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

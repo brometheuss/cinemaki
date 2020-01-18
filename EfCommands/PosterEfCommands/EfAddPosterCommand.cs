@@ -21,6 +21,10 @@ namespace EfCommands.PosterEfCommands
         public void Execute(PosterDto request)
         {
             var ext = Path.GetExtension(request.Image.FileName);
+            var size = request.Image.Length;
+
+            if (size / 1000 > 4096)
+                throw new EntityNotAllowedException("File size bigger than 4MB");
 
             if (!FileUpload.AllowedExtensions.Contains(ext))
                 throw new EntityNotAllowedException("Extension " + ext);

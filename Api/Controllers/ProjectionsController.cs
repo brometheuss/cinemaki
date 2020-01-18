@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
 using Application.Exceptions;
-using Application.ICommands.PosterCommands;
+using Application.ICommands.ProjectionCommands;
 using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,30 +13,30 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PostersController : ControllerBase
+    public class ProjectionsController : ControllerBase
     {
-        private readonly IGetPostersCommand getPosters;
-        private readonly IGetPosterCommand getPoster;
-        private readonly IAddPosterCommand addPoster;
-        private readonly IEditPosterCommand editPoster;
-        private readonly IDeletePosterCommand deletePoster;
+        private readonly IGetProjectionsCommand getProjections;
+        private readonly IGetProjectionCommand getProjection;
+        private readonly IAddProjectionCommand addProjection;
+        private readonly IEditProjectionCommand editProjection;
+        private readonly IDeleteProjectionCommand deleteProjection;
 
-        public PostersController(IAddPosterCommand addPoster, IGetPostersCommand getPosters, IGetPosterCommand getPoster, IEditPosterCommand editPoster, IDeletePosterCommand deletePoster)
+        public ProjectionsController(IGetProjectionsCommand getProjections, IAddProjectionCommand addProjection, IGetProjectionCommand getProjection, IEditProjectionCommand editProjection, IDeleteProjectionCommand deleteProjection)
         {
-            this.addPoster = addPoster;
-            this.getPosters = getPosters;
-            this.getPoster = getPoster;
-            this.editPoster = editPoster;
-            this.deletePoster = deletePoster;
+            this.getProjections = getProjections;
+            this.addProjection = addProjection;
+            this.getProjection = getProjection;
+            this.editProjection = editProjection;
+            this.deleteProjection = deleteProjection;
         }
 
-        // GET: api/Posters
+        // GET: api/Projections
         [HttpGet]
-        public IActionResult Get([FromQuery] PosterQuery query)
+        public IActionResult Get([FromQuery] ProjectionQuery query)
         {
             try
             {
-                return Ok(getPosters.Execute(query));
+                return Ok(getProjections.Execute(query));
             }
             catch (Exception e)
             {
@@ -47,13 +47,13 @@ namespace Api.Controllers
             }
         }
 
-        // GET: api/Posters/5
+        // GET: api/Projections/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             try
             {
-                return Ok(getPoster.Execute(id));
+                return Ok(getProjection.Execute(id));
             }
             catch (EntityNotFoundException e)
             {
@@ -71,14 +71,28 @@ namespace Api.Controllers
             }
         }
 
-        // POST: api/Posters
+        // POST: api/Projections
         [HttpPost]
-        public IActionResult Post([FromForm] PosterDto dto)
+        public IActionResult Post([FromBody] ProjectionDto dto)
         {
             try
             {
-                addPoster.Execute(dto);
+                addProjection.Execute(dto);
                 return StatusCode(201);
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (EntityAlreadyHasAnEntryException e)
+            {
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
             }
             catch (Exception e)
             {
@@ -89,14 +103,14 @@ namespace Api.Controllers
             }
         }
 
-        // PUT: api/Posters/5
+        // PUT: api/Projections/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] PosterDto dto)
+        public IActionResult Put(int id, [FromBody] ProjectionDto dto)
         {
             try
             {
                 dto.Id = id;
-                editPoster.Execute(dto);
+                editProjection.Execute(dto);
                 return StatusCode(204);
             }
             catch (EntityAlreadyExistsException e)
@@ -128,7 +142,7 @@ namespace Api.Controllers
         {
             try
             {
-                deletePoster.Execute(id);
+                deleteProjection.Execute(id);
                 return StatusCode(204);
             }
             catch (EntityNotFoundException e)

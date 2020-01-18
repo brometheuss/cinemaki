@@ -7,11 +7,12 @@ namespace Application.DataTransfer
 {
     public class PosterDto
     {
+        public int Id { get; set; }
         public string PosterTitle { get; set; }
         public string Alt { get; set; }
         public string Name { get; set; }
         public int MovieId { get; set; }
-        public IEnumerable<IFormFile> Images { get; set; }
+        public string MovieName { get; set; }
         public IFormFile Image { get; set; }
     }
 }
