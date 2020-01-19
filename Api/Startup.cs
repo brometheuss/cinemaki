@@ -6,6 +6,7 @@ using Application.ICommands.ActorCommands;
 using Application.ICommands.CommentCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
+using Application.ICommands.HallCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.PosterCommands;
@@ -13,12 +14,14 @@ using Application.ICommands.ProductionCommands;
 using Application.ICommands.ProjectionCommands;
 using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
+using Application.ICommands.SeatCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.CommentEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
+using EfCommands.HallEfCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
 using EfCommands.PosterEfCommands;
@@ -26,6 +29,7 @@ using EfCommands.ProductionEfCommands;
 using EfCommands.ProjectionEfCommands;
 using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
+using EfCommands.SeatEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
 using EfDataAccess;
@@ -145,6 +149,16 @@ namespace Api
             services.AddTransient<IAddProjectionCommand, EfAddProjectionCommand>();
             services.AddTransient<IEditProjectionCommand, EfEditProjectionCommand>();
             services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
+
+            //HallsController
+            services.AddTransient<IAddHallCommand, EfAddHallCommand>();
+
+            //SeatsController
+            services.AddTransient<IGetSeatsCommand, EfGetSeatsCommand>();
+            services.AddTransient<IGetSeatCommand, EfGetSeatCommand>();
+            services.AddTransient<IAddSeatCommand, EfAddSeatCommand>();
+            services.AddTransient<IEditSeatCommand, EfEditSeatCommand>();
+            services.AddTransient<IDeleteSeatCommand, EfDeleteSeatCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
