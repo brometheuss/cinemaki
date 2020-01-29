@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.HallCommands;
+using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,25 +15,60 @@ namespace Api.Controllers
     [ApiController]
     public class HallsController : ControllerBase
     {
+        private readonly IGetHallsCommand getHalls;
+        private readonly IGetHallCommand getHall;
         private readonly IAddHallCommand addHall;
+        private readonly IEditHallCommand editHall;
+        private readonly IDeleteHallCommand deleteHall;
 
-        public HallsController(IAddHallCommand addHall)
+        public HallsController(IAddHallCommand addHall, IGetHallsCommand getHalls, IGetHallCommand getHall, IEditHallCommand editHall, IDeleteHallCommand deleteHall)
         {
             this.addHall = addHall;
+            this.getHalls = getHalls;
+            this.getHall = getHall;
+            this.editHall = editHall;
+            this.deleteHall = deleteHall;
         }
 
         // GET: api/Halls
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get([FromQuery] HallQuery query)
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return Ok(getHalls.Execute(query));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
 
         // GET: api/Halls/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                return Ok(getHall.Execute(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
 
         // POST: api/Halls
@@ -62,14 +98,60 @@ namespace Api.Controllers
 
         // PUT: api/Halls/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] HallDto dto)
         {
+            try
+            {
+                dto.Id = id;
+                editHall.Execute(dto);
+                return StatusCode(204);
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                deleteHall.Execute(id);
+                return StatusCode(204);
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
     }
 }

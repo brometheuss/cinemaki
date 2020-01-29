@@ -151,7 +151,11 @@ namespace Api
             services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
 
             //HallsController
+            services.AddTransient<IGetHallsCommand, EfGetHallsCommand>();
+            services.AddTransient<IGetHallCommand, EfGetHallCommand>();
             services.AddTransient<IAddHallCommand, EfAddHallCommand>();
+            services.AddTransient<IEditHallCommand, EfEditHallCommand>();
+            services.AddTransient<IDeleteHallCommand, EfDeleteHallCommand>();
 
             //SeatsController
             services.AddTransient<IGetSeatsCommand, EfGetSeatsCommand>();

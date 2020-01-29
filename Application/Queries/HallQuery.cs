@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.DataTransfer
+namespace Application.Queries
 {
-    public class HallDto
+    public class HallQuery : BaseQuery
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int MaximumOccupancy { get; set; }
+        public int MinimumOccupancy { get; set; }
     }
 }
