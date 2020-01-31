@@ -4,6 +4,7 @@ using Application.ICommands.UserCommands;
 using EfDataAccess;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EfCommands.UserEfCommands
@@ -28,7 +29,8 @@ namespace EfCommands.UserEfCommands
                 LastName = user.LastName,
                 Email = user.Email,
                 Username = user.Username,
-                //RoleName = user.Role.Name
+                Password = user.Password,
+                RoleId = user.RoleId
             };
         }
     }

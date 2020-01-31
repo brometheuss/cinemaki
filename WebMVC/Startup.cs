@@ -2,6 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ICommands.RoleCommands;
+using Application.ICommands.UserCommands;
+using EfCommands.RoleEfCommands;
+using EfCommands.UserEfCommands;
+using EfDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +29,17 @@ namespace WebMVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<EfCinemakContext>();
+
+            //UsersController
+            services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();
+            services.AddTransient<IGetUserCommand, EfGetUserCommand>();
+            services.AddTransient<IAddUserCommand, EfAddUserCommand>();
+            services.AddTransient<IEditUserCommand, EfEditUserCommand>();
+            services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
+
+            //RolesController
+            services.AddTransient<IGetRolesCommand, EfGetRolesCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
