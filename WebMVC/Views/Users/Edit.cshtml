@@ -6,6 +6,11 @@
 
 <h1>Edit</h1>
 
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -33,7 +38,19 @@
             </div>
             <div class="form-group">
                 <label asp-for="RoleName" class="control-label"></label>
-                <input asp-for="RoleName" class="form-control" />
+                <select name="RoleName" class="form-control">
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        @if (Model.RoleName.ToString() == role.Name)
+                        {
+                            <option value="@role.Id" selected>@role.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@role.Id">@role.Name</option>
+                        }
+                    }
+                </select>
                 <span asp-validation-for="RoleName" class="text-danger"></span>
             </div>
             <div class="form-group">

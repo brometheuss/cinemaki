@@ -34,20 +34,44 @@ namespace WebMVC.Controllers
         // GET: Users
         public ActionResult Index([FromQuery] UserQuery query)
         {
-            return View(getUsers.Execute(query));
+            try
+            {
+                return View(getUsers.Execute(query));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("Home", "Index");
         }
 
         // GET: Users/Details/5
         public ActionResult Details(int id)
         {
-            return View(getUser.Execute(id));
+            try
+            {
+                return View(getUser.Execute(id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
-            return View();
+            try
+            {
+                ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Create));
         }
 
         // POST: Users/Create
@@ -55,10 +79,15 @@ namespace WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AddUserDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction(nameof(Create));
+            }
             try
             {
                 addUser.Execute(dto);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Create));
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -68,13 +97,22 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return View();
+            return RedirectToAction(nameof(Create));
         }
 
         // GET: Users/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(getUser.Execute(id));
+            try
+            {
+                ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
+                return View(getUser.Execute(id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Edit));
         }
 
         // POST: Users/Edit/5
@@ -92,9 +130,9 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["error"] = e.Message;
             }
             return RedirectToAction(nameof(Index));
         }
@@ -109,12 +147,12 @@ namespace WebMVC.Controllers
             catch (EntityNotFoundException e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["error"] = e.Message;
             }
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Users/Delete/5
@@ -130,8 +168,8 @@ namespace WebMVC.Controllers
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
-                return RedirectToAction(nameof(Index));
             }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

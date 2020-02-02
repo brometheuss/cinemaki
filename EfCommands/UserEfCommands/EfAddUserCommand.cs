@@ -19,7 +19,7 @@ namespace EfCommands.UserEfCommands
         public void Execute(AddUserDto request)
         {
             if (Context.Users.Any(u => u.Username.ToLower() == request.Username.ToLower()))
-                throw new EntityAlreadyExistsException("User with that name");
+                throw new EntityAlreadyExistsException("User with that username");
 
             if (Context.Users.Any(u => u.Email.ToLower() == request.Email.ToLower()))
                 throw new EntityAlreadyExistsException("User with that email");

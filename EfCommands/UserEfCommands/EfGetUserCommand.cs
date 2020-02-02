@@ -2,6 +2,7 @@
 using Application.Exceptions;
 using Application.ICommands.UserCommands;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,10 @@ namespace EfCommands.UserEfCommands
 
         public ShowUserDto Execute(int request)
         {
-            var user = Context.Users.Find(request);
+            var user = Context.Users
+                .Include(r => r.Role)
+                .Where(u => u.Id == request && u.IsDeleted == false)
+                .FirstOrDefault();
 
             if (user == null || user.IsDeleted == true)
                 throw new EntityNotFoundException("User");
@@ -30,7 +34,7 @@ namespace EfCommands.UserEfCommands
                 Email = user.Email,
                 Username = user.Username,
                 Password = user.Password,
-                RoleId = user.RoleId
+                RoleName = user.Role.Name
             };
         }
     }

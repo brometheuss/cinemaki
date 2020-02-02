@@ -5,4 +5,3 @@ C:\Users\Makala\source\repos\BioskopV3\Application\obj\Debug\netcoreapp3.0\Appli
 C:\Users\Makala\source\repos\BioskopV3\Application\obj\Debug\netcoreapp3.0\Application.AssemblyInfo.cs
 C:\Users\Makala\source\repos\BioskopV3\Application\obj\Debug\netcoreapp3.0\Application.dll
 C:\Users\Makala\source\repos\BioskopV3\Application\obj\Debug\netcoreapp3.0\Application.pdb
-C:\Users\Makala\source\repos\BioskopV3\Application\obj\Debug\netcoreapp3.0\Application.csprojAssemblyReference.cache
