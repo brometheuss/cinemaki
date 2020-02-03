@@ -26,7 +26,7 @@ namespace EfCommands.UserEfCommands
 
             Context.Users.Add(new User
             {
-                FirstName = request.Username,
+                FirstName = request.FirstName,
                 LastName = request.LastName,
                 Username = request.Username,
                 Email = request.Email,

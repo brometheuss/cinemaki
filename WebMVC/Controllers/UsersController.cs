@@ -36,7 +36,8 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getUsers.Execute(query));
+                var users = getUsers.Execute(query);
+                return View(users);
             }
             catch (Exception e)
             {
@@ -50,7 +51,8 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getUser.Execute(id));
+                var user = getUser.Execute(id);
+                return View(user);
             }
             catch (Exception e)
             {

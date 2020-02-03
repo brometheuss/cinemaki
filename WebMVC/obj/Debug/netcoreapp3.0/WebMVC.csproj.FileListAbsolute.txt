@@ -140,3 +140,8 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Users\Create.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Users\Edit.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Users\Delete.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\cloudscribe.Pagination.Models.dll
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\cloudscribe.Web.Pagination.dll
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Shared\_PaginationPartial.cshtml.g.cs

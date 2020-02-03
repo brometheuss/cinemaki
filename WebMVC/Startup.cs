@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ReflectionIT.Mvc.Paging;
 
 namespace WebMVC
 {
@@ -31,6 +30,7 @@ namespace WebMVC
         {
             services.AddControllersWithViews();
             services.AddDbContext<EfCinemakContext>();
+            services.AddCloudscribePagination();
 
             //UsersController
             services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();

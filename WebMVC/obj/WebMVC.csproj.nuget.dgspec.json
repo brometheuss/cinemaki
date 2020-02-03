@@ -334,9 +334,9 @@
               "target": "Package",
               "version": "[3.0.0, )"
             },
-            "ReflectionIT.Mvc.Paging": {
+            "cloudscribe.Web.Pagination": {
               "target": "Package",
-              "version": "[4.0.0, )"
+              "version": "[3.0.0, )"
             }
           },
           "imports": [
