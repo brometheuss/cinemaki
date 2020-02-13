@@ -6,10 +6,12 @@ using Application.ICommands.ActorCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
+using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
+using EfCommands.WriterEfCommand;
 using EfDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -63,6 +65,13 @@ namespace WebMVC
             services.AddTransient<IAddActorCommand, EfAddActorCommand>();
             services.AddTransient<IEditActorCommand, EfEditActorCommand>();
             services.AddTransient<IDeleteActorCommand, EfDeleteActorCommand>();
+
+            //WritersController
+            services.AddTransient<IGetWritersCommand, EfGetWritersCommand>();
+            services.AddTransient<IGetWriterCommand, EfGetWriterCommand>();
+            services.AddTransient<IAddWriterCommand, EfAddWriterCommand>();
+            services.AddTransient<IEditWriterCommand, EfEditWriterCommand>();
+            services.AddTransient<IDeleteWriterCommand, EfDeleteWriterCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

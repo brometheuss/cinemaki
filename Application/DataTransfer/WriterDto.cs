@@ -9,7 +9,7 @@ namespace Application.DataTransfer
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "First name")]
+        [Display(Name = "Name")]
         [RegularExpression(@"^[A-Z][a-z]{1,30}(\s[A-Z][a-z]{1,30})*$", ErrorMessage = "Must have a capital letter and be at least 2 letters long.")]
         public string Name { get; set; }
     }

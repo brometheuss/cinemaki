@@ -6,6 +6,11 @@
 
 <h1>Add new Actor</h1>
 
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+
 <hr />
 <div class="row">
     <div class="col-md-4">

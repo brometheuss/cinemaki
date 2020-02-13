@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.DataTransfer;
+using Application.Exceptions;
 using Application.ICommands.WriterCommands;
+using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,67 +29,125 @@ namespace WebMVC.Controllers
         }
 
         // GET: Writers
-        public ActionResult Index()
+        public ActionResult Index([FromQuery] WriterQuery query)
         {
-            return View();
+            try
+            {
+                return View(getWriters.Execute(query));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("Home", "Index");
         }
 
         // GET: Writers/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                return View(getWriter.Execute(id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Writers/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Create));
         }
 
         // POST: Writers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(WriterDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction(nameof(Create));
+            }
             try
             {
-                // TODO: Add insert logic here
-
+                addWriter.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (EntityAlreadyExistsException e)
             {
-                return View();
+                TempData["error"] = e.Message;
             }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Writers/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                return View(getWriter.Execute(id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Edit));
         }
 
         // POST: Writers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, WriterDto dto)
         {
             try
             {
-                // TODO: Add update logic here
-
+                dto.Id = id;
+                editWriter.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (EntityAlreadyExistsException e)
             {
-                return View();
+                TempData["error"] = e.Message;
             }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Writers/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            try
+            {
+                return View(getWriter.Execute(id));
+            }
+            catch (EntityNotFoundException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Writers/Delete/5
@@ -96,14 +157,14 @@ namespace WebMVC.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                deleteWriter.Execute(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            catch (Exception e)
             {
-                return View();
+                TempData["error"] = e.Message;
             }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
