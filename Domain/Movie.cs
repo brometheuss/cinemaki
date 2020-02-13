@@ -18,7 +18,7 @@ namespace Domain
         public Country Country { get; set; }
         public int RatedId { get; set; }
         public Rated Rated { get; set; }
-        public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
+        public ICollection<MovieGenre> MovieGenres { get; set; } = new HashSet<MovieGenre>();
         public ICollection<MovieActor> MovieActors { get; set; } = new List<MovieActor>();
         public ICollection<MovieLanguage> MovieLanguages { get; set; } = new List<MovieLanguage>();
         public ICollection<MovieWriter> MovieWriters { get; set; } = new List<MovieWriter>();

@@ -96,8 +96,35 @@ namespace Api.Controllers
 
         // PUT: api/Movies/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] MovieDto dto)
+        public IActionResult Put(int id, [FromBody] MovieDto dto)
         {
+            try
+            {
+                dto.Id = id;
+                editMovie.Execute(dto);
+                return StatusCode(204);
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                return StatusCode(409, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (EntityNotFoundException e)
+            {
+                return NotFound(new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new
+                {
+                    Errors = new List<string> { e.Message }
+                });
+            }
         }
 
         // DELETE: api/ApiWithActions/5

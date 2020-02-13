@@ -1,0 +1,44 @@
+﻿@model Application.Responses.PagedResponse<Application.DataTransfer.GenreDto>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "genres";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Genres</h1>
+
+<p>
+    <a asp-action="Create">Add new Genre</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Data) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

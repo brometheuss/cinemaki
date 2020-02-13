@@ -18,11 +18,15 @@ namespace EfCommands.MovieEfCommands
 
         public MovieDto Execute(int request)
         {
-            var movie = Context.Movies.Find(request);
-
-            var query = Context.Movies
+            var movie = Context.Movies
+                .Where(m => m.Id == request)
                 .Include(mg => mg.MovieGenres)
-                .ThenInclude(g => g.Genre);
+                .ThenInclude(g => g.Genre)
+                .FirstOrDefault();
+
+            //var query = Context.Movies
+            //    .Include(mg => mg.MovieGenres)
+            //    .ThenInclude(g => g.Genre);
 
             if (movie == null || movie.IsDeleted == true)
                 throw new EntityNotFoundException("Movie");

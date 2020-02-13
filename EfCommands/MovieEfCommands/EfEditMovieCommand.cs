@@ -1,7 +1,9 @@
 ﻿using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.MovieCommands;
+using Domain;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +19,7 @@ namespace EfCommands.MovieEfCommands
 
         public void Execute(MovieDto request)
         {
-            var movie = Context.Movies.Find(request.Id);
+            var movie = Context.Movies.Where(m => m.Id == request.Id).Include(m => m.MovieGenres).FirstOrDefault();
 
             if (movie == null || movie.IsDeleted == true)
                 throw new EntityNotFoundException("Movie");
@@ -37,7 +39,57 @@ namespace EfCommands.MovieEfCommands
             movie.RatedId = request.RatedId;
             movie.CountryId = request.CountryId;
 
+            var genres = movie.MovieGenres;
 
+            Context.Set<MovieGenre>().RemoveRange(genres);
+
+            foreach(var gid in request.MovieGenres)
+            {
+                movie.MovieGenres.Add(new MovieGenre
+                {
+                    Movie = movie,
+                    GenreId = gid
+                });
+            }
+
+            var actors = movie.MovieActors;
+
+            Context.Set<MovieActor>().RemoveRange(actors);
+
+            foreach(var aid in request.MovieActors)
+            {
+                movie.MovieActors.Add(new MovieActor
+                {
+                    Movie = movie,
+                    ActorId = aid
+                });
+            }
+
+            var writers = movie.MovieWriters;
+
+            Context.Set<MovieWriter>().RemoveRange(writers);
+
+            foreach(var wid in request.MovieWriters)
+            {
+                movie.MovieWriters.Add(new MovieWriter
+                {
+                    Movie = movie,
+                    WriterId = wid
+                });
+            }
+
+            var langs = movie.MovieLanguages;
+
+            Context.Set<MovieLanguage>().RemoveRange(langs);
+
+            foreach(var lid in request.MovieLanguages)
+            {
+                movie.MovieLanguages.Add(new MovieLanguage
+                {
+                    Movie = movie,
+                    LanguageId = lid
+                });
+            }
 
             Context.SaveChanges();
         }

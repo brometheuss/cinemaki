@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebMVC.Controllers
 {
+
     public class UsersController : Controller
     {
         private readonly IGetUsersCommand getUsers;
@@ -36,8 +37,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var users = getUsers.Execute(query);
-                return View(users);
+                return View(getUsers.Execute(query));
             }
             catch (Exception e)
             {
@@ -51,8 +51,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var user = getUser.Execute(id);
-                return View(user);
+                return View(getUser.Execute(id));
             }
             catch (Exception e)
             {
@@ -89,7 +88,7 @@ namespace WebMVC.Controllers
             try
             {
                 addUser.Execute(dto);
-                return RedirectToAction(nameof(Create));
+                return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -99,7 +98,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction(nameof(Create));
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Users/Edit/5
