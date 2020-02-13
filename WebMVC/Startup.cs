@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ICommands.ActorCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
+using EfCommands.ActorEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
@@ -54,6 +56,13 @@ namespace WebMVC
             services.AddTransient<IAddGenreCommand, EfAddGenreCommand>();
             services.AddTransient<IEditGenreCommand, EfEditGenreCommand>();
             services.AddTransient<IDeleteGenreCommand, EfDeleteGenreCommand>();
+
+            //ActorsController
+            services.AddTransient<IGetActorsCommand, EfGetActorsCommand>();
+            services.AddTransient<IGetActorCommand, EfGetActorCommand>();
+            services.AddTransient<IAddActorCommand, EfAddActorCommand>();
+            services.AddTransient<IEditActorCommand, EfEditActorCommand>();
+            services.AddTransient<IDeleteActorCommand, EfDeleteActorCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -155,3 +155,8 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Genres\Create.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Genres\Edit.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Genres\Delete.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Actors\Index.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Actors\Details.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Actors\Create.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Actors\Edit.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Actors\Delete.cshtml.g.cs
