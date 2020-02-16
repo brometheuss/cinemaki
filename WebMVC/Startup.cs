@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.ICommands.ActorCommands;
+using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.LanguageCommands;
+using Application.ICommands.MovieCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
+using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.LanguageEfCommands;
+using EfCommands.MovieEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
@@ -81,6 +85,20 @@ namespace WebMVC
             services.AddTransient<IAddLanguageCommand, EfAddLanguageCommand>();
             services.AddTransient<IEditLanguageCommand, EfEditLanguageCommand>();
             services.AddTransient<IDeleteLanguageCommand, EfDeleteLanguageCommand>();
+
+            //MoviesController
+            services.AddTransient<IGetMoviesCommand, EfGetMoviesCommand>();
+            services.AddTransient<IGetMovieCommand, EfGetMovieCommand>();
+            services.AddTransient<IAddMovieCommand, EfAddMovieCommand>();
+            services.AddTransient<IEditMovieCommand, EfEditMovieCommand>();
+            services.AddTransient<IDeleteMovieCommand, EfDeleteMovieCommand>();
+
+            //CountriesController
+            services.AddTransient<IGetCountriesCommand, EfGetCountriesCommand>();
+            services.AddTransient<IGetCountryCommand, EfGetCountryCommand>();
+            services.AddTransient<IAddCountryCommand, EfAddCountryCommand>();
+            services.AddTransient<IEditCountryCommand, EfEditCountryCommand>();
+            services.AddTransient<IDeleteCountryCommand, EfDeleteCountryCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
