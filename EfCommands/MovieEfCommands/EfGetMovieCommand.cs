@@ -22,6 +22,9 @@ namespace EfCommands.MovieEfCommands
                 .Where(m => m.Id == request)
                 .Include(mg => mg.MovieGenres)
                 .ThenInclude(g => g.Genre)
+                .Include(c => c.Country)
+                .Include(p => p.Production)
+                .Include(r => r.Rated)
                 .FirstOrDefault();
 
             //var query = Context.Movies
@@ -45,6 +48,9 @@ namespace EfCommands.MovieEfCommands
                 LengthMinutes = movie.LengthMinutes,
                 BoxOffice = movie.BoxOffice,
                 Is3D = movie.Is3D,
+                CountryName = movie.Country.Name,
+                ProductionName = movie.Production.Name,
+                RatedName = movie.Rated.Name,
                 GenresInfo = movie.MovieGenres.Select(g => new MovieGenreDto
                 {
                     GenreId = g.GenreId,

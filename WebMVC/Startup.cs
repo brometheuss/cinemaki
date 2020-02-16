@@ -7,6 +7,8 @@ using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
+using Application.ICommands.ProductionCommands;
+using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
@@ -15,6 +17,8 @@ using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
+using EfCommands.ProductionEfCommands;
+using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
@@ -99,6 +103,17 @@ namespace WebMVC
             services.AddTransient<IAddCountryCommand, EfAddCountryCommand>();
             services.AddTransient<IEditCountryCommand, EfEditCountryCommand>();
             services.AddTransient<IDeleteCountryCommand, EfDeleteCountryCommand>();
+
+            //ProductionsController
+            services.AddTransient<IGetProductionsCommand, EfGetProductionsCommand>();
+            services.AddTransient<IGetProductionCommand, EfGetProductionCommand>();
+            services.AddTransient<IAddProductionCommand, EfAddProductionCommand>();
+            services.AddTransient<IEditProductionCommand, EfEditProductionCommand>();
+            services.AddTransient<IDeleteProductionCommand, EfDeleteProductionCommand>();
+
+            //RatedsController
+            services.AddTransient<IGetRatedsCommand, EfGetRatedsCommand>();
+            services.AddTransient<IGetRatedCommand, EfGetRatedCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -50,6 +50,8 @@ namespace EfCommands.MovieEfCommands
                     Plot = m.Plot,
                     BoxOffice = m.BoxOffice,
                     CountryName = m.Country.Name,
+                    ProductionName = m.Production.Name,
+                    RatedName = m.Rated.Name,
                     DebutDate = m.DebutDate,
                     EndDate = m.EndDate,
                     Is3D = m.Is3D,

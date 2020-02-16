@@ -26,36 +26,17 @@
                 Title
             </th>
             <th>
-                Description
-            </th>
-            <th>
-                Length(Minutes)
-            </th>
-            <th>
-                Plot
-            </th>
-            <th>
-                BoxOffice
-            </th>
-            <th>
                 Release date
             </th>
             <th>
                 End of release
             </th>
             <th>
-                3D
-            </th>
-            <th>
                 Country
             </th>
             <th>
-                Production
+                Actions
             </th>
-            <th>
-                Rated
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -69,34 +50,13 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LengthMinutes)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Plot)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.BoxOffice)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.DebutDate)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Is3D)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CountryId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProductionId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RatedId)
+                    @Html.DisplayFor(modelItem => item.CountryName)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
