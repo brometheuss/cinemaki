@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.GenreCommands;
+using Application.ICommands.LanguageCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.GenreEfCommands;
+using EfCommands.LanguageEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
@@ -72,6 +74,13 @@ namespace WebMVC
             services.AddTransient<IAddWriterCommand, EfAddWriterCommand>();
             services.AddTransient<IEditWriterCommand, EfEditWriterCommand>();
             services.AddTransient<IDeleteWriterCommand, EfDeleteWriterCommand>();
+
+            //LanguagesController
+            services.AddTransient<IGetLanguagesCommand, EfGetLanguagesCommand>();
+            services.AddTransient<IGetLanguageCommand, EfGetLanguageCommand>();
+            services.AddTransient<IAddLanguageCommand, EfAddLanguageCommand>();
+            services.AddTransient<IEditLanguageCommand, EfEditLanguageCommand>();
+            services.AddTransient<IDeleteLanguageCommand, EfDeleteLanguageCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
