@@ -23,6 +23,7 @@ namespace EfCommands.HallEfCommands
 
             return new HallDto
             {
+                Id = hall.Id,
                 Name = hall.Name,
                 MaximumOccupancy = hall.MaximumOccupancy
             };

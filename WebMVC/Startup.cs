@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
+using Application.ICommands.HallCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.ProductionCommands;
@@ -15,6 +16,7 @@ using Application.ICommands.WriterCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
+using EfCommands.HallEfCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
 using EfCommands.ProductionEfCommands;
@@ -114,6 +116,13 @@ namespace WebMVC
             //RatedsController
             services.AddTransient<IGetRatedsCommand, EfGetRatedsCommand>();
             services.AddTransient<IGetRatedCommand, EfGetRatedCommand>();
+
+            //HallsController
+            services.AddTransient<IGetHallsCommand, EfGetHallsCommand>();
+            services.AddTransient<IGetHallCommand, EfGetHallCommand>();
+            services.AddTransient<IAddHallCommand, EfAddHallCommand>();
+            services.AddTransient<IEditHallCommand, EfEditHallCommand>();
+            services.AddTransient<IDeleteHallCommand, EfDeleteHallCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
