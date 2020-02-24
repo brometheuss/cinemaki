@@ -116,6 +116,9 @@ namespace WebMVC
             //RatedsController
             services.AddTransient<IGetRatedsCommand, EfGetRatedsCommand>();
             services.AddTransient<IGetRatedCommand, EfGetRatedCommand>();
+            services.AddTransient<IAddRatedCommand, EfAddRatedCommand>();
+            services.AddTransient<IEditRatedCommand, EfEditRatedCommand>();
+            services.AddTransient<IDeleteRatedCommand, EfDeleteRatedCommand>();
 
             //HallsController
             services.AddTransient<IGetHallsCommand, EfGetHallsCommand>();
