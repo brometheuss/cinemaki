@@ -1,0 +1,68 @@
+﻿@model Application.Responses.PagedResponse<Application.DataTransfer.ProjectionDto>
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["Controller"] = "projections";
+    ViewData["Action"] = "Index";
+}
+
+<h1>Projections</h1>
+
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+
+<p>
+    <a asp-action="Create">Add new Projection</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                DateBegin
+            </th>
+            <th>
+                DateEnd
+            </th>
+            <th>
+                HallName
+            </th>
+            <th>
+                MovieName
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateBegin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HallName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

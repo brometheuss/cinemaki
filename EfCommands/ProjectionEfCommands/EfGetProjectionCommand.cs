@@ -2,8 +2,10 @@
 using Application.Exceptions;
 using Application.ICommands.ProjectionCommands;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace EfCommands.ProjectionEfCommands
@@ -16,7 +18,10 @@ namespace EfCommands.ProjectionEfCommands
 
         public ProjectionDto Execute(int request)
         {
-            var projection = Context.Projections.Find(request);
+            var projection = Context.Projections
+                .Include(h => h.Hall)
+                .Include(m => m.Movie)
+                .FirstOrDefault();
 
             if (projection == null || projection.IsDeleted == true)
                 throw new EntityNotFoundException("Projection");
@@ -27,7 +32,9 @@ namespace EfCommands.ProjectionEfCommands
                 DateBegin = projection.DateBegin,
                 DateEnd = projection.DateEnd,
                 HallId = projection.HallId,
-                MovieId = projection.MovieId
+                HallName = projection.Hall.Name,
+                MovieId = projection.MovieId,
+                MovieName = projection.Movie.Title
             };
         }
     }

@@ -49,7 +49,9 @@ namespace EfCommands.ProjectionEfCommands
                     DateBegin = p.DateBegin,
                     DateEnd = p.DateEnd,
                     HallId = p.Hall.Id,
-                    MovieId = p.Movie.Id
+                    HallName = p.Hall.Name,
+                    MovieId = p.Movie.Id,
+                    MovieName = p.Movie.Title
                 })
             };
         }

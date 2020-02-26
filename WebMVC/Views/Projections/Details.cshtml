@@ -1,0 +1,59 @@
+﻿@model Application.DataTransfer.ProjectionDto
+
+@{
+    ViewData["Title"] = "Projection Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateBegin)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateBegin)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DateEnd)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DateEnd)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HallId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HallId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HallName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HallName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieId)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieId)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.MovieName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.MovieName)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>
