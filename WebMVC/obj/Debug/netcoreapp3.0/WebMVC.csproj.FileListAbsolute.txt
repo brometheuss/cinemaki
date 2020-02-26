@@ -192,3 +192,8 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Rateds\Create.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Rateds\Edit.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Rateds\Delete.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Posters\Index.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Posters\Details.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Posters\Create.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Posters\Edit.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Posters\Delete.cshtml.g.cs

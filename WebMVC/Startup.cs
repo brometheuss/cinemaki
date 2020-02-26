@@ -8,6 +8,7 @@ using Application.ICommands.GenreCommands;
 using Application.ICommands.HallCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.MovieCommands;
+using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
 using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
@@ -19,6 +20,7 @@ using EfCommands.GenreEfCommands;
 using EfCommands.HallEfCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.MovieEfCommands;
+using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
 using EfCommands.RatedEfCommands;
 using EfCommands.RoleEfCommands;
@@ -126,6 +128,13 @@ namespace WebMVC
             services.AddTransient<IAddHallCommand, EfAddHallCommand>();
             services.AddTransient<IEditHallCommand, EfEditHallCommand>();
             services.AddTransient<IDeleteHallCommand, EfDeleteHallCommand>();
+
+            //PostersController
+            services.AddTransient<IGetPostersCommand, EfGetPostersCommand>();
+            services.AddTransient<IGetPosterCommand, EfGetPosterCommand>();
+            services.AddTransient<IAddPosterCommand, EfAddPosterCommand>();
+            services.AddTransient<IEditPosterCommand, EfEditPosterCommand>();
+            services.AddTransient<IDeletePosterCommand, EfDeletePosterCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
