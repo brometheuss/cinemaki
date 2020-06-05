@@ -3,6 +3,7 @@ using Application.ICommands.SeatCommands;
 using Application.Queries;
 using Application.Responses;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace EfCommands.SeatEfCommands
 
         public PagedResponse<SeatDto> Execute(SeatQuery request)
         {
-            var query = Context.Seats.AsQueryable();
+            var query = Context.Seats
+                .Include(h => h.Hall)
+                .AsQueryable();
 
             query = query.Where(s => s.IsDeleted == false);
 
@@ -48,7 +51,8 @@ namespace EfCommands.SeatEfCommands
                     HallId = s.HallId,
                     IsBroken = s.IsBroken,
                     Name = s.Name,
-                    Number  = s.Number
+                    Number  = s.Number,
+                    HallName = s.Hall.Name
                 })
             };
         }

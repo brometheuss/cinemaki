@@ -11,5 +11,6 @@ namespace Application.DataTransfer
         public int Number { get; set; }
         public bool IsBroken { get; set; }
         public int HallId { get; set; }
+        public string HallName { get; set; }
     }
 }
