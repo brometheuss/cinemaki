@@ -13,6 +13,7 @@ using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
 using Application.ICommands.ProjectionCommands;
 using Application.ICommands.RatedCommands;
+using Application.ICommands.ReservationCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.SeatCommands;
 using Application.ICommands.UserCommands;
@@ -28,6 +29,7 @@ using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
 using EfCommands.ProjectionEfCommands;
 using EfCommands.RatedEfCommands;
+using EfCommands.ReservationEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.SeatEfCommands;
 using EfCommands.UserEfCommands;
@@ -163,6 +165,12 @@ namespace Api
             services.AddTransient<IAddSeatCommand, EfAddSeatCommand>();
             services.AddTransient<IEditSeatCommand, EfEditSeatCommand>();
             services.AddTransient<IDeleteSeatCommand, EfDeleteSeatCommand>();
+
+            //ReservationsController
+            services.AddTransient<IGetReservationsCommand, EfGetReservationsCommand>();
+            services.AddTransient<IGetReservationCommand, EfGetReservationCommand>();
+            services.AddTransient<IAddReservationCommand, EfAddReservationCommand>();
+            services.AddTransient<IDeleteReservationCommand, EfDeleteReservationCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

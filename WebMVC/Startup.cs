@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ICommands;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
@@ -15,6 +16,7 @@ using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
+using EfCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
@@ -53,6 +55,11 @@ namespace WebMVC
             services.AddControllersWithViews();
             services.AddDbContext<EfCinemakContext>();
             services.AddCloudscribePagination();
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(15);
+            });
+            
 
             //UsersController
             services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();
@@ -144,6 +151,9 @@ namespace WebMVC
             services.AddTransient<IAddProjectionCommand, EfAddProjectionCommand>();
             services.AddTransient<IEditProjectionCommand, EfEditProjectionCommand>();
             services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
+
+            //AccountController
+            services.AddTransient<ILoginUserCommand, EfLoginUserCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -165,6 +175,7 @@ namespace WebMVC
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

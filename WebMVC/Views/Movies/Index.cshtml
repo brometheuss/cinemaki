@@ -1,4 +1,5 @@
-﻿@model Application.Responses.PagedResponse<Application.DataTransfer.MovieDto>
+﻿@using Microsoft.AspNetCore.Http
+@model Application.Responses.PagedResponse<Application.DataTransfer.MovieDto>
 
 @{
     ViewData["Title"] = "Movies";
@@ -7,6 +8,7 @@
 }
 
 <h1>Index</h1>
+@Context.Session.GetString("User")
 
 @if (TempData["error"] != null)
 {

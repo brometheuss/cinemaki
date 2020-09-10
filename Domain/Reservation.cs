@@ -10,6 +10,6 @@ namespace Domain
         public User User { get; set; }
         public int ProjectionId { get; set; }
         public Projection Projection { get; set; }
-        public ICollection<ReservationSeat> ReservationSeats { get; set; }
+        public ICollection<ReservationSeat> ReservationSeats { get; set; } = new List<ReservationSeat>();
     }
 }
