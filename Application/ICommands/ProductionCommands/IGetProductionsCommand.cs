@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.ProductionCommands
 {
-    public interface IGetProductionsCommand : ICommand<ProductionQuery, PagedResponse<ProductionDto>>
+    public interface IGetProductionsCommand : IQuery<ProductionQuery, PagedResponse<ProductionDto>>
     {
     }
 }

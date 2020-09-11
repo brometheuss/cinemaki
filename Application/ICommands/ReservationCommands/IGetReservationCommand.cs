@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.ReservationCommands
 {
-    public interface IGetReservationCommand : ICommand<int, ReservationDto>
+    public interface IGetReservationCommand : IQuery<int, ReservationDto>
     {
     }
 }

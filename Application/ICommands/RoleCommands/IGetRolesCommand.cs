@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.RoleCommands
 {
-    public interface IGetRolesCommand : ICommand<RoleQuery, PagedResponse<RoleDto>>
+    public interface IGetRolesCommand : IQuery<RoleQuery, PagedResponse<RoleDto>>
     {
     }
 }

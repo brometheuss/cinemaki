@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.PosterCommands
 {
-    public interface IGetPosterCommand : ICommand<int, PosterDto>
+    public interface IGetPosterCommand : IQuery<int, PosterDto>
     {
     }
 }

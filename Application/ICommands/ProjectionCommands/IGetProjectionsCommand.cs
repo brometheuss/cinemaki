@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.ProjectionCommands
 {
-    public interface IGetProjectionsCommand : ICommand<ProjectionQuery, PagedResponse<ProjectionDto>>
+    public interface IGetProjectionsCommand : IQuery<ProjectionQuery, PagedResponse<ProjectionDto>>
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.CommentCommands
 {
-    public interface IGetCommentCommand : ICommand<int, CommentDto>
+    public interface IGetCommentCommand : IQuery<int, CommentDto>
     {
     }
 }

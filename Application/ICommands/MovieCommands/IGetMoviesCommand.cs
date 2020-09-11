@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.MovieCommands
 {
-    public interface IGetMoviesCommand : ICommand<MovieQuery, PagedResponse<MovieDto>>
+    public interface IGetMoviesCommand : IQuery<MovieQuery, PagedResponse<MovieDto>>
     {
     }
 }

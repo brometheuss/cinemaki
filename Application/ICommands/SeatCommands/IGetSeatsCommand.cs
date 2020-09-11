@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.SeatCommands
 {
-    public interface IGetSeatsCommand : ICommand<SeatQuery, PagedResponse<SeatDto>>
+    public interface IGetSeatsCommand : IQuery<SeatQuery, PagedResponse<SeatDto>>
     {
     }
 }

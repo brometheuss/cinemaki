@@ -8,7 +8,7 @@ namespace Application.Interfaces
     {
         void Execute(TRequest request);
     }
-    public interface ICommand<TRequest, TResponse>
+    public interface IQuery<TRequest, TResponse>
     {
         TResponse Execute(TRequest request);
     }

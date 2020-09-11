@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.CountryCommands
 {
-    public interface IGetCountriesCommand : ICommand<CountryQuery, PagedResponse<CountryDto>>
+    public interface IGetCountriesCommand : IQuery<CountryQuery, PagedResponse<CountryDto>>
     {
     }
 }

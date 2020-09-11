@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.ProjectionCommands
 {
-    public interface IGetProjectionCommand : ICommand<int, ProjectionDto>
+    public interface IGetProjectionCommand : IQuery<int, ProjectionDto>
     {
     }
 }

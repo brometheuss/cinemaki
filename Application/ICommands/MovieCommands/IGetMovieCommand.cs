@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.MovieCommands
 {
-    public interface IGetMovieCommand : ICommand<int, MovieDto>
+    public interface IGetMovieCommand : IQuery<int, MovieDto>
     {
     }
 }

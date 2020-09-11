@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.HallCommands
 {
-    public interface IGetHallsCommand : ICommand<HallQuery, PagedResponse<HallDto>>
+    public interface IGetHallsCommand : IQuery<HallQuery, PagedResponse<HallDto>>
     {
     }
 }

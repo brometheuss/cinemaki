@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.SeatCommands
 {
-    public interface IGetSeatCommand : ICommand<int, SeatDto>
+    public interface IGetSeatCommand : IQuery<int, SeatDto>
     {
     }
 }

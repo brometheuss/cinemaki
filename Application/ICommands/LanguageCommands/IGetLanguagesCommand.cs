@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.LanguageCommands
 {
-    public interface IGetLanguagesCommand : ICommand<LanguageQuery, PagedResponse<LanguageDto>>
+    public interface IGetLanguagesCommand : IQuery<LanguageQuery, PagedResponse<LanguageDto>>
     {
     }
 }

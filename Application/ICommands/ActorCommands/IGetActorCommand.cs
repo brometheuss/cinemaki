@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.ActorCommands
 {
-    public interface IGetActorCommand : ICommand<int, ActorDto>
+    public interface IGetActorCommand : IQuery<int, ActorDto>
     {
     }
 }

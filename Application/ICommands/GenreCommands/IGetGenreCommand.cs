@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.GenreCommands
 {
-    public interface IGetGenreCommand : ICommand<int, GenreDto>
+    public interface IGetGenreCommand : IQuery<int, GenreDto>
     {
     }
 }

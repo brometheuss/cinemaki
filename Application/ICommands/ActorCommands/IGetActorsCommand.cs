@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.ActorCommands
 {
-    public interface IGetActorsCommand : ICommand<ActorQuery, PagedResponse<ActorDto>>
+    public interface IGetActorsCommand : IQuery<ActorQuery, PagedResponse<ActorDto>>
     {
     }
 }

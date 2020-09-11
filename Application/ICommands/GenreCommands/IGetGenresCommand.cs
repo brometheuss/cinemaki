@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.GenreCommands
 {
-    public interface IGetGenresCommand : ICommand<GenreQuery, PagedResponse<GenreDto>>
+    public interface IGetGenresCommand : IQuery<GenreQuery, PagedResponse<GenreDto>>
     {
     }
 }

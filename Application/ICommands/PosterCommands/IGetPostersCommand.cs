@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.PosterCommands
 {
-    public interface IGetPostersCommand : ICommand<PosterQuery, PagedResponse<PosterDto>>
+    public interface IGetPostersCommand : IQuery<PosterQuery, PagedResponse<PosterDto>>
     {
     }
 }

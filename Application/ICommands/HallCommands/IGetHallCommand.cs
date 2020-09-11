@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.HallCommands
 {
-    public interface IGetHallCommand : ICommand<int, HallDto>
+    public interface IGetHallCommand : IQuery<int, HallDto>
     {
     }
 }

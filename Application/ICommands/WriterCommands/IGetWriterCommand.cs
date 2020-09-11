@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.WriterCommands
 {
-    public interface IGetWriterCommand : ICommand<int, WriterDto>
+    public interface IGetWriterCommand : IQuery<int, WriterDto>
     {
     }
 }

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.CountryCommands
 {
-    public interface IGetCountryCommand : ICommand<int, CountryDto>
+    public interface IGetCountryCommand : IQuery<int, CountryDto>
     {
     }
 }

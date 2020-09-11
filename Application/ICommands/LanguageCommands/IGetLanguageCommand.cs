@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.LanguageCommands
 {
-    public interface IGetLanguageCommand : ICommand<int, LanguageDto>
+    public interface IGetLanguageCommand : IQuery<int, LanguageDto>
     {
     }
 }

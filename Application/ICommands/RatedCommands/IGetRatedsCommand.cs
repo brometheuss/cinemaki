@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.RatedCommands
 {
-    public interface IGetRatedsCommand : ICommand<RatedQuery, PagedResponse<RatedDto>>
+    public interface IGetRatedsCommand : IQuery<RatedQuery, PagedResponse<RatedDto>>
     {
     }
 }

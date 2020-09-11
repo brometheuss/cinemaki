@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Application.ICommands.ReservationCommands
 {
-    public interface IGetReservationsCommand : ICommand<ReservationQuery, PagedResponse<ReservationDto>>
+    public interface IGetReservationsCommand : IQuery<ReservationQuery, PagedResponse<ReservationDto>>
     {
     }
 }

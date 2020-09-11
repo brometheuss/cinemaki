@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands
 {
-    public interface ILoginUserCommand : ICommand<LoginUserDto, ShowUserDto>
+    public interface ILoginUserCommand : IQuery<LoginUserDto, ShowUserDto>
     {
     }
 }

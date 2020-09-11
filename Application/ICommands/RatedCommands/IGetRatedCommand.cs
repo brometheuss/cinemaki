@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.RatedCommands
 {
-    public interface IGetRatedCommand : ICommand<int, RatedDto>
+    public interface IGetRatedCommand : IQuery<int, RatedDto>
     {
     }
 }

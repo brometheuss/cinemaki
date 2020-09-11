@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.ProductionCommands
 {
-    public interface IGetProductionCommand : ICommand<int, ProductionDto>
+    public interface IGetProductionCommand : IQuery<int, ProductionDto>
     {
     }
 }
