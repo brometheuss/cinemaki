@@ -16,6 +16,10 @@ namespace EfCommands.ReservationEfCommands
         {
         }
 
+        public int Id => 56;
+
+        public string Name => "Create Reservation using EntityFramework";
+
         public void Execute(ReservationDto request)
         {
             //broj zauzetih sedista za konkretnu halu, na osnovu projection ID

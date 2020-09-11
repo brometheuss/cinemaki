@@ -14,6 +14,10 @@ namespace EfCommands.LanguageEfCommands
         {
         }
 
+        public int Id => 29;
+
+        public string Name => "Get Language using EntityFramework";
+
         public LanguageDto Execute(int request)
         {
             var language = Context.Languages.Find(request);

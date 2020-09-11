@@ -16,6 +16,10 @@ namespace EfCommands.ProductionEfCommands
         {
         }
 
+        public int Id => 41;
+
+        public string Name => "Create Production using EntityFramework";
+
         public void Execute(ProductionDto request)
         {
             if (Context.Production.Any(p => p.Name.ToLower() == request.Name.ToLower()))

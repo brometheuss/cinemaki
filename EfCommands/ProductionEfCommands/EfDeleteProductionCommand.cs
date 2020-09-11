@@ -13,6 +13,10 @@ namespace EfCommands.ProductionEfCommands
         {
         }
 
+        public int Id => 42;
+
+        public string Name => "Delete Production using EntityFramework";
+
         public void Execute(int request)
         {
             var production = Context.Production.Find(request);

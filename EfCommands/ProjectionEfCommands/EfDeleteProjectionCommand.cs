@@ -13,6 +13,10 @@ namespace EfCommands.ProjectionEfCommands
         {
         }
 
+        public int Id => 47;
+
+        public string Name => "Delete Projection using EntityFramework";
+
         public void Execute(int request)
         {
             var projection = Context.Projections.Find(request);

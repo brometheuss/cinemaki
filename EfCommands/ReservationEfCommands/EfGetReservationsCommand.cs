@@ -17,6 +17,10 @@ namespace EfCommands.ReservationEfCommands
         {
         }
 
+        public int Id => 59;
+
+        public string Name => "Get Reservation using EntityFramework";
+
         public PagedResponse<ReservationDto> Execute(ReservationQuery request)
         {
             var query = Context.Reservations

@@ -13,6 +13,10 @@ namespace EfCommands.GenreEfCommands
         {
         }
 
+        public int Id => 17;
+
+        public string Name => "Delete Genre using EntityFramework";
+
         public void Execute(int request)
         {
             var genre = Context.Genres.Find(request);

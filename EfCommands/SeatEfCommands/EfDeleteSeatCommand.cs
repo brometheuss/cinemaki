@@ -13,6 +13,10 @@ namespace EfCommands.SeatEfCommands
         {
         }
 
+        public int Id => 67;
+
+        public string Name => "Delete Seat using EntityFramework";
+
         public void Execute(int request)
         {
             var seat = Context.Seats.Find(request);

@@ -15,6 +15,10 @@ namespace EfCommands.LanguageEfCommands
         {
         }
 
+        public int Id => 28;
+
+        public string Name => "Edit Language using EntityFramework";
+
         public void Execute(LanguageDto request)
         {
             var language = Context.Languages.Find(request.Id);

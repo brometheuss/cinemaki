@@ -16,6 +16,10 @@ namespace EfCommands.ProjectionEfCommands
         {
         }
 
+        public int Id => 46;
+
+        public string Name => "Create Projection using EntityFramework";
+
         public void Execute(ProjectionDto request)
         {
             var query = Context.Projections.AsQueryable();

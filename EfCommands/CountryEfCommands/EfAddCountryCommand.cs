@@ -16,6 +16,10 @@ namespace EfCommands.CountryEfCommands
         {
         }
 
+        public int Id => 11;
+
+        public string Name => "Create Country using EntityFramework";
+
         public void Execute(CountryDto request)
         {
             if (Context.Countries.Any(c => c.Name.ToLower() == request.Name.ToLower()))

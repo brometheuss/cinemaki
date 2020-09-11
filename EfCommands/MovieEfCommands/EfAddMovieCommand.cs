@@ -16,6 +16,10 @@ namespace EfCommands.MovieEfCommands
         {
         }
 
+        public int Id => 31;
+
+        public string Name => "Create Movie using EntityFramework";
+
         public void Execute(MovieDto request)
         {
             var movie = new Movie

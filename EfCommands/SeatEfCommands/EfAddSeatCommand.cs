@@ -17,6 +17,10 @@ namespace EfCommands.SeatEfCommands
         {
         }
 
+        public int Id => 66;
+
+        public string Name => "Create Seat using EntityFramework";
+
         public void Execute(SeatDto request)
         {
             if (Context.Halls.Where(h => h.Id == request.HallId).Any(h => h.MaximumOccupancy <= Context.Seats.Where(s => s.HallId == request.HallId).Count()))

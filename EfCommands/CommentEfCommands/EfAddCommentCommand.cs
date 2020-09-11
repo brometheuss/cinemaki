@@ -16,6 +16,10 @@ namespace EfCommands.CommentEfCommands
         {
         }
 
+        public int Id => 6;
+
+        public string Name => "Create Comment using EntityFramework";
+
         public void Execute(CommentDto request)
         {
             var user = Context.Users.Find(request.UserId);

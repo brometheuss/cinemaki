@@ -16,6 +16,10 @@ namespace EfCommands.ProductionEfCommands
         {
         }
 
+        public int Id => 44;
+
+        public string Name => "Get Production using EntityFramework";
+
         public ProductionDto Execute(int request)
         {
             var production = Context.Production.Find(request);

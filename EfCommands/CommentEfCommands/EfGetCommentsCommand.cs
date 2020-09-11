@@ -17,6 +17,10 @@ namespace EfCommands.CommentEfCommands
         {
         }
 
+        public int Id => 10;
+
+        public string Name => "Get Comments using EntityFramework";
+
         public PagedResponse<CommentDto> Execute(CommentQuery request)
         {
             var query = Context.Comments

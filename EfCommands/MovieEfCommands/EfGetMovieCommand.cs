@@ -16,6 +16,10 @@ namespace EfCommands.MovieEfCommands
         {
         }
 
+        public int Id => 34;
+
+        public string Name => "Get Movie using EntityFramework";
+
         public MovieDto Execute(int request)
         {
             var movie = Context.Movies

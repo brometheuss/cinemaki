@@ -16,6 +16,10 @@ namespace EfCommands.WriterEfCommand
         {
         }
 
+        public int Id => 77;
+
+        public string Name => "Create Writer using EntityFramework";
+
         public void Execute(WriterDto request)
         {
             if (Context.Writers.Any(w => w.Name.ToLower() == request.Name.ToLower()))

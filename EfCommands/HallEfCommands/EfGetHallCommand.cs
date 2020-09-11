@@ -14,6 +14,10 @@ namespace EfCommands.HallEfCommands
         {
         }
 
+        public int Id => 24;
+
+        public string Name => "Get Hall using EntityFramework";
+
         public HallDto Execute(int request)
         {
             var hall = Context.Halls.Find(request);

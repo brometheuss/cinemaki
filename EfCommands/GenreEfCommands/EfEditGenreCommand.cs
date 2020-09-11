@@ -15,6 +15,10 @@ namespace EfCommands.GenreEfCommands
         {
         }
 
+        public int Id => 18;
+
+        public string Name => "Edit Genre using EntityFramework";
+
         public void Execute(GenreDto request)
         {
             var genre = Context.Genres.Find(request.Id);

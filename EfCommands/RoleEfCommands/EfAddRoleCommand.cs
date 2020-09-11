@@ -16,6 +16,10 @@ namespace EfCommands.RoleEfCommands
         {
         }
 
+        public int Id => 61;
+
+        public string Name => "Create Role using EntityFramework";
+
         public void Execute(RoleDto request)
         {
             if (Context.Roles.Any(r => r.Name.ToLower() == request.Name.ToLower()))

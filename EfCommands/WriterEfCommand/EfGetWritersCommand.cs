@@ -16,6 +16,10 @@ namespace EfCommands.WriterEfCommand
         {
         }
 
+        public int Id => 81;
+
+        public string Name => "Get Writers using EntityFramework";
+
         public PagedResponse<WriterDto> Execute(WriterQuery request)
         {
             var query = Context.Writers.AsQueryable();

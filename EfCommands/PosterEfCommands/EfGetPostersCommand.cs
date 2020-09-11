@@ -17,6 +17,10 @@ namespace EfCommands.PosterEfCommands
         {
         }
 
+        public int Id => 40;
+
+        public string Name => "Get Posters using EntityFramework";
+
         public PagedResponse<PosterDto> Execute(PosterQuery request)
         {
             var query = Context.Posters

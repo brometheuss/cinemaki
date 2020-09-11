@@ -16,6 +16,10 @@ namespace EfCommands.RatedEfCommands
         {
         }
 
+        public int Id => 55;
+
+        public string Name => "Get Rateds using EntityFramework";
+
         public PagedResponse<RatedDto> Execute(RatedQuery request)
         {
             var query = Context.Rateds.AsQueryable();

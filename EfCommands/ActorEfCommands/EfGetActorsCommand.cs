@@ -16,6 +16,10 @@ namespace EfCommands.ActorEfCommands
         {
         }
 
+        public int Id => 5;
+
+        public string Name => "Get Actors using EntityFramework";
+
         public PagedResponse<ActorDto> Execute(ActorQuery request)
         {
             var query = Context.Actors.AsQueryable();

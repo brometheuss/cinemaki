@@ -16,6 +16,10 @@ namespace EfCommands.ProductionEfCommands
         {
         }
 
+        public int Id => 45;
+
+        public string Name => "Get Productions using EntityFramework";
+
         public PagedResponse<ProductionDto> Execute(ProductionQuery request)
         {
             var query = Context.Production.AsQueryable();

@@ -17,6 +17,10 @@ namespace EfCommands.CountryEfCommands
         {
         }
 
+        public int Id => 14;
+
+        public string Name => "Get Countries using EntityFramework";
+
         public PagedResponse<CountryDto> Execute(CountryQuery request)
         {
             var query = Context.Countries.AsQueryable();

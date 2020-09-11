@@ -16,6 +16,10 @@ namespace EfCommands.GenreEfCommands
         {
         }
 
+        public int Id => 16;
+
+        public string Name => "Create Genre using EntityFramework";
+
         public void Execute(GenreDto request)
         {
             if (Context.Genres.Any(g => g.Name.ToLower() == request.Name.ToLower()))

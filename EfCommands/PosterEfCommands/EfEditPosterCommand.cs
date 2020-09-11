@@ -14,6 +14,10 @@ namespace EfCommands.PosterEfCommands
         {
         }
 
+        public int Id => 38;
+
+        public string Name => "Edit Poster using EntityFramework";
+
         public void Execute(PosterDto request)
         {
             var poster = Context.Posters.Find(request.Id);

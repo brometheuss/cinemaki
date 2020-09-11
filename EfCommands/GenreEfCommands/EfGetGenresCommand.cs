@@ -17,6 +17,10 @@ namespace EfCommands.GenreEfCommands
         {
         }
 
+        public int Id => 20;
+
+        public string Name => "Get Genres using EntityFramework";
+
         public PagedResponse<GenreDto> Execute(GenreQuery request)
         {
             var query = Context.Genres.AsQueryable();

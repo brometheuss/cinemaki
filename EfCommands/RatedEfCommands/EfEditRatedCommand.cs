@@ -15,6 +15,10 @@ namespace EfCommands.RatedEfCommands
         {
         }
 
+        public int Id => 53;
+
+        public string Name => "Edit Rated using EntityFramework";
+
         public void Execute(RatedDto dto)
         {
             var rating = Context.Rateds.Find(dto.Id);

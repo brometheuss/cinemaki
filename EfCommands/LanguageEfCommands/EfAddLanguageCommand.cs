@@ -16,6 +16,10 @@ namespace EfCommands.LanguageEfCommands
         {
         }
 
+        public int Id => 26;
+
+        public string Name => "Create Language using EntityFramework";
+
         public void Execute(LanguageDto request)
         {
             if (Context.Languages.Any(l => l.Name.ToLower() == request.Name.ToLower()))

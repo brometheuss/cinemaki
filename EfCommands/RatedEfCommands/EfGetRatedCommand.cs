@@ -14,6 +14,10 @@ namespace EfCommands.RatedEfCommands
         {
         }
 
+        public int Id => 54;
+
+        public string Name => "Get Rated using EntityFramework";
+
         public RatedDto Execute(int request)
         {
             var rated = Context.Rateds.Find(request);

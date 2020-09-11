@@ -15,6 +15,10 @@ namespace EfCommands.RoleEfCommands
         {
         }
 
+        public int Id => 63;
+
+        public string Name => "Edit Role using EntityFramework";
+
         public void Execute(RoleDto request)
         {
             var role = Context.Roles.Find(request.Id);

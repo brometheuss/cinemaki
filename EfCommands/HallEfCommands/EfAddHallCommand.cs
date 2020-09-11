@@ -16,6 +16,10 @@ namespace EfCommands.HallEfCommands
         {
         }
 
+        public int Id => 21;
+
+        public string Name => "Create Hall using EntityFramework";
+
         public void Execute(HallDto request)
         {
             if (Context.Halls.Any(h => h.Name.ToLower() == request.Name.ToLower()))

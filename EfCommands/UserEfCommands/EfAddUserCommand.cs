@@ -16,6 +16,10 @@ namespace EfCommands.UserEfCommands
         {
         }
 
+        public int Id => 71;
+
+        public string Name => "Create User using EntityFramework";
+
         public void Execute(AddUserDto request)
         {
             if (Context.Users.Any(u => u.Username.ToLower() == request.Username.ToLower()))

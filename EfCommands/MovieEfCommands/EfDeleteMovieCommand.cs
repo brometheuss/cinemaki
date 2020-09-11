@@ -15,6 +15,10 @@ namespace EfCommands.MovieEfCommands
         {
         }
 
+        public int Id => 32;
+
+        public string Name => "Delete Movie using EntityFramework";
+
         public void Execute(int request)
         {
             var movie = Context.Movies.Find(request);

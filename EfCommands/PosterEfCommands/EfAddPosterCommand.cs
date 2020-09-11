@@ -18,6 +18,10 @@ namespace EfCommands.PosterEfCommands
         {
         }
 
+        public int Id => 36;
+
+        public string Name => "Add Poster using EntityFramework";
+
         public void Execute(PosterDto request)
         {
             var ext = Path.GetExtension(request.Image.FileName);

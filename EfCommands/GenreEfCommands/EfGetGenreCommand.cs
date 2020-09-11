@@ -14,6 +14,10 @@ namespace EfCommands.GenreEfCommands
         {
         }
 
+        public int Id => 19;
+
+        public string Name => "Get Genre using EntityFramework";
+
         public GenreDto Execute(int request)
         {
             var genre = Context.Genres.Find(request);

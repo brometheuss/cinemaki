@@ -16,6 +16,10 @@ namespace EfCommands.HallEfCommands
         {
         }
 
+        public int Id => 25;
+
+        public string Name => "Get Halls using EntityFramework";
+
         public PagedResponse<HallDto> Execute(HallQuery request)
         {
             var query = Context.Halls

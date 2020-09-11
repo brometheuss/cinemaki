@@ -17,6 +17,10 @@ namespace EfCommands.MovieEfCommands
         {
         }
 
+        public int Id => 33;
+
+        public string Name => "Edit Movie using EntityFramework";
+
         public void Execute(MovieDto request)
         {
             var movie = Context.Movies.Where(m => m.Id == request.Id).Include(m => m.MovieGenres).FirstOrDefault();

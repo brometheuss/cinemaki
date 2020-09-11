@@ -13,6 +13,10 @@ namespace EfCommands.CommentEfCommands
         {
         }
 
+        public int Id => 7;
+
+        public string Name => "Delete Comment using EntityFramework";
+
         public void Execute(int request)
         {
             var comment = Context.Comments.Find(request);

@@ -14,6 +14,10 @@ namespace EfCommands.CountryEfCommands
         {
         }
 
+        public int Id => 15;
+
+        public string Name => "Get Country using EntityFramework";
+
         public CountryDto Execute(int request)
         {
             var country = Context.Countries.Find(request);

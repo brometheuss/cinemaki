@@ -13,6 +13,10 @@ namespace EfCommands.LanguageEfCommands
         {
         }
 
+        public int Id => 27;
+
+        public string Name => "Delete Language using EntityFramework";
+
         public void Execute(int request)
         {
             var language = Context.Languages.Find(request);

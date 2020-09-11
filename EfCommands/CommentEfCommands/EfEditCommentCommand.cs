@@ -14,6 +14,10 @@ namespace EfCommands.CommentEfCommands
         {
         }
 
+        public int Id => 8;
+
+        public string Name => "Edit Comment using EntityFramework";
+
         public void Execute(CommentDto request)
         {
             var comment = Context.Comments.Find(request.Id);

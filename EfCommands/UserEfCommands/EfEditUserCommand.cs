@@ -15,6 +15,10 @@ namespace EfCommands.UserEfCommands
         {
         }
 
+        public int Id => 73;
+
+        public string Name => "Edit User using EntityFramework";
+
         public void Execute(ShowUserDto request)
         {
             var user = Context.Users.Find(request.Id);

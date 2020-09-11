@@ -13,6 +13,10 @@ namespace EfCommands.RatedEfCommands
         {
         }
 
+        public int Id => 52;
+
+        public string Name => "Delete Rated using EntityFramework";
+
         public void Execute(int request)
         {
             var rated = Context.Rateds.Find(request);

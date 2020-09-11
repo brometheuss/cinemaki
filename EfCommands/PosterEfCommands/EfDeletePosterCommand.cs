@@ -13,6 +13,10 @@ namespace EfCommands.PosterEfCommands
         {
         }
 
+        public int Id => 37;
+
+        public string Name => "Delete Poster using EntityFramework";
+
         public void Execute(int request)
         {
             var poster = Context.Posters.Find(request);

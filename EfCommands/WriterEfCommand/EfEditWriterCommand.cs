@@ -15,6 +15,10 @@ namespace EfCommands.WriterEfCommand
         {
         }
 
+        public int Id => 79;
+
+        public string Name => "Edit Writer using EntityFramework";
+
         public void Execute(WriterDto request)
         {
             var writer = Context.Writers.Find(request.Id);

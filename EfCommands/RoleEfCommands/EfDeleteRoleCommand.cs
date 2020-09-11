@@ -13,6 +13,10 @@ namespace EfCommands.RoleEfCommands
         {
         }
 
+        public int Id => 62;
+
+        public string Name => "Delete Role using EntityFramework";
+
         public void Execute(int request)
         {
             var role = Context.Roles.Find(request);

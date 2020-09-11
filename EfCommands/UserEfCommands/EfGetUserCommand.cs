@@ -16,6 +16,10 @@ namespace EfCommands.UserEfCommands
         {
         }
 
+        public int Id => 74;
+
+        public string Name => "Get User using EntityFramework";
+
         public ShowUserDto Execute(int request)
         {
             var user = Context.Users

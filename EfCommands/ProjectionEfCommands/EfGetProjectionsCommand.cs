@@ -17,6 +17,10 @@ namespace EfCommands.ProjectionEfCommands
         {
         }
 
+        public int Id => 50;
+
+        public string Name => "Get Projections using EntityFramework";
+
         public PagedResponse<ProjectionDto> Execute(ProjectionQuery request)
         {
             var query = Context.Projections

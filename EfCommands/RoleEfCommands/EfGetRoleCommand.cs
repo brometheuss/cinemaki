@@ -14,6 +14,10 @@ namespace EfCommands.RoleEfCommands
         {
         }
 
+        public int Id => 64;
+
+        public string Name => "Get Role using EntityFramework";
+
         public RoleDto Execute(int request)
         {
             var role = Context.Roles.Find(request);

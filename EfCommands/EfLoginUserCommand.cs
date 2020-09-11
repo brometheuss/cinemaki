@@ -14,6 +14,10 @@ namespace EfCommands
         {
         }
 
+        public int Id => 76;
+
+        public string Name => "Login";
+
         public ShowUserDto Execute(LoginUserDto request)
         {
             var user = Context.Users.Where(x => x.Email.ToLower() == request.Email.ToLower()).Where(p => p.Password == request.Password).FirstOrDefault();

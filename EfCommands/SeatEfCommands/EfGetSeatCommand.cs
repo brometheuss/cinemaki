@@ -16,6 +16,10 @@ namespace EfCommands.SeatEfCommands
         {
         }
 
+        public int Id => 69;
+
+        public string Name => "Get Seat using EntityFramework";
+
         public SeatDto Execute(int request)
         {
             var seat = Context.Seats

@@ -16,6 +16,10 @@ namespace EfCommands.ActorEfCommands
         {
         }
 
+        public int Id => 1;
+
+        public string Name => "Create Actor using EntityFramework";
+
         public void Execute(ActorDto request)
         {
             if (Context.Actors.Any(a => a.Link == request.Link))

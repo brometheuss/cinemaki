@@ -17,6 +17,10 @@ namespace EfCommands.MovieEfCommands
         {
         }
 
+        public int Id => 35;
+
+        public string Name => "Get Movies using EntityFramework";
+
         public PagedResponse<MovieDto> Execute(MovieQuery request)
         {
             var query = Context.Movies

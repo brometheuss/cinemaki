@@ -13,6 +13,10 @@ namespace EfCommands.ReservationEfCommands
         {
         }
 
+        public int Id => 57;
+
+        public string Name => "Delete REservation using EntityFramework";
+
         public void Execute(int request)
         {
             var reservation = Context.Reservations.Find(request);

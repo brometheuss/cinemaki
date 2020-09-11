@@ -14,6 +14,10 @@ namespace EfCommands.ActorEfCommands
         {
         }
 
+        public int Id => 4;
+
+        public string Name => "Get Actor using EntityFramework";
+
         public ActorDto Execute(int request)
         {
             var actor = Context.Actors.Find(request);

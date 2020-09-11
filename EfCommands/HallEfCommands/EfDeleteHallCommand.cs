@@ -13,6 +13,10 @@ namespace EfCommands.HallEfCommands
         {
         }
 
+        public int Id => 22;
+
+        public string Name => "Delete Hall using EntityFramework";
+
         public void Execute(int request)
         {
             var hall = Context.Halls.Find(request);

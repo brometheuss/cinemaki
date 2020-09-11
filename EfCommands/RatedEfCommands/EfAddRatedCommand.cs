@@ -16,6 +16,10 @@ namespace EfCommands.RatedEfCommands
         {
         }
 
+        public int Id => 51;
+
+        public string Name => "Create Rated using EntityFramework";
+
         public void Execute(RatedDto request)
         {
             if (Context.Rateds.Any(r => r.Name.ToLower() == request.Name.ToLower()))

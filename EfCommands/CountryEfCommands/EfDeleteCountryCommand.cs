@@ -13,6 +13,10 @@ namespace EfCommands.CountryEfCommands
         {
         }
 
+        public int Id => 12;
+
+        public string Name => "Delete Country using EntityFramework";
+
         public void Execute(int request)
         {
             var country = Context.Countries.Find(request);
