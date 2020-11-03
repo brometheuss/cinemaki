@@ -15,5 +15,7 @@ namespace Domain
         public Role Role { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Reservation> Reservations { get; set; }
+        public ICollection<Case> Cases { get; set; }
+        public ICollection<Log> Logs { get; set; }
     }
 }

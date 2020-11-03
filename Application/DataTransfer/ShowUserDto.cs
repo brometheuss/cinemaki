@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Application.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Application.DataTransfer
 {
-    public class ShowUserDto
+    public class ShowUserDto : IApplicationActor
     {
         public int Id { get; set; }
         [Required]
@@ -30,5 +31,10 @@ namespace Application.DataTransfer
         public int RoleId { get; set; }
         [Required]
         public string Password { get; set; }
+        public List<int> Cases { get; set; }
+
+        public string Identity => Username;
+
+        public IEnumerable<int> AllowedUseCases => Cases;
     }
 }

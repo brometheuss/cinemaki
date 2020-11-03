@@ -41,7 +41,7 @@ namespace WebMVC.Controllers
                 if (result != null)
                 {
                     HttpContext.Session.Set("User", result);
-                    ViewBag.User = HttpContext.Session.Get("User");
+                    ViewBag.User = HttpContext.Session.Get<ShowUserDto>("User");
                     TempData["success"] = "Successfully logged in.";
                     return RedirectToAction("Index", "Movies");
                 }

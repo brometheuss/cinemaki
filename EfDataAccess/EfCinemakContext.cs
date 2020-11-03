@@ -25,6 +25,8 @@ namespace EfDataAccess
         public DbSet<Seat> Seats { get; set; }
         public DbSet<Projection> Projections { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Case> Cases { get; set; }
+        public DbSet<Log> Logs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -75,6 +77,7 @@ namespace EfDataAccess
             modelBuilder.ApplyConfiguration(new SeatConfiguration());
             modelBuilder.ApplyConfiguration(new ProjectionConfiguration());
             modelBuilder.ApplyConfiguration(new ReservationConfiguration());
+            modelBuilder.ApplyConfiguration(new CaseConfiguration());
         }
     }
 }

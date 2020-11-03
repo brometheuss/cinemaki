@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
+using Application.DataTransfer;
 using Application.ICommands;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CountryCommands;
@@ -16,6 +18,7 @@ using Application.ICommands.RatedCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
+using Application.Interfaces;
 using EfCommands;
 using EfCommands.ActorEfCommands;
 using EfCommands.CountryEfCommands;
@@ -33,10 +36,12 @@ using EfCommands.WriterEfCommand;
 using EfDataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebMVC.Session;
 
 namespace WebMVC
 {
@@ -153,7 +158,20 @@ namespace WebMVC
             services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
 
             //AccountController
+            services.AddHttpContextAccessor();
             services.AddTransient<ILoginUserCommand, EfLoginUserCommand>();
+            services.AddTransient<UseCaseExecutor>();
+            services.AddTransient<IUseCaseLogger, EfUseCaseLoggerCommand>();
+            services.AddTransient<IApplicationActor>(x =>
+            {
+                var accessor = x.GetService<IHttpContextAccessor>();
+                var user = accessor.HttpContext.Session.Get<ShowUserDto>("User");
+
+                if (user == null)
+                    throw new InvalidOperationException("You must login first.");
+                
+                return user;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

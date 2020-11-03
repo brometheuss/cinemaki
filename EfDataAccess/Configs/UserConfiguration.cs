@@ -37,6 +37,11 @@ namespace EfDataAccess.Configs
 
             builder.Property(u => u.Password)
                 .IsRequired();
+
+            builder.HasMany(uc => uc.Cases)
+                .WithOne(u => u.User)
+                .HasForeignKey(uc => uc.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

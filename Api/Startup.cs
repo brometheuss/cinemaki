@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CommentCommands;
@@ -18,6 +19,7 @@ using Application.ICommands.RoleCommands;
 using Application.ICommands.SeatCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
+using Application.Interfaces;
 using EfCommands.ActorEfCommands;
 using EfCommands.CommentEfCommands;
 using EfCommands.CountryEfCommands;
@@ -35,14 +37,18 @@ using EfCommands.SeatEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
 using EfDataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace Api
 {
@@ -171,6 +177,50 @@ namespace Api
             services.AddTransient<IGetReservationCommand, EfGetReservationCommand>();
             services.AddTransient<IAddReservationCommand, EfAddReservationCommand>();
             services.AddTransient<IDeleteReservationCommand, EfDeleteReservationCommand>();
+
+            services.AddHttpContextAccessor();
+            services.AddTransient<IApplicationActor>(x => 
+            {
+                //kada god se zatrazi IApplicationActor, bilo gde, on pristupi trenutnom http zahtevu, izvuce korisnika iz tokena, izvuce njegov "actordata"(tako smo ga mi nazvali prilikom pravljenja tokena)(id, identity, allowedusecases), pretvori ga u c# objekat(jwt actor) i takvog ga vrati nasem kontroleru
+                var accessor = x.GetService<IHttpContextAccessor>();
+
+                var user = accessor.HttpContext.User;
+
+                if (user.FindFirst("ActorData") == null)
+                    throw new InvalidOperationException("There is no ActorData in token");
+
+                var actorString = user.FindFirst("ActorData").Value;
+
+                var actor = JsonConvert.DeserializeObject<JwtActor>(actorString);
+
+                return actor;
+            });
+
+            //JWTToken
+            services.AddTransient<JwtManager>();
+
+            //TokenValidation
+            services.AddAuthentication(options =>
+            {
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = "asp_api",
+                    ValidateIssuer = true,
+                    ValidAudience = "Any",
+                    ValidateAudience = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ThisIsMyVerySecretKey")),
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -185,6 +235,7 @@ namespace Api
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

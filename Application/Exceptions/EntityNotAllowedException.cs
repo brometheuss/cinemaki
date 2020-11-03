@@ -9,5 +9,9 @@ namespace Application.Exceptions
         public EntityNotAllowedException(string message) : base(message + " is not allowed.")
         {
         }
+
+        public EntityNotAllowedException()
+        {
+        }
     }
 }

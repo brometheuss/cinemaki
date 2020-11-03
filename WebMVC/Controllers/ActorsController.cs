@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.ActorCommands;
+using Application.Interfaces;
 using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,19 +15,21 @@ namespace WebMVC.Controllers
 {
     public class ActorsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetActorsCommand getActors;
         private readonly IGetActorCommand getActor;
         private readonly IAddActorCommand addActor;
         private readonly IEditActorCommand editActor;
         private readonly IDeleteActorCommand deleteActor;
 
-        public ActorsController(IGetActorsCommand getActors, IGetActorCommand getActor, IAddActorCommand addActor, IEditActorCommand editActor, IDeleteActorCommand deleteActor)
+        public ActorsController(IGetActorsCommand getActors, IGetActorCommand getActor, IAddActorCommand addActor, IEditActorCommand editActor, IDeleteActorCommand deleteActor, UseCaseExecutor executor)
         {
             this.getActors = getActors;
             this.getActor = getActor;
             this.addActor = addActor;
             this.editActor = editActor;
             this.deleteActor = deleteActor;
+            this.executor = executor;
         }
 
         // GET: Actors
@@ -33,7 +37,11 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getActors.Execute(query));
+                return View(executor.ExecuteQuery(getActors, query));
+            }
+            catch (EntityNotAllowedException e)
+            {
+                TempData["error"] = e.Message;
             }
             catch (Exception e)
             {
