@@ -10,6 +10,7 @@ using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.HallCommands;
 using Application.ICommands.LanguageCommands;
+using Application.ICommands.LogCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
@@ -25,6 +26,7 @@ using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.HallEfCommands;
 using EfCommands.LanguageEfCommands;
+using EfCommands.LogEfCommands;
 using EfCommands.MovieEfCommands;
 using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
@@ -172,6 +174,9 @@ namespace WebMVC
                 
                 return user;
             });
+
+            //LogsController
+            services.AddTransient<IGetLogsCommand, EfGetLogsCommand>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

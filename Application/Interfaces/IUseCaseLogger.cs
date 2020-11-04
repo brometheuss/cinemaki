@@ -6,6 +6,6 @@ namespace Application.Interfaces
 {
     public interface IUseCaseLogger
     {
-        void Log(IUseCase useCase, IApplicationActor actor);
+        void Log(IUseCase useCase, IApplicationActor actor, bool success);
     }
 }

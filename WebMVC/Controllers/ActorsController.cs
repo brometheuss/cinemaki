@@ -55,7 +55,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getActor.Execute(id));
+                return View(executor.ExecuteQuery(getActor, id));
             }
             catch (Exception e)
             {
@@ -90,7 +90,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addActor.Execute(dto);
+                executor.ExecuteCommand(addActor, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -109,7 +109,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getActor.Execute(id));
+                return View(executor.ExecuteQuery(getActor, id));
             }
             catch (Exception e)
             {
@@ -126,7 +126,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editActor.Execute(dto);
+                executor.ExecuteCommand(editActor, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -145,7 +145,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getActor.Execute(id));
+                return View(executor.ExecuteQuery(getActor ,id));
             }
             catch (EntityNotFoundException e)
             {
@@ -165,7 +165,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteActor.Execute(id);
+                executor.ExecuteCommand(deleteActor, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

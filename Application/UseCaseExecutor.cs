@@ -21,11 +21,12 @@ namespace Application
 
         public TResult ExecuteQuery<TRequest, TResult>(IQuery<TRequest, TResult> query, TRequest search)
         {
-            logger.Log(query, actor);
-
             if (!actor.AllowedUseCases.Contains(query.Id))
+            {
+                logger.Log(query, actor, false);
                 throw new EntityNotAllowedException("You're not allowed to perform this action.");
-
+            }
+            logger.Log(query, actor, true);
             return query.Execute(search);
         }
 
@@ -33,11 +34,12 @@ namespace Application
             ICommand<TRequest> command,
             TRequest request )
         {
-            logger.Log(command, actor);
-
             if (!actor.AllowedUseCases.Contains(command.Id))
+            {
+                logger.Log(command, actor, false);
                 throw new EntityNotAllowedException("You're not allowed to perform this action.");
-
+            }
+            logger.Log(command, actor, true);
             command.Execute(request);
         }
     }

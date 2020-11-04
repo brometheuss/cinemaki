@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
+using EfDataAccess;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Session;
@@ -14,7 +15,25 @@ namespace WebMVC.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            return Json(HttpContext.Session.Get<ShowUserDto>("User"));
+            /*EfCinemakContext context = new EfCinemakContext();
+            try
+            {
+                for (int i = 6; i < 100; i++)
+                {
+                    context.Cases.Add(new Domain.Case
+                    {
+                        UserId = 1,
+                        Number = i
+                    });
+                    context.SaveChanges();
+                }
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "ooopssss");
+            }*/
+            return Ok();
         }
 
         // GET: Test/Details/5

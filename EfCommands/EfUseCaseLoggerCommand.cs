@@ -13,7 +13,7 @@ namespace EfCommands
         {
         }
 
-        public void Log(IUseCase useCase, IApplicationActor actor)
+        public void Log(IUseCase useCase, IApplicationActor actor, bool success)
         {
             var user = Context.Users.Where(u => u.Username.ToLower() == actor.Identity.ToLower()).FirstOrDefault();
 
@@ -21,7 +21,8 @@ namespace EfCommands
             {
                 Action = useCase.Name,
                 Date = DateTime.Now,
-                UserId = user.Id
+                UserId = user.Id,
+                Success = success
             });
 
             Context.SaveChanges();
