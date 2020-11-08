@@ -55,7 +55,8 @@ namespace EfCommands.LogEfCommands
                     Id = l.Id,
                     UserId = l.UserId,
                     Action = l.Action,
-                    Date = l.Date
+                    Date = l.Date,
+                    Success = l.Success
                 })
             };
         }

@@ -14,11 +14,13 @@ namespace WebMVC.Controllers
     {
         private readonly UseCaseExecutor executor;
         private readonly IGetLogsCommand getLogs;
+        private readonly IGetLogCommand getLog;
 
-        public LogsController(IGetLogsCommand getLogs, UseCaseExecutor executor)
+        public LogsController(IGetLogsCommand getLogs, UseCaseExecutor executor, IGetLogCommand getLog)
         {
             this.getLogs = getLogs;
             this.executor = executor;
+            this.getLog = getLog;
         }
 
         // GET: Logs
@@ -38,7 +40,15 @@ namespace WebMVC.Controllers
         // GET: Logs/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            try
+            {
+                return View(executor.ExecuteQuery(getLog, id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Logs/Create

@@ -36,7 +36,7 @@ namespace WebMVC.Controllers
         public IActionResult Login(LoginUserDto user)
         {
             try
-            {
+             {
                 var result = loginUser.Execute(user);
                 if (result != null)
                 {
