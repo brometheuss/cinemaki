@@ -29,11 +29,11 @@ namespace WebMVC.Controllers
         private readonly IGetActorsCommand getActors;
         private readonly IGetLanguagesCommand getLanguages;
         private readonly IGetWritersCommand getWriters;
-        private readonly IGetProductionsCommand getProduction;
+        private readonly IGetProductionsCommand getProductions;
         private readonly IGetCountriesCommand getCountries;
         private readonly IGetRatedsCommand getRateds;
 
-        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProduction, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds)
+        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProductions, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds)
         {
             this.getMovies = getMovies;
             this.getMovie = getMovie;
@@ -44,7 +44,7 @@ namespace WebMVC.Controllers
             this.getActors = getActors;
             this.getLanguages = getLanguages;
             this.getWriters = getWriters;
-            this.getProduction = getProduction;
+            this.getProductions = getProductions;
             this.getCountries = getCountries;
             this.getRateds = getRateds;
         }
@@ -68,10 +68,10 @@ namespace WebMVC.Controllers
         {
             try
             {
-                ViewBag.Genres = getGenres.Execute(new GenreQuery()).Data;
+                /*ViewBag.Genres = getGenres.Execute(new GenreQuery()).Data;
                 ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
-                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;
+                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;*/
                 return View(getMovie.Execute(id));
             }
             catch (Exception e)
@@ -90,6 +90,9 @@ namespace WebMVC.Controllers
                 ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
                 ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;
+                ViewBag.Countries = getCountries.Execute(new CountryQuery()).Data;
+                ViewBag.Productions = getProductions.Execute(new ProductionQuery()).Data;
+                ViewBag.Rateds = getRateds.Execute(new RatedQuery()).Data;
                 return View();
             }
             catch (Exception e)
@@ -133,7 +136,7 @@ namespace WebMVC.Controllers
                 ViewBag.Genres = getGenres.Execute(new GenreQuery()).Data;
                 ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
-                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;
+                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data; 
                 return View(getMovie.Execute(id));
             }
             catch (Exception e)

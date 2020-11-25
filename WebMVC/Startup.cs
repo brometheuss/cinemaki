@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application;
 using Application.DataTransfer;
+using Application.Helpers;
 using Application.ICommands;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CountryCommands;
@@ -168,11 +169,12 @@ namespace WebMVC
             {
                 var accessor = x.GetService<IHttpContextAccessor>();
                 var user = accessor.HttpContext.Session.Get<ShowUserDto>("User");
+                DefaultApplicationActor guest = new DefaultApplicationActor();
 
                 if (user == null)
-                    throw new InvalidOperationException("You must login first.");
-                
-                return user;
+                    return guest;
+
+                    return user;
             });
 
             //LogsController

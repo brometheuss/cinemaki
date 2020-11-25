@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.CountryCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class CountriesController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetCountriesCommand getCountries;
         private readonly IGetCountryCommand getCountry;
         private readonly IAddCountryCommand addCountry;
         private readonly IEditCountryCommand editCountry;
         private readonly IDeleteCountryCommand deleteCountry;
 
-        public CountriesController(IGetCountriesCommand getCountries, IGetCountryCommand getCountry, IAddCountryCommand addCountry, IEditCountryCommand editCountry, IDeleteCountryCommand deleteCountry)
+        public CountriesController(IGetCountriesCommand getCountries, IGetCountryCommand getCountry, IAddCountryCommand addCountry, IEditCountryCommand editCountry, IDeleteCountryCommand deleteCountry, UseCaseExecutor executor)
         {
             this.getCountries = getCountries;
             this.getCountry = getCountry;
             this.addCountry = addCountry;
             this.editCountry = editCountry;
             this.deleteCountry = deleteCountry;
+            this.executor = executor;
         }
 
         // GET: Countries
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getCountries.Execute(query));
+                return View(executor.ExecuteQuery(getCountries, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getCountry.Execute(id));
+                return View(executor.ExecuteQuery(getCountry, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addCountry.Execute(dto);
+                executor.ExecuteCommand(addCountry, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getCountry.Execute(id));
+                return View(executor.ExecuteQuery(getCountry, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editCountry.Execute(dto);
+                executor.ExecuteCommand(editCountry, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getCountry.Execute(id));
+                return View(executor.ExecuteQuery(getCountry, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteCountry.Execute(id);
+                executor.ExecuteCommand(deleteCountry, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

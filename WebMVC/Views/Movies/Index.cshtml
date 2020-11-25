@@ -13,11 +13,9 @@
     <p class="text-success">@TempData["success"]</p>
 }
 
-@*@Context.Session.GetString("User")*@
-
 @if (Context.Session.GetString("User") != null)
 {
-    <p>Postoji neka sesija brat moi</p>
+    <p>Postoji neka sesija</p>
 }
 
 @if (TempData["error"] != null)

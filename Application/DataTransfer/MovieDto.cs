@@ -50,12 +50,16 @@ namespace Application.DataTransfer
         [Required]
         [Display(Name = "Rated")]
         public string RatedName { get; set; }
+        [Display(Name = "Genres")]
         public List<int> MovieGenres { get; set; }
         public IEnumerable<MovieGenreDto> GenresInfo { get; set; }
+        [Display(Name = "Actors")]
         public List<int> MovieActors { get; set; }
         public IEnumerable<MovieActorDto> ActorsInfo { get; set; }
+        [Display(Name = "Writers")]
         public List<int> MovieWriters { get; set; }
         public IEnumerable<MovieWriterDto> WritersInfo { get; set; }
+        [Display(Name = "Languages")]
         public List<int> MovieLanguages { get; set; }
         public IEnumerable<MovieLanguageDto> LanguagesInfo { get; set; }
     }
