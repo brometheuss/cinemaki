@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.GenreCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class GenresController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetGenresCommand getGenres;
         private readonly IGetGenreCommand getGenre;
         private readonly IAddGenreCommand addGenre;
         private readonly IEditGenreCommand editGenre;
         private readonly IDeleteGenreCommand deleteGenre;
 
-        public GenresController(IGetGenresCommand getGenres, IGetGenreCommand getGenre, IAddGenreCommand addGenre, IEditGenreCommand editGenre, IDeleteGenreCommand deleteGenre)
+        public GenresController(IGetGenresCommand getGenres, IGetGenreCommand getGenre, IAddGenreCommand addGenre, IEditGenreCommand editGenre, IDeleteGenreCommand deleteGenre, UseCaseExecutor executor)
         {
             this.getGenres = getGenres;
             this.getGenre = getGenre;
             this.addGenre = addGenre;
             this.editGenre = editGenre;
             this.deleteGenre = deleteGenre;
+            this.executor = executor;
         }
 
         // GET: Genres
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getGenres.Execute(query));
+                return View(executor.ExecuteQuery(getGenres, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getGenre.Execute(id));
+                return View(executor.ExecuteQuery(getGenre, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addGenre.Execute(dto);
+                executor.ExecuteCommand(addGenre, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getGenre.Execute(id));
+                return View(executor.ExecuteQuery(getGenre, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editGenre.Execute(dto);
+                executor.ExecuteCommand(editGenre, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getGenre.Execute(id));
+                return View(executor.ExecuteQuery(getGenre, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteGenre.Execute(id);
+                executor.ExecuteCommand(deleteGenre, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
