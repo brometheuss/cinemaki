@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.HallCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class HallsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetHallsCommand getHalls;
         private readonly IGetHallCommand getHall;
         private readonly IAddHallCommand addHall;
         private readonly IEditHallCommand editHall;
         private readonly IDeleteHallCommand deleteHall;
 
-        public HallsController(IGetHallsCommand getHalls, IGetHallCommand getHall, IAddHallCommand addHall, IEditHallCommand editHall, IDeleteHallCommand deleteHall)
+        public HallsController(IGetHallsCommand getHalls, IGetHallCommand getHall, IAddHallCommand addHall, IEditHallCommand editHall, IDeleteHallCommand deleteHall, UseCaseExecutor executor)
         {
             this.getHalls = getHalls;
             this.getHall = getHall;
             this.addHall = addHall;
             this.editHall = editHall;
             this.deleteHall = deleteHall;
+            this.executor = executor;
         }
 
         // GET: Halls
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getHalls.Execute(query));
+                return View(executor.ExecuteQuery(getHalls, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getHall.Execute(id));
+                return View(executor.ExecuteQuery(getHall, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addHall.Execute(dto);
+                executor.ExecuteCommand(addHall, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getHall.Execute(id));
+                return View(executor.ExecuteQuery(getHall, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editHall.Execute(dto);
+                executor.ExecuteCommand(editHall, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getHall.Execute(id));
+                return View(executor.ExecuteQuery(getHall, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteHall.Execute(id);
+                executor.ExecuteCommand(deleteHall, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
