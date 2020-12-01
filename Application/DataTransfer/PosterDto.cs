@@ -10,13 +10,13 @@ namespace Application.DataTransfer
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Title")]
+        [Display(Name = "Title(Poster name)")]
         public string PosterTitle { get; set; }
         [Required]
         [Display(Name = "Alt tag")]
         public string Alt { get; set; }
         [Required]
-        [Display(Name = "Name")]
+        [Display(Name = "Name(File name)")]
         public string Name { get; set; }
         [Required]
         [Display(Name = "Movie")]

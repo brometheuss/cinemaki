@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.MovieCommands;
@@ -14,6 +15,7 @@ namespace WebMVC.Controllers
 {
     public class PostersController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetPostersCommand getPosters;
         private readonly IGetPosterCommand getPoster;
         private readonly IAddPosterCommand addPoster;
@@ -21,7 +23,7 @@ namespace WebMVC.Controllers
         private readonly IDeletePosterCommand deletePoster;
         private readonly IGetMoviesCommand getMovies;
 
-        public PostersController(IGetPostersCommand getPosters, IGetPosterCommand getPoster, IAddPosterCommand addPoster, IEditPosterCommand editPoster, IDeletePosterCommand deletePoster, IGetMoviesCommand getMovies)
+        public PostersController(IGetPostersCommand getPosters, IGetPosterCommand getPoster, IAddPosterCommand addPoster, IEditPosterCommand editPoster, IDeletePosterCommand deletePoster, IGetMoviesCommand getMovies, UseCaseExecutor executor)
         {
             this.getPosters = getPosters;
             this.getPoster = getPoster;
@@ -29,6 +31,7 @@ namespace WebMVC.Controllers
             this.editPoster = editPoster;
             this.deletePoster = deletePoster;
             this.getMovies = getMovies;
+            this.executor = executor;
         }
 
         // GET: Posters
@@ -81,7 +84,7 @@ namespace WebMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["error"] = "Check your input.";
+                TempData["error"] = "Something went wrong, check input and try again.";
                 return RedirectToAction(nameof(Create));
             }
             try

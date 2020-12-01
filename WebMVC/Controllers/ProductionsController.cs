@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.ProductionCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class ProductionsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetProductionsCommand getProductions;
         private readonly IGetProductionCommand getProduction;
         private readonly IAddProductionCommand addProduction;
         private readonly IEditProductionCommand editProduction;
         private readonly IDeleteProductionCommand deleteProduction;
 
-        public ProductionsController(IGetProductionsCommand getProductions, IGetProductionCommand getProduction, IAddProductionCommand addProduction, IEditProductionCommand editProduction, IDeleteProductionCommand deleteProduction)
+        public ProductionsController(IGetProductionsCommand getProductions, IGetProductionCommand getProduction, IAddProductionCommand addProduction, IEditProductionCommand editProduction, IDeleteProductionCommand deleteProduction, UseCaseExecutor executor)
         {
             this.getProductions = getProductions;
             this.getProduction = getProduction;
             this.addProduction = addProduction;
             this.editProduction = editProduction;
             this.deleteProduction = deleteProduction;
+            this.executor = executor;
         }
 
         // GET: Productions
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProductions.Execute(query));
+                return View(executor.ExecuteQuery(getProductions, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProduction.Execute(id));
+                return View(executor.ExecuteQuery(getProduction, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addProduction.Execute(dto);
+                executor.ExecuteCommand(addProduction, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProduction.Execute(id));
+                return View(executor.ExecuteQuery(getProduction, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editProduction.Execute(dto);
+                executor.ExecuteCommand(editProduction, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProduction.Execute(id));
+                return View(executor.ExecuteQuery(getProduction, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteProduction.Execute(id);
+                executor.ExecuteCommand(deleteProduction, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
