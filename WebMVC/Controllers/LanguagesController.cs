@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.LanguageCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class LanguagesController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetLanguagesCommand getLanguages;
         private readonly IGetLanguageCommand getLanguage;
         private readonly IAddLanguageCommand addLanguage;
         private readonly IEditLanguageCommand editLanguage;
         private readonly IDeleteLanguageCommand deleteLanguage;
 
-        public LanguagesController(IGetLanguagesCommand getLanguages, IGetLanguageCommand getLanguage, IAddLanguageCommand addLanguage, IEditLanguageCommand editLanguage, IDeleteLanguageCommand deleteLanguage)
+        public LanguagesController(IGetLanguagesCommand getLanguages, IGetLanguageCommand getLanguage, IAddLanguageCommand addLanguage, IEditLanguageCommand editLanguage, IDeleteLanguageCommand deleteLanguage, UseCaseExecutor executor)
         {
             this.getLanguages = getLanguages;
             this.getLanguage = getLanguage;
             this.addLanguage = addLanguage;
             this.editLanguage = editLanguage;
             this.deleteLanguage = deleteLanguage;
+            this.executor = executor;
         }
 
         // GET: Languages
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getLanguages.Execute(query));
+                return View(executor.ExecuteQuery(getLanguages, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getLanguage.Execute(id));
+                return View(executor.ExecuteQuery(getLanguage, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addLanguage.Execute(dto);
+                executor.ExecuteCommand(addLanguage, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getLanguage.Execute(id));
+                return View(executor.ExecuteQuery(getLanguage, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editLanguage.Execute(dto);
+                executor.ExecuteCommand(editLanguage, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getLanguage.Execute(id));
+                return View(executor.ExecuteQuery(getLanguage, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteLanguage.Execute(id);
+                executor.ExecuteCommand(deleteLanguage, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
