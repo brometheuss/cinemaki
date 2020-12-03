@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.HallCommands;
@@ -15,6 +16,7 @@ namespace WebMVC.Controllers
 {
     public class ProjectionsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetProjectionsCommand getProjections;
         private readonly IGetProjectionCommand getProjection;
         private readonly IAddProjectionCommand addProjection;
@@ -23,7 +25,7 @@ namespace WebMVC.Controllers
         private readonly IGetMoviesCommand getMovies;
         private readonly IGetHallsCommand getHalls;
 
-        public ProjectionsController(IGetProjectionsCommand getProjections, IGetProjectionCommand getProjection, IAddProjectionCommand addProjection, IEditProjectionCommand editProjection, IDeleteProjectionCommand deleteProjection, IGetMoviesCommand getMovies, IGetHallsCommand getHalls)
+        public ProjectionsController(IGetProjectionsCommand getProjections, IGetProjectionCommand getProjection, IAddProjectionCommand addProjection, IEditProjectionCommand editProjection, IDeleteProjectionCommand deleteProjection, IGetMoviesCommand getMovies, IGetHallsCommand getHalls, UseCaseExecutor executor)
         {
             this.getProjections = getProjections;
             this.getProjection = getProjection;
@@ -32,6 +34,7 @@ namespace WebMVC.Controllers
             this.deleteProjection = deleteProjection;
             this.getMovies = getMovies;
             this.getHalls = getHalls;
+            this.executor = executor;
         }
 
         // GET: Projections
@@ -39,7 +42,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProjections.Execute(query));
+                return View(executor.ExecuteQuery(getProjections, query));
             }
             catch (Exception e)
             {
@@ -53,7 +56,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProjection.Execute(id));
+                return View(executor.ExecuteQuery(getProjection, id));
             }
             catch (Exception e)
             {
@@ -90,7 +93,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addProjection.Execute(dto);
+                executor.ExecuteCommand(addProjection, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -109,7 +112,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProjection.Execute(id));
+                return View(executor.ExecuteQuery(getProjection, id));
             }
             catch (Exception e)
             {
@@ -126,7 +129,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editProjection.Execute(dto);
+                executor.ExecuteCommand(editProjection, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -145,7 +148,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getProjection.Execute(id));
+                return View(executor.ExecuteQuery(getProjection, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -165,7 +168,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteProjection.Execute(id);
+                executor.ExecuteCommand(deleteProjection, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

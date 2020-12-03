@@ -80,7 +80,7 @@ namespace WebMVC.Controllers
         // POST: Posters/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(PosterDto dto)
+        public ActionResult Create([FromForm]PosterDto dto)
         {
             if (!ModelState.IsValid)
             {
@@ -120,7 +120,7 @@ namespace WebMVC.Controllers
         // POST: Posters/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, PosterDto dto)
+        public ActionResult Edit(int id,[FromBody] PosterDto dto)
         {
             try
             {
