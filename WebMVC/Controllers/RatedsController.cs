@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.RatedCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class RatedsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetRatedsCommand getRateds;
         private readonly IGetRatedCommand getRated;
         private readonly IAddRatedCommand addRated;
         private readonly IEditRatedCommand editRated;
         private readonly IDeleteRatedCommand deleteRated;
 
-        public RatedsController(IGetRatedsCommand getRateds, IGetRatedCommand getRated, IAddRatedCommand addRated, IEditRatedCommand editRated, IDeleteRatedCommand deleteRated)
+        public RatedsController(IGetRatedsCommand getRateds, IGetRatedCommand getRated, IAddRatedCommand addRated, IEditRatedCommand editRated, IDeleteRatedCommand deleteRated, UseCaseExecutor executor)
         {
             this.getRateds = getRateds;
             this.getRated = getRated;
             this.addRated = addRated;
             this.editRated = editRated;
             this.deleteRated = deleteRated;
+            this.executor = executor;
         }
 
         // GET: Rateds
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRateds.Execute(query));
+                return View(executor.ExecuteQuery(getRateds, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRated.Execute(id));
+                return View(executor.ExecuteQuery(getRated, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addRated.Execute(dto);
+                executor.ExecuteCommand(addRated, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRated.Execute(id));
+                return View(executor.ExecuteQuery(getRated, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editRated.Execute(dto);
+                executor.ExecuteCommand(editRated, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRated.Execute(id));
+                return View(executor.ExecuteQuery(getRated, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteRated.Execute(id);
+                executor.ExecuteCommand(deleteRated, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

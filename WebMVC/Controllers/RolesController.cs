@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.RoleCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class RolesController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetRolesCommand getRoles;
         private readonly IGetRoleCommand getRole;
         private readonly IAddRoleCommand addRole;
         private readonly IEditRoleCommand editRole;
         private readonly IDeleteRoleCommand deleteRole;
 
-        public RolesController(IGetRolesCommand getRoles, IGetRoleCommand getRole, IAddRoleCommand addRole, IEditRoleCommand editRole, IDeleteRoleCommand deleteRole)
+        public RolesController(IGetRolesCommand getRoles, IGetRoleCommand getRole, IAddRoleCommand addRole, IEditRoleCommand editRole, IDeleteRoleCommand deleteRole, UseCaseExecutor executor)
         {
             this.getRoles = getRoles;
             this.getRole = getRole;
             this.addRole = addRole;
             this.editRole = editRole;
             this.deleteRole = deleteRole;
+            this.executor = executor;
         }
 
         // GET: Roles
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRoles.Execute(query));
+                return View(executor.ExecuteQuery(getRoles, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRole.Execute(id));
+                return View(executor.ExecuteQuery(getRole, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addRole.Execute(dto);
+                executor.ExecuteCommand(addRole, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -99,7 +102,15 @@ namespace WebMVC.Controllers
         // GET: Roles/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                return View(executor.ExecuteQuery(getRole, id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Edit));
         }
 
         // POST: Roles/Edit/5
@@ -110,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editRole.Execute(dto);
+                executor.ExecuteCommand(editRole, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -129,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getRole.Execute(id));
+                return View(executor.ExecuteQuery(getRole, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -149,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteRole.Execute(id);
+                executor.ExecuteCommand(deleteRole, id); 
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
