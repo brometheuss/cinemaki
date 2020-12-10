@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.SeatCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class SeatsController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetSeatsCommand getSeats;
         private readonly IGetSeatCommand getSeat;
         private readonly IAddSeatCommand addSeat;
         private readonly IEditSeatCommand editSeat;
         private readonly IDeleteSeatCommand deleteSeat;
 
-        public SeatsController(IGetSeatsCommand getSeats, IGetSeatCommand getSeat, IAddSeatCommand addSeat, IEditSeatCommand editSeat, IDeleteSeatCommand deleteSeat)
+        public SeatsController(IGetSeatsCommand getSeats, IGetSeatCommand getSeat, IAddSeatCommand addSeat, IEditSeatCommand editSeat, IDeleteSeatCommand deleteSeat, UseCaseExecutor executor)
         {
             this.getSeats = getSeats;
             this.getSeat = getSeat;
             this.addSeat = addSeat;
             this.editSeat = editSeat;
             this.deleteSeat = deleteSeat;
+            this.executor = executor;
         }
 
         // GET: Seats
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getSeats.Execute(query));
+                return View(executor.ExecuteQuery(getSeats, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getSeat.Execute(id));
+                return View(executor.ExecuteQuery(getSeat, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addSeat.Execute(dto);
+                executor.ExecuteCommand(addSeat, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getSeat.Execute(id));
+                return View(executor.ExecuteQuery(getSeat, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editSeat.Execute(dto);
+                executor.ExecuteCommand(editSeat, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getSeat.Execute(id));
+                return View(executor.ExecuteQuery(getSeat, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteSeat.Execute(id);
+                executor.ExecuteCommand(deleteSeat, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
