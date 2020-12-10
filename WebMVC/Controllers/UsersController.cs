@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.RoleCommands;
@@ -15,6 +16,7 @@ namespace WebMVC.Controllers
 
     public class UsersController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetUsersCommand getUsers;
         private readonly IGetUserCommand getUser;
         private readonly IAddUserCommand addUser;
@@ -22,7 +24,7 @@ namespace WebMVC.Controllers
         private readonly IDeleteUserCommand deleteUser;
         private readonly IGetRolesCommand getRoles;
 
-        public UsersController(IGetUsersCommand getUsers, IGetUserCommand getUser, IAddUserCommand addUser, IGetRolesCommand getRoles, IEditUserCommand editUser, IDeleteUserCommand deleteUser)
+        public UsersController(IGetUsersCommand getUsers, IGetUserCommand getUser, IAddUserCommand addUser, IGetRolesCommand getRoles, IEditUserCommand editUser, IDeleteUserCommand deleteUser, UseCaseExecutor executor)
         {
             this.getUsers = getUsers;
             this.getUser = getUser;
@@ -30,6 +32,7 @@ namespace WebMVC.Controllers
             this.getRoles = getRoles;
             this.editUser = editUser;
             this.deleteUser = deleteUser;
+            this.executor = executor;
         }
 
         // GET: Users
@@ -37,7 +40,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getUsers.Execute(query));
+                return View(executor.ExecuteQuery(getUsers, query));
             }
             catch (Exception e)
             {
@@ -51,7 +54,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getUser.Execute(id));
+                return View(executor.ExecuteQuery(getUser, id));
             }
             catch (Exception e)
             {
@@ -87,7 +90,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addUser.Execute(dto);
+                executor.ExecuteCommand(addUser, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -107,7 +110,7 @@ namespace WebMVC.Controllers
             try
             {
                 ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
-                return View(getUser.Execute(id));
+                return View(executor.ExecuteQuery(getUser, id));
             }
             catch (Exception e)
             {
@@ -124,7 +127,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editUser.Execute(dto);
+                executor.ExecuteCommand(editUser, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -143,7 +146,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getUser.Execute(id));
+                return View(executor.ExecuteQuery(getUser, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -163,7 +166,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteUser.Execute(id);
+                executor.ExecuteCommand(deleteUser, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)
