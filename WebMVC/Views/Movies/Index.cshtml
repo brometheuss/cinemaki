@@ -60,10 +60,10 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DebutDate)
+                    @item.DebutDate.ToShortDateString()
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @item.EndDate.ToShortDateString()
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CountryName)

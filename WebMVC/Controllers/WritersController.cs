@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.ICommands.WriterCommands;
@@ -13,19 +14,21 @@ namespace WebMVC.Controllers
 {
     public class WritersController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetWritersCommand getWriters;
         private readonly IGetWriterCommand getWriter;
         private readonly IAddWriterCommand addWriter;
         private readonly IEditWriterCommand editWriter;
         private readonly IDeleteWriterCommand deleteWriter;
 
-        public WritersController(IGetWritersCommand getWriters, IGetWriterCommand getWriter, IAddWriterCommand addWriter, IEditWriterCommand editWriter, IDeleteWriterCommand deleteWriter)
+        public WritersController(IGetWritersCommand getWriters, IGetWriterCommand getWriter, IAddWriterCommand addWriter, IEditWriterCommand editWriter, IDeleteWriterCommand deleteWriter, UseCaseExecutor executor)
         {
             this.getWriters = getWriters;
             this.getWriter = getWriter;
             this.addWriter = addWriter;
             this.editWriter = editWriter;
             this.deleteWriter = deleteWriter;
+            this.executor = executor;
         }
 
         // GET: Writers
@@ -33,7 +36,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getWriters.Execute(query));
+                return View(executor.ExecuteQuery(getWriters, query));
             }
             catch (Exception e)
             {
@@ -47,7 +50,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getWriter.Execute(id));
+                return View(executor.ExecuteQuery(getWriter, id));
             }
             catch (Exception e)
             {
@@ -82,7 +85,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addWriter.Execute(dto);
+                executor.ExecuteCommand(addWriter, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -101,7 +104,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getWriter.Execute(id));
+                return View(executor.ExecuteQuery(getWriter, id));
             }
             catch (Exception e)
             {
@@ -118,7 +121,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editWriter.Execute(dto);
+                executor.ExecuteCommand(editWriter, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -137,7 +140,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getWriter.Execute(id));
+                return View(executor.ExecuteQuery(getWriter, id));
             }
             catch (EntityNotFoundException e)
             {
@@ -157,7 +160,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteWriter.Execute(id);
+                executor.ExecuteCommand(deleteWriter, id);
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

@@ -15,7 +15,7 @@ namespace Application.DataTransfer
         [Display(Name = "Movie description")]
         public string Description { get; set; }
         [Required]
-        [Display(Name = "Movie length")]
+        [Display(Name = "Movie length in minutes")]
         public int LengthMinutes { get; set; }
         [Required]
         [Display(Name = "Movie plot")]
@@ -35,19 +35,19 @@ namespace Application.DataTransfer
         [Required]
         [Display(Name = "Country")]
         public int CountryId { get; set; }
-        [Required]
+        
         [Display(Name = "Country")]
         public string CountryName { get; set; }
         [Required]
         [Display(Name = "Production")]
         public int ProductionId { get; set; }
-        [Required]
+        
         [Display(Name = "Production")]
         public string ProductionName { get; set; }
         [Required]
         [Display(Name = "Rated")]
         public int RatedId { get; set; }
-        [Required]
+        
         [Display(Name = "Rated")]
         public string RatedName { get; set; }
         [Display(Name = "Genres")]
