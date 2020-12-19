@@ -26,6 +26,10 @@ namespace EfCommands.MovieEfCommands
                 .Where(m => m.Id == request)
                 .Include(mg => mg.MovieGenres)
                 .ThenInclude(g => g.Genre)
+                .Include(mw => mw.MovieWriters)
+                .ThenInclude(w => w.Writer)
+                .Include(ml => ml.MovieLanguages)
+                .ThenInclude(l => l.Language)
                 .Include(c => c.Country)
                 .Include(p => p.Production)
                 .Include(r => r.Rated)
@@ -59,6 +63,16 @@ namespace EfCommands.MovieEfCommands
                 {
                     GenreId = g.GenreId,
                     GenreName = g.Genre.Name
+                }),
+                WritersInfo = movie.MovieWriters.Select(w => new MovieWriterDto
+                {
+                    WriterId = w.WriterId,
+                    Name = w.Writer.Name
+                }),
+                LanguagesInfo = movie.MovieLanguages.Select(l => new MovieLanguageDto
+                {
+                    LanguageId = l.LanguageId,
+                    LanguageName = l.Language.Name
                 })
             };
         }

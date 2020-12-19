@@ -136,7 +136,10 @@ namespace WebMVC.Controllers
                 ViewBag.Genres = getGenres.Execute(new GenreQuery()).Data;
                 ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
-                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data; 
+                ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;
+                ViewBag.Countries = getCountries.Execute(new CountryQuery()).Data;
+                ViewBag.Productions = getProductions.Execute(new ProductionQuery()).Data;
+                ViewBag.Rateds = getRateds.Execute(new RatedQuery()).Data;
                 return View(getMovie.Execute(id));
             }
             catch (Exception e)

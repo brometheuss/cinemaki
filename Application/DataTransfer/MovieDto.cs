@@ -52,15 +52,18 @@ namespace Application.DataTransfer
         public string RatedName { get; set; }
         [Display(Name = "Genres")]
         public List<int> MovieGenres { get; set; }
+        [Display(Name = "Genres")]
         public IEnumerable<MovieGenreDto> GenresInfo { get; set; }
         [Display(Name = "Actors")]
         public List<int> MovieActors { get; set; }
         public IEnumerable<MovieActorDto> ActorsInfo { get; set; }
         [Display(Name = "Writers")]
         public List<int> MovieWriters { get; set; }
+        [Display(Name = "Writers")]
         public IEnumerable<MovieWriterDto> WritersInfo { get; set; }
         [Display(Name = "Languages")]
         public List<int> MovieLanguages { get; set; }
+        [Display(Name = "Languages")]
         public IEnumerable<MovieLanguageDto> LanguagesInfo { get; set; }
     }
 }

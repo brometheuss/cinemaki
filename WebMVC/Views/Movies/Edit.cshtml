@@ -1,0 +1,115 @@
+﻿@model Application.DataTransfer.MovieDto
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea rows="5" cols="50" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LengthMinutes" class="control-label"></label>
+                <input asp-for="LengthMinutes" class="form-control" />
+                <span asp-validation-for="LengthMinutes" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Plot" class="control-label"></label>
+                <textarea rows="7" cols="50" asp-for="Plot" class="form-control"></textarea>
+                <span asp-validation-for="Plot" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BoxOffice" class="control-label"></label>
+                <input asp-for="BoxOffice" class="form-control" />
+                <span asp-validation-for="BoxOffice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DebutDate" class="control-label"></label>
+                <input asp-for="DebutDate" class="form-control" />
+                <span asp-validation-for="DebutDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EndDate" class="control-label"></label>
+                <input asp-for="EndDate" class="form-control" />
+                <span asp-validation-for="EndDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Is3D" /> @Html.DisplayNameFor(model => model.Is3D)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="CountryId" class="control-label"></label>
+                <select name="CountryId" class="form-control">
+                    @foreach (var c in ViewBag.Countries)
+                    {
+                        @if (c.Id == Model.CountryId)
+                        {
+                            <option value="@c.Id" selected>@c.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@c.Id">@c.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductionId" class="control-label"></label>
+                <select name="ProductionId" class="form-control">
+                    @foreach(var p in ViewBag.Productions)
+                    {
+                        @if(p.Id == Model.ProductionId)
+                        {
+                            <option value="@p.Id" selected>@p.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@p.Id">@p.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="ProductionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RatedId" class="control-label"></label>
+                <select name="RatedId" class="form-control">
+                    @foreach(var r in ViewBag.Rateds)
+                    {
+                        @if(r.Id == Model.RatedId)
+                        {
+                            <option value="@r.Id" selected>@r.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@r.Id">@r.Name</option>
+                        }
+                    }
+                </select>
+                <span asp-validation-for="RatedId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
