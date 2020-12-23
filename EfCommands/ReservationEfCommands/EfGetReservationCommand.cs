@@ -23,7 +23,12 @@ namespace EfCommands.ReservationEfCommands
         public ReservationDto Execute(int request)
         {
             var res = Context.Reservations
+                .Where(x => x.Id == request)
                 .Include(rs => rs.ReservationSeats)
+                .ThenInclude(s => s.Seat)
+                .Include(p => p.Projection)
+                .ThenInclude(m => m.Movie)
+                .Include(u => u.User)
                 .FirstOrDefault();
 
             if (res == null || res.IsDeleted == true)
@@ -33,7 +38,21 @@ namespace EfCommands.ReservationEfCommands
             {
                 Id = res.Id,
                 UserId = res.UserId,
-                ProjectionId = res.ProjectionId
+                ProjectionId = res.ProjectionId,
+                Username = res.User.Username,
+                MovieId = res.Projection.MovieId,
+                MovieName = res.Projection.Movie.Title,
+                ProjectionBegin = res.Projection.DateBegin,
+                ProjectionEnd = res.Projection.DateEnd,
+                HallId = res.Projection.HallId,
+                SeatsInfo = res.ReservationSeats.Select(rs => new ReservationSeatDto
+                {
+                    SeatId = rs.Id,
+                    SeatBroken = rs.Seat.IsBroken,
+                    SeatName = rs.Seat.Name,
+                    SeatNumber = rs.Seat.Number,
+                    SeatHallId = rs.Seat.HallId
+                })
             };
         }
     }

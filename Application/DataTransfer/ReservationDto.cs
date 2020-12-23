@@ -25,6 +25,7 @@ namespace Application.DataTransfer
         [Display(Name = "Movie")]
         public int MovieId { get; set; }
         public string MovieName { get; set; }
+        [Display(Name = "Seats details")]
         public IEnumerable<ReservationSeatDto> SeatsInfo { get; set; }
         public List<int> ReservationSeats { get; set; }
     }

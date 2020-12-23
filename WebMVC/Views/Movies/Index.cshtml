@@ -7,16 +7,15 @@
     ViewData["Action"] = "Index";
 }
 
-<h1>Index</h1>
 @if(TempData["success"] != null)
 {
     <p class="text-success">@TempData["success"]</p>
 }
 
-@if (Context.Session.GetString("User") != null)
+@*@if (Context.Session.GetString("User") != null)
 {
     <p>Postoji neka sesija</p>
-}
+}*@
 
 @if (TempData["error"] != null)
 {
@@ -77,3 +76,4 @@
         }
     </tbody>
 </table>
+<partial name="_PaginationPartial" model="Model" view-data="ViewData" />

@@ -17,6 +17,7 @@ using Application.ICommands.PosterCommands;
 using Application.ICommands.ProductionCommands;
 using Application.ICommands.ProjectionCommands;
 using Application.ICommands.RatedCommands;
+using Application.ICommands.ReservationCommands;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
@@ -33,6 +34,7 @@ using EfCommands.PosterEfCommands;
 using EfCommands.ProductionEfCommands;
 using EfCommands.ProjectionEfCommands;
 using EfCommands.RatedEfCommands;
+using EfCommands.ReservationEfCommands;
 using EfCommands.RoleEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
@@ -138,6 +140,11 @@ namespace WebMVC
             services.AddTransient<IAddRatedCommand, EfAddRatedCommand>();
             services.AddTransient<IEditRatedCommand, EfEditRatedCommand>();
             services.AddTransient<IDeleteRatedCommand, EfDeleteRatedCommand>();
+
+            //ReservationsController
+            services.AddTransient<IGetReservationsCommand, EfGetReservationsCommand>();
+            services.AddTransient<IGetReservationCommand, EfGetReservationCommand>();
+            services.AddTransient<IAddReservationCommand, EfAddReservationCommand>();
 
             //HallsController
             services.AddTransient<IGetHallsCommand, EfGetHallsCommand>();

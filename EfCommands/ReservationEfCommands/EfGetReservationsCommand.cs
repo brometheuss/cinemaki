@@ -59,7 +59,7 @@ namespace EfCommands.ReservationEfCommands
                     UserId = x.UserId,
                     Username = x.User.Username,
                     HallId = x.Projection.HallId,
-                    //MovieName
+                    MovieName = x.Projection.Movie.Title,
                     SeatsInfo = x.ReservationSeats.Select(s => new ReservationSeatDto
                     {
                         SeatId = s.Seat.Id,
