@@ -145,6 +145,7 @@ namespace WebMVC
             services.AddTransient<IGetReservationsCommand, EfGetReservationsCommand>();
             services.AddTransient<IGetReservationCommand, EfGetReservationCommand>();
             services.AddTransient<IAddReservationCommand, EfAddReservationCommand>();
+            services.AddTransient<IDeleteReservationCommand, EfDeleteReservationCommand>();
 
             //HallsController
             services.AddTransient<IGetHallsCommand, EfGetHallsCommand>();

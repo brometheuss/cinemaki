@@ -16,7 +16,7 @@ namespace Application.DataTransfer
         public int UserId { get; set; }
         [Display(Name = "Username")]
         public string Username { get; set; }
-        [Display(Name = "Starts")]
+        [Display(Name = "Starts")] 
         public DateTime ProjectionBegin { get; set; }
         [Display(Name = "Ends")]
         public DateTime ProjectionEnd { get; set; }

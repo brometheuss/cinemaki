@@ -43,7 +43,7 @@ namespace WebMVC.Controllers
                     HttpContext.Session.Set("User", result);
                     ViewBag.User = HttpContext.Session.Get<ShowUserDto>("User");
                     TempData["success"] = "Successfully logged in.";
-                    return RedirectToAction("Index", "Movies");
+                    return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception e)

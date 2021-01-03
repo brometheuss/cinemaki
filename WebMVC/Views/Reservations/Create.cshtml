@@ -1,0 +1,111 @@
+﻿@model Application.DataTransfer.ReservationDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create reservation</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ProjectionId" class="control-label"></label>
+                <select asp-for="ProjectionId" class="form-control">
+                    @foreach(var p in ViewBag.Projections)
+                    {
+                        <option value="@p.Id">@p.Id</option>
+                    }
+                </select>
+                <span asp-validation-for="ProjectionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control">
+                    @foreach (var u in ViewBag.Users)
+                    {
+                        <option value="@u.Id">@u.Username</option>
+                    }
+                </select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectionBegin" class="control-label"></label>
+                <input asp-for="ProjectionBegin" class="form-control" disabled />
+                <span asp-validation-for="ProjectionBegin" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProjectionEnd" class="control-label"></label>
+                <input asp-for="ProjectionEnd" class="form-control" disabled />
+                <span asp-validation-for="ProjectionEnd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HallId" class="control-label"></label>
+                <select asp-for="HallId" class="form-control">
+                    @foreach (var h in ViewBag.Halls)
+                    {
+                        <option value="@h.Id">@h.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="HallId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MovieId" class="control-label"></label>
+                <select asp-for="MovieId" class="form-control">
+                    @foreach (var m in ViewBag.Movies)
+                    {
+                        <option value="@m.Id">@m.Title</option>
+                    }
+                </select>
+                <span asp-validation-for="MovieId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1">|</div>
+    <div class="col-md-7">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        ProjectionId
+                    </th>
+                    <th>
+                        DateBegin
+                    </th>
+                    <th>
+                        DateEnd
+                    </th>
+                    <th>
+                        HallName
+                    </th>
+                    <th>
+                        MovieName
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in ViewBag.Projections)
+                {
+                    <tr>
+                        <td>@p.Id</td>
+                        <td>@p.DateBegin</td>
+                        <td>@p.DateEnd</td>
+                        <td>@p.HallName</td>
+                        <td>@p.MovieName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

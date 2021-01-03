@@ -213,3 +213,5 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Movies\Delete.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Index.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Details.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Create.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Delete.cshtml.g.cs
