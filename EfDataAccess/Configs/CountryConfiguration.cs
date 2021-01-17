@@ -17,7 +17,7 @@ namespace EfDataAccess.Configs
                 .IsUnique();
 
             builder.Property(c => c.Name)
-                .HasMaxLength(40)
+                .HasMaxLength(80)
                 .IsRequired();
 
             builder.HasMany(m => m.Movies)

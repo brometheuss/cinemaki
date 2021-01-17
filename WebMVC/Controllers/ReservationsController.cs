@@ -74,7 +74,6 @@ namespace WebMVC.Controllers
         {
             try
             {
-                ViewBag.Halls = getHalls.Execute(new HallQuery()).Data;
                 ViewBag.Movies = getMovies.Execute(new MovieQuery()).Data;
                 ViewBag.Users = getUsers.Execute(new UserQuery()).Data;
                 ViewBag.Projections = getProjections.Execute(new ProjectionQuery()).Data;

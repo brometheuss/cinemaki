@@ -65,5 +65,6 @@ namespace Application.DataTransfer
         public List<int> MovieLanguages { get; set; }
         [Display(Name = "Languages")]
         public IEnumerable<MovieLanguageDto> LanguagesInfo { get; set; }
+        public IEnumerable<PosterDto> ImageFiles { get; set; }
     }
 }

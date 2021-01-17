@@ -15,7 +15,6 @@ namespace Application.DataTransfer
         [Required]
         [Display(Name = "Alt tag")]
         public string Alt { get; set; }
-        [Required]
         [Display(Name = "Name(File name)")]
         public string Name { get; set; }
         [Required]

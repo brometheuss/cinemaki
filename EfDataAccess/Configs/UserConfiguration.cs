@@ -20,11 +20,11 @@ namespace EfDataAccess.Configs
                 .IsUnique();
 
             builder.Property(u => u.FirstName)
-                .HasMaxLength(30)
+                .HasMaxLength(60)
                 .IsRequired();
 
             builder.Property(u => u.LastName)
-                .HasMaxLength(30)
+                .HasMaxLength(40)
                 .IsRequired();
 
             builder.Property(u => u.Username)
@@ -32,7 +32,7 @@ namespace EfDataAccess.Configs
                 .IsRequired();
 
             builder.Property(u => u.Email)
-                .HasMaxLength(50)
+                .HasMaxLength(60)
                 .IsRequired();
 
             builder.Property(u => u.Password)

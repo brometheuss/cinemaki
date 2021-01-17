@@ -7,6 +7,7 @@ using Application.DataTransfer;
 using Application.Helpers;
 using Application.ICommands;
 using Application.ICommands.ActorCommands;
+using Application.ICommands.CommentCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.HallCommands;
@@ -24,6 +25,7 @@ using Application.ICommands.WriterCommands;
 using Application.Interfaces;
 using EfCommands;
 using EfCommands.ActorEfCommands;
+using EfCommands.CommentEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.HallEfCommands;
@@ -98,6 +100,13 @@ namespace WebMVC
             services.AddTransient<IAddActorCommand, EfAddActorCommand>();
             services.AddTransient<IEditActorCommand, EfEditActorCommand>();
             services.AddTransient<IDeleteActorCommand, EfDeleteActorCommand>();
+
+            //CommentsController
+            services.AddTransient<IGetCommentsCommand, EfGetCommentsCommand>();
+            services.AddTransient<IGetCommentCommand, EfGetCommentCommand>();
+            services.AddTransient<IAddCommentCommand, EfAddCommentCommand>();
+            services.AddTransient<IEditCommentCommand, EfEditCommentCommand>();
+            services.AddTransient<IDeleteCommentCommand, EfDeleteCommentCommand>();
 
             //WritersController
             services.AddTransient<IGetWritersCommand, EfGetWritersCommand>();

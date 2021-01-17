@@ -14,15 +14,15 @@ namespace EfDataAccess.Configs
             builder.HasKey(m => m.Id);
 
             builder.Property(m => m.Title)
-                .HasMaxLength(50)
+                .HasMaxLength(80)
                 .IsRequired();
 
             builder.Property(m => m.Description)
-                .HasMaxLength(128)
+                .HasMaxLength(512)
                 .IsRequired();
 
             builder.Property(m => m.LengthMinutes)
-                .HasMaxLength(5)
+                .HasMaxLength(10)
                 .IsRequired();
 
             builder.Property(m => m.Plot)

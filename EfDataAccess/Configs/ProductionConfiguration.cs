@@ -14,7 +14,7 @@ namespace EfDataAccess.Configs
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Name)
-                .HasMaxLength(40)
+                .HasMaxLength(60)
                 .IsRequired();
 
             builder.HasMany(m => m.Movies)

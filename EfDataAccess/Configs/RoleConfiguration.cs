@@ -17,7 +17,7 @@ namespace EfDataAccess.Configs
                 .IsUnique();
 
             builder.Property(r => r.Name)
-                .HasMaxLength(20)
+                .HasMaxLength(30)
                 .IsRequired();
 
             builder.HasMany(u => u.Users)

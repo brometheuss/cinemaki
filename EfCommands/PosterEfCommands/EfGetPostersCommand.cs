@@ -35,6 +35,9 @@ namespace EfCommands.PosterEfCommands
             if (request.MovieName != null)
                 query = query.Where(m => m.Movie.Title.ToLower().Contains(request.MovieName.ToLower()));
 
+            if (request.MovieId > 0)
+                query = query.Where(p => p.MovieId == request.MovieId);
+
             var totalCount = query.Count();
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);

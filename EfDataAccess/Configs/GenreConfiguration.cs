@@ -14,7 +14,7 @@ namespace EfDataAccess.Configs
             builder.HasKey(g => g.Id);
 
             builder.Property(g => g.Name)
-                .HasMaxLength(15)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.HasIndex(g => g.Name)

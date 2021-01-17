@@ -17,7 +17,7 @@ namespace EfDataAccess.Configs
                 .IsUnique();
 
             builder.Property(h => h.Name)
-                .HasMaxLength(16)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(h => h.MaximumOccupancy)

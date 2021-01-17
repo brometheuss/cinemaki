@@ -32,26 +32,6 @@
                 <span asp-validation-for="UserId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectionBegin" class="control-label"></label>
-                <input asp-for="ProjectionBegin" class="form-control" disabled />
-                <span asp-validation-for="ProjectionBegin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProjectionEnd" class="control-label"></label>
-                <input asp-for="ProjectionEnd" class="form-control" disabled />
-                <span asp-validation-for="ProjectionEnd" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HallId" class="control-label"></label>
-                <select asp-for="HallId" class="form-control">
-                    @foreach (var h in ViewBag.Halls)
-                    {
-                        <option value="@h.Id">@h.Name</option>
-                    }
-                </select>
-                <span asp-validation-for="HallId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="MovieId" class="control-label"></label>
                 <select asp-for="MovieId" class="form-control">
                     @foreach (var m in ViewBag.Movies)

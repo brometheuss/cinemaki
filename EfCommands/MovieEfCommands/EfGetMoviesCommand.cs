@@ -24,10 +24,13 @@ namespace EfCommands.MovieEfCommands
         public PagedResponse<MovieDto> Execute(MovieQuery request)
         {
             var query = Context.Movies
+                .Include(p => p.Posters)
                 .Include(mg => mg.MovieGenres)
                 .ThenInclude(g => g.Genre)
                 .Include(ma => ma.MovieActors)
                 .ThenInclude(a => a.Actor)
+                .Include(mw => mw.MovieWriters)
+                .ThenInclude(w => w.Writer)
                 .AsQueryable();
 
             query = query.Where(m => m.IsDeleted == false);
@@ -63,6 +66,11 @@ namespace EfCommands.MovieEfCommands
                     CountryId = m.CountryId,
                     ProductionId = m.ProductionId,
                     RatedId = m.RatedId,
+                    ImageFiles = m.Posters.Select(p => new PosterDto
+                    {
+                        Name = p.Name,
+                        Alt = p.Alt
+                    }),
                     GenresInfo = m.MovieGenres.Select(g => new MovieGenreDto
                     {
                         GenreId = g.GenreId,

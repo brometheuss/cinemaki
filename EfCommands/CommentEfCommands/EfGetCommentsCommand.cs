@@ -36,6 +36,10 @@ namespace EfCommands.CommentEfCommands
             if (request.Rating != 0)
                 query = query.Where(c => c.Rating == request.Rating);
 
+            if (request.MovieId > 0)
+                query = query.Where(c => c.MovieId == request.MovieId);
+
+
             var totalCount = query.Count();
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);

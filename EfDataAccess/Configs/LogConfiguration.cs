@@ -14,7 +14,7 @@ namespace EfDataAccess.Configs
             builder.HasKey(l => l.Id);
 
             builder.Property(l => l.Action)
-                .HasMaxLength(128);
+                .HasMaxLength(512);
 
             builder.Property(l => l.Date)
                 .HasDefaultValueSql("GETDATE()");

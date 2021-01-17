@@ -17,7 +17,7 @@ namespace EfDataAccess.Configs
                 .IsUnique();
 
             builder.Property(l => l.Name)
-                .HasMaxLength(30)
+                .HasMaxLength(60)
                 .IsRequired();
 
             builder.HasMany(l => l.MovieLanguages)

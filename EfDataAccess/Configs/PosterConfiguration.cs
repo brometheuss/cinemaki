@@ -21,7 +21,7 @@ namespace EfDataAccess.Configs
                 .IsRequired();
 
             builder.Property(p => p.Name)
-                .HasMaxLength(100)
+                .HasMaxLength(200)
                 .IsRequired();
         }
     }

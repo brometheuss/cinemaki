@@ -1,8 +1,42 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http;
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Now Showing</h1>
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                @foreach (var m in ViewBag.Movies)
+                {
+                    <div class="col-md-4">
+                        <div class="card mb-4 box-shadow">
+                            <a class="btn btn-secondary btn-block" href="/Home/Movies/@m.Id" role="button">@m.Title</a><br />
+                            @foreach (var p in m.ImageFiles)
+                            {
+                                <img src="~/uploads/@p.Name" alt="@p.Alt" style="height: 285px; width: 75%; display: block;" class="mx-auto d-block text-center" />
+                            }
+
+                            <div class="card-body">
+                                <p class="card-text">@m.Description</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">@Html.ActionLink("More", "Movies", "Home", new { id = m.Id })</button>
+                                        @if (Context.Session.GetString("User") != null)
+                                        {
+                                            <button type="button" class="btn btn-sm btn-outline-                            secondary">@Html.ActionLink("EDIT", "Edit", "Movies", new { id = m.Id })
+                                            </button>
+                                        }
+                                    </div>
+                                    <small class="text-muted">Debuted: @Convert.ToDateTime(m.DebutDate).ToString("dd. MMM yyyy")</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </div>
