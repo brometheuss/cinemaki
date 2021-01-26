@@ -24,6 +24,7 @@ namespace EfCommands.ProjectionEfCommands
         {
             var projection = Context.Projections
                 .Include(h => h.Hall)
+                .ThenInclude(s => s.Seats)
                 .Include(m => m.Movie)
                 .FirstOrDefault();
 
@@ -38,7 +39,8 @@ namespace EfCommands.ProjectionEfCommands
                 HallId = projection.HallId,
                 HallName = projection.Hall.Name,
                 MovieId = projection.MovieId,
-                MovieName = projection.Movie.Title
+                MovieName = projection.Movie.Title,
+                HallOccupancy = projection.Hall.MaximumOccupancy
             };
         }
     }

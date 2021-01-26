@@ -3,6 +3,7 @@ using Application.ICommands.ActorCommands;
 using Application.Queries;
 using Application.Responses;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,10 @@ namespace EfCommands.ActorEfCommands
 
         public PagedResponse<ActorDto> Execute(ActorQuery request)
         {
-            var query = Context.Actors.AsQueryable();
+            var query = Context.Actors
+                .Include(ma => ma.MovieActors)
+                .ThenInclude(m => m.Movie)
+                .AsQueryable();
 
             query = query.Where(a => a.IsDeleted == false);
 
@@ -31,6 +35,9 @@ namespace EfCommands.ActorEfCommands
 
             if (request.LastName != null)
                 query = query.Where(a => a.LastName.ToLower().Contains(request.LastName.ToLower()));
+
+            if (request.MovieId > 0)
+                query = query.Where(a => a.MovieActors.Any(x => x.MovieId == request.MovieId));
 
             var totalCount = query.Count();
 

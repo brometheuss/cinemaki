@@ -12,7 +12,7 @@ namespace Application.DataTransfer
         [Display(Name = "Projection")]
         public int ProjectionId { get; set; }
         [Required]
-        [Display(Name = "UserId")]
+        [Display(Name = "User")]
         public int UserId { get; set; }
         [Display(Name = "Username")]
         public string Username { get; set; }

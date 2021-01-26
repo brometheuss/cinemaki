@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewData["Title"] = "MyReservations";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="jumbotron">
+            <h1 class="display-4">Hello, @ViewBag.User.Username</h1>
+            <p class="lead">This is a simple hero unit, where you can manage your online reservations.</p>
+            <hr class="my-4">
+            @foreach (var r in ViewBag.Reservations)
+            {
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">@r.MovieName</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">Start time: @Convert.ToDateTime(r.ProjectionBegin)</h6>
+                        <p class="card-text">Seats info generic</p>
+                        <button type="button" class="btn btn-danger">@Html.ActionLink("Cancel reservation", "Delete", "Reservations", new { Id = r.Id })</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

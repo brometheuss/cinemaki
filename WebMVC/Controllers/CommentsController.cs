@@ -93,7 +93,7 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(addComment, dto);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), nameof(MoviesController), new { id = dto.MovieId });
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -103,7 +103,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: Comments/Edit/5

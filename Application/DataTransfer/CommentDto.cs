@@ -13,5 +13,6 @@ namespace Application.DataTransfer
         public string UserName { get; set; }
         public int MovieId { get; set; }
         public string MovieName { get; set; }
+        public DateTime? Posted { get; set; }
     }
 }

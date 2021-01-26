@@ -320,6 +320,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "BuildWebCompiler": {
+              "target": "Package",
+              "version": "[1.12.405, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[3.0.0, )"

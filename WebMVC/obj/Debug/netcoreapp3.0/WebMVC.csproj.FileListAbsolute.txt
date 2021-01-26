@@ -117,8 +117,6 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\Domain.pdb
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.csprojAssemblyReference.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\staticwebassets\WebMVC.StaticWebAssets.Manifest.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\staticwebassets\WebMVC.StaticWebAssets.xml
-C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.RazorAssemblyInfo.cache
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.RazorAssemblyInfo.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.AssemblyInfoInputs.cache
@@ -216,3 +214,8 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Create.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Reservations\Delete.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Home\Movies.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Comments\Index.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Account\MyReservations.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Account\ShowSeats.cshtml.g.cs

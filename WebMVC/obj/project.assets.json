@@ -2,6 +2,12 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.0": {
+      "BuildWebCompiler/1.12.405": {
+        "type": "package",
+        "build": {
+          "build/BuildWebCompiler.targets": {}
+        }
+      },
       "cloudscribe.Pagination.Models/1.0.5": {
         "type": "package",
         "dependencies": {
@@ -2641,6 +2647,29 @@
     }
   },
   "libraries": {
+    "BuildWebCompiler/1.12.405": {
+      "sha512": "1l1RK0jV+5QjJM22J5IGHm/EFaB3JN0WorKnLLP6HRnnf5H4sU4IBdBnMwN1OrVmww/3ir8fhbV0ZNGX6Uqn5w==",
+      "type": "package",
+      "path": "buildwebcompiler/1.12.405",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/BuildWebCompiler.targets",
+        "buildwebcompiler.1.12.405.nupkg.sha512",
+        "buildwebcompiler.nuspec",
+        "tools/net46/NUglify.dll",
+        "tools/net46/Newtonsoft.Json.dll",
+        "tools/net46/WebCompiler.exe",
+        "tools/netcoreapp2.0/NUglify.dll",
+        "tools/netcoreapp2.0/Newtonsoft.Json.dll",
+        "tools/netcoreapp2.0/WebCompiler.dll",
+        "tools/netcoreapp2.0/WebCompiler.runtimeconfig.json",
+        "tools/netstandard2.0/NUglify.dll",
+        "tools/netstandard2.0/Newtonsoft.Json.dll",
+        "tools/netstandard2.0/WebCompiler.dll"
+      ]
+    },
     "cloudscribe.Pagination.Models/1.0.5": {
       "sha512": "Nqvxu7mKr3A2G8cl8a0aZGYEddQcvcBTZ/FgTLh2lKJmA3TDk8yA7H+LCEUeHC84wALnRHyV510atxoVWNE5mQ==",
       "type": "package",
@@ -8333,6 +8362,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.0": [
       "Application >= 1.0.0",
+      "BuildWebCompiler >= 1.12.405",
       "EfCommands >= 1.0.0",
       "EfDataAccess >= 1.0.0",
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.0.0",
@@ -8393,6 +8423,10 @@
     "frameworks": {
       "netcoreapp3.0": {
         "dependencies": {
+          "BuildWebCompiler": {
+            "target": "Package",
+            "version": "[1.12.405, )"
+          },
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
             "version": "[3.0.0, )"

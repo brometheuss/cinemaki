@@ -59,7 +59,8 @@ namespace EfCommands.CommentEfCommands
                     MovieId = c.MovieId,
                     UserId = c.UserId,
                     UserName = c.User.Username,
-                    MovieName = c.Movie.Title
+                    MovieName = c.Movie.Title,
+                    Posted = c.CreatedAt
                 })
             };
         }

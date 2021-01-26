@@ -86,8 +86,8 @@ namespace WebMVC.Controllers
         {
             try
             {
-                ViewBag.Genres = getGenres.Execute(new GenreQuery()).Data;
-                ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
+                ViewBag.Genres = getGenres.Execute(new GenreQuery { PerPage = 100 }).Data;
+                ViewBag.Actors = getActors.Execute(new ActorQuery { PerPage = 100  }).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
                 ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;
                 ViewBag.Countries = getCountries.Execute(new CountryQuery()).Data;

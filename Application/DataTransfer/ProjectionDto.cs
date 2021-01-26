@@ -24,5 +24,6 @@ namespace Application.DataTransfer
         public int MovieId { get; set; }
         [Display(Name = "Movie Name")]
         public string MovieName { get; set; }
+        public int HallOccupancy { get; set; }
     }
 }

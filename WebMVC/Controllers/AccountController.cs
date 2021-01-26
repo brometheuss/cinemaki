@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
 using Application.ICommands;
+using Application.ICommands.ProjectionCommands;
+using Application.ICommands.ReservationCommands;
+using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebMVC.Session;
@@ -13,10 +16,16 @@ namespace WebMVC.Controllers
     public class AccountController : Controller
     {
         private readonly ILoginUserCommand loginUser;
+        private readonly IGetProjectionsCommand getProjections;
+        private readonly IGetProjectionCommand getProjection;
+        private readonly IGetReservationsCommand getReservations;
 
-        public AccountController(ILoginUserCommand loginUser)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection)
         {
             this.loginUser = loginUser;
+            this.getProjections = getProjections;
+            this.getReservations = getReservations;
+            this.getProjection = getProjection;
         }
 
         public IActionResult Index()
@@ -66,6 +75,42 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             return RedirectToAction("Index");
+        }
+
+        public IActionResult ShowSeats(int id)
+        {
+            try
+            {
+                ViewBag.Projection = getProjection.Execute(id);
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult MyReservations(int id)
+        {
+            try
+            {
+                if(HttpContext.Session.Get<ShowUserDto>("User") == null)
+                { 
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    ViewBag.User = HttpContext.Session.Get<ShowUserDto>("User");
+                    ViewBag.Reservations = getReservations.Execute(new ReservationQuery { PerPage = 100, UserId = id }).Data;
+                    return View();
+                }
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }

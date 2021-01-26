@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.ICommands.ActorCommands;
 using Application.ICommands.CommentCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.PosterCommands;
+using Application.ICommands.ProjectionCommands;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebMVC.Models;
+using Application.Queries;
+using Application.ICommands.ReservationCommands;
+using Microsoft.AspNetCore.Http;
+using Application.DataTransfer;
+using WebMVC.Session;
 
 namespace WebMVC.Controllers
 {
@@ -19,21 +26,27 @@ namespace WebMVC.Controllers
         private readonly IGetMovieCommand getMovie;
         private readonly IGetPostersCommand getPosters;
         private readonly IGetCommentsCommand getComments;
+        private readonly IGetProjectionsCommand getProjections;
+        private readonly IGetActorsCommand getActors;
+        private readonly IGetReservationsCommand getReservations;
 
-        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments)
+        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations)
         {
             _logger = logger;
             this.getMovies = getMovies;
             this.getMovie = getMovie;
             this.getPosters = getPosters;
             this.getComments = getComments;
+            this.getProjections = getProjections;
+            this.getActors = getActors;
+            this.getReservations = getReservations;
         }
 
         public ActionResult Index()
         {
             try
             {
-                ViewBag.Movies = getMovies.Execute(new Application.Queries.MovieQuery()).Data;
+                ViewBag.Movies = getMovies.Execute(new MovieQuery()).Data;
             }
             catch (Exception e)
             {
@@ -46,8 +59,11 @@ namespace WebMVC.Controllers
         {
             try
             {
-                ViewBag.Posters = getPosters.Execute(new Application.Queries.PosterQuery { MovieId = id }).Data;
-                ViewBag.Comments = getComments.Execute(new Application.Queries.CommentQuery { MovieId = id }).Data;
+                ViewBag.User = HttpContext.Session.Get<ShowUserDto>("User");
+                ViewBag.Actors = getActors.Execute(new ActorQuery { MovieId = id }).Data;
+                ViewBag.Projections = getProjections.Execute(new ProjectionQuery { MovieId = id, PerPage = 100 }).Data;
+                ViewBag.Posters = getPosters.Execute(new PosterQuery { MovieId = id }).Data;
+                ViewBag.Comments = getComments.Execute(new CommentQuery { MovieId = id }).Data;
                 return View(getMovie.Execute(id));
             }
             catch (Exception e)

@@ -26,6 +26,7 @@ namespace EfCommands.ProjectionEfCommands
             var query = Context.Projections
                 .Include(m => m.Movie)
                 .Include(h => h.Hall)
+                .OrderByDescending(x => x.DateBegin)
                 .AsQueryable();
 
             query = query.Where(p => p.IsDeleted == false);
@@ -35,6 +36,9 @@ namespace EfCommands.ProjectionEfCommands
 
             if (request.EndsBefore != null)
                 query = query.Where(p => p.DateEnd < request.EndsBefore);
+
+            if (request.MovieId > 0)
+                query = query.Where(p => p.MovieId == request.MovieId);
 
             var totalCount = query.Count();
 

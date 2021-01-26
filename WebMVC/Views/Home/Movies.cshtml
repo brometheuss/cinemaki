@@ -1,7 +1,11 @@
-﻿@model Application.DataTransfer.MovieDto
+﻿@using WebMVC.Session
+@using Application.DataTransfer
+@using Microsoft.AspNetCore.Http;
+@model Application.DataTransfer.MovieDto
 
 @{
     ViewData["Title"] = "Movies";
+    var user = Context.Session.Get<ShowUserDto>("User");
 }
 
 <!-- Page Content -->
@@ -17,15 +21,16 @@
 
             <!-- Author -->
             @*<p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
-        </p>*@
+                 by
+                 <a href="#">@user.Id</a>
+                 <a href="#">@user.Identity</a>
+            </p>*@
 
             <hr>
 
             <!-- Date/Time -->
             <p>Theater release: @Convert.ToDateTime(Model.DebutDate).ToString("dd-MMM yyyy")</p>
-            
+
 
             <hr>
             <div class="row">
@@ -62,32 +67,69 @@
             <hr />
             <div class="row">
                 <div class="col-md-5">
-                    Country: @Model.CountryName <br />
-                    Production: @Model.ProductionName <br />
+                    Country:<i><b> @Model.CountryName</b></i> <br />
+                    Production:<i><b> @Model.ProductionName</b></i> <br />
+                    Runtime:<i><b> @(Model.LengthMinutes)minutes</b></i><br />
+                    Box Office:<i><b> $@(Model.BoxOffice)M</b></i> <br />
                 </div>
-                <div class="col-md-4">
-                    Language(s):  
+                <div class="col-md-5">
+                    Language(s):
                     @foreach (var l in Model.LanguagesInfo)
                     {
-                        @l.LanguageName <br />
+                        <i><b>@l.LanguageName </b></i> <br />
                     }
-                    Written by <br/>
-                    @foreach(var wr in Model.WritersInfo)
+                    Written by <br />
+                    @foreach (var wr in Model.WritersInfo)
                     {
-                        @wr.Name <br/>
+                        <i><b> @wr.Name</b></i> <br />
+                    }
+                    Starring:
+                    @foreach (var a in ViewBag.Actors)
+                    {
+                        <i><b><a href="https://www.imdb.com/name/@a.Link">@a.FirstName @a.LastName</a></b></i>
                     }
                 </div>
             </div>
-            
-            
+            <hr />
+
+            @if (Context.Session.GetString("User") != null)
+            {
+                <div class="row">
+                    <div class="list-group col-md-8">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                            Projections
+                        </a>
+                        @foreach (var pr in ViewBag.Projections)
+                        {
+                            <a href="/Account/ShowSeats/@pr.Id" class="list-group-item list-group-item-action">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm") - Make a reservation</a>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="list-group col-md-8">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                            Projections
+                        </a>
+                        @foreach (var pr in ViewBag.Projections)
+                        {
+                            <a href="#" class="list-group-item list-group-item-action disabled">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm") - Login to make a reservation</a>
+                        }
+                    </div>
+                </div>
+            }
+
+
 
             @*<blockquote class="blockquote">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer">
-                Someone famous in
-                <cite title="Source Title">Source Title</cite>
-            </footer>
-        </blockquote>*@
+                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                    <footer class="blockquote-footer">
+                        Someone famous in
+                        <cite title="Source Title">Source Title</cite>
+                    </footer>
+                </blockquote>*@
 
             <hr>
 
@@ -95,60 +137,77 @@
             <div class="card my-4">
                 @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
                 {
+                    @if (user != null)
+                    {
+                        @Html.Hidden("MovieId", Model.Id)
+                        @Html.Hidden("UserId", user.Id)
+                    }
+
                     <h5 class="card-header">Leave a Comment:</h5>
                     <div class="card-body">
-                        <form>
-                            <div class="form-group">
-                                <span><i class="far fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                                <span><i class="far fa-star"></i></span>
-                                <textarea asp-for="" class="form-control" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </form>
+
+                            <p>Your rating:</p>
+                            <span class="rating">
+                                <input id="rating5" type="radio" name="rating" value="5">
+                                <label for="rating5">5</label>
+                                <input id="rating4" type="radio" name="rating" value="4">
+                                <label for="rating4">4</label>
+                                <input id="rating3" type="radio" name="rating" value="3">
+                                <label for="rating3">3</label>
+                                <input id="rating2" type="radio" name="rating" value="2">
+                                <label for="rating2">2</label>
+                                <input id="rating1" type="radio" name="rating" value="1">
+                                <label for="rating1">1</label>
+                                <input id="rating0" type="radio" name="rating" value="0"hidden checked>
+                                <label for="rating0">0</label>
+                            </span>
+                            <hr/>
+                            <textarea name="text" class="form-control" rows="3"></textarea>
+                        
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
                     </div>
                 }
             </div>
 
             <!-- Single Comment -->
             @foreach (var c in ViewBag.Comments)
-                    {
+            {
                 <div class="media mb-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
-                        <h5 class="mt-0">@c.Username</h5>
+                        <h5 class="mt-0">@c.UserName</h5>
                         @c.Text
                     </div>
+                    <i>Posted: <br/>@Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
                 </div>
             }
 
             <!-- Comment with nested comments -->
             @*<div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">Commenter Name</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-                <div class="media mt-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         <h5 class="mt-0">Commenter Name</h5>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
 
-                <div class="media mt-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">Commenter Name</h5>
-                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                    </div>
-                </div>
+                        <div class="media mt-4">
+                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0">Commenter Name</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            </div>
+                        </div>
 
-            </div>
-        </div>*@
+                        <div class="media mt-4">
+                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                            <div class="media-body">
+                                <h5 class="mt-0">Commenter Name</h5>
+                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>*@
 
         </div>
 
@@ -169,14 +228,17 @@
             </div>
 
             <!-- Categories Widget -->
-
             <!-- Side Widget -->
-            <div class="card my-4">
-                <h5 class="card-header">Side Widget</h5>
-                <div class="card-body">
-                    You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+            @foreach (var pr in ViewBag.Projections)
+            {
+                <div class="card my-4">
+                    <h5 class="card-header">@pr.HallName</h5>
+                    <div class="card-body">
+                        Begins: @Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm") <br />
+                        Ends: @Convert.ToDateTime(pr.DateEnd).ToString("dd-MMMM HH:mm")
+                    </div>
                 </div>
-            </div>
+            }
 
         </div>
 
