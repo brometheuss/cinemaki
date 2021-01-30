@@ -1,13 +1,19 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
 @{
-    ViewData["Title"] = "ShowReservations";
+    ViewData["Title"] = "Make your reservation";
 }
 
 
 <div class="container">
-    <div class="row">
-        <h1>@ViewBag.Projection.HallName</h1><br/>
-        <h2>Occupancy: @(ViewBag.Projection.HallOccupancy)seats</h2>
-        <hr/>
-    </div>
+    <h2>@ViewBag.Projection.HallName </h2>
+    <p> Occupancy: @(ViewBag.Projection.HallOccupancy) seats</p>
+    <hr />
+    @foreach (var x in ViewBag.Seats)
+    {
+        <label class="checkbox-label">
+            @(x.Name)@(x.Number)
+            <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" />
+            <span class="glyphicon glyphicon-unchecked"></span>
+        </label>
+    }
 </div>

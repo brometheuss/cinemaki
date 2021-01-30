@@ -16,6 +16,7 @@ using Application.ICommands.ReservationCommands;
 using Microsoft.AspNetCore.Http;
 using Application.DataTransfer;
 using WebMVC.Session;
+using Application.ICommands.IHelperCommands;
 
 namespace WebMVC.Controllers
 {
@@ -29,8 +30,9 @@ namespace WebMVC.Controllers
         private readonly IGetProjectionsCommand getProjections;
         private readonly IGetActorsCommand getActors;
         private readonly IGetReservationsCommand getReservations;
+        private readonly IAutoAddSeatValuesCommand autoAdd;
 
-        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations)
+        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations, IAutoAddSeatValuesCommand autoAdd)
         {
             _logger = logger;
             this.getMovies = getMovies;
@@ -40,6 +42,7 @@ namespace WebMVC.Controllers
             this.getProjections = getProjections;
             this.getActors = getActors;
             this.getReservations = getReservations;
+            this.autoAdd = autoAdd;
         }
 
         public ActionResult Index()
@@ -72,6 +75,20 @@ namespace WebMVC.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
+
+        //public IActionResult AddSeatValues()
+        //{
+        //    try
+        //    {
+        //        int i = 999;
+        //        autoAdd.Execute(i);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        TempData["error"] = e.Message;
+        //    }
+        //    return RedirectToAction("Index", "Home");
+        //}
 
         public IActionResult Privacy()
         {

@@ -11,6 +11,7 @@ using Application.ICommands.CommentCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
 using Application.ICommands.HallCommands;
+using Application.ICommands.IHelperCommands;
 using Application.ICommands.LanguageCommands;
 using Application.ICommands.LogCommands;
 using Application.ICommands.MovieCommands;
@@ -20,6 +21,7 @@ using Application.ICommands.ProjectionCommands;
 using Application.ICommands.RatedCommands;
 using Application.ICommands.ReservationCommands;
 using Application.ICommands.RoleCommands;
+using Application.ICommands.SeatCommands;
 using Application.ICommands.UserCommands;
 using Application.ICommands.WriterCommands;
 using Application.Interfaces;
@@ -29,6 +31,7 @@ using EfCommands.CommentEfCommands;
 using EfCommands.CountryEfCommands;
 using EfCommands.GenreEfCommands;
 using EfCommands.HallEfCommands;
+using EfCommands.HelperCommands;
 using EfCommands.LanguageEfCommands;
 using EfCommands.LogEfCommands;
 using EfCommands.MovieEfCommands;
@@ -38,6 +41,7 @@ using EfCommands.ProjectionEfCommands;
 using EfCommands.RatedEfCommands;
 using EfCommands.ReservationEfCommands;
 using EfCommands.RoleEfCommands;
+using EfCommands.SeatEfCommands;
 using EfCommands.UserEfCommands;
 using EfCommands.WriterEfCommand;
 using EfDataAccess;
@@ -71,7 +75,9 @@ namespace WebMVC
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(15);
             });
-            
+
+            //HelperController
+            services.AddTransient<IAutoAddSeatValuesCommand, EfAutoAddSeatValuesCommand>();
 
             //UsersController
             services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();
@@ -162,6 +168,13 @@ namespace WebMVC
             services.AddTransient<IAddHallCommand, EfAddHallCommand>();
             services.AddTransient<IEditHallCommand, EfEditHallCommand>();
             services.AddTransient<IDeleteHallCommand, EfDeleteHallCommand>();
+
+            //SeatsController
+            services.AddTransient<IGetSeatsCommand, EfGetSeatsCommand>();
+            services.AddTransient<IGetSeatCommand, EfGetSeatCommand>();
+            services.AddTransient<IAddSeatCommand, EfAddSeatCommand>();
+            services.AddTransient<IEditSeatCommand, EfEditSeatCommand>();
+            services.AddTransient<IDeleteSeatCommand, EfDeleteSeatCommand>();
 
             //PostersController
             services.AddTransient<IGetPostersCommand, EfGetPostersCommand>();

@@ -23,6 +23,7 @@ namespace EfCommands.SeatEfCommands
         public SeatDto Execute(int request)
         {
             var seat = Context.Seats
+                .Where(s => s.Id == request)
                 .Include(h => h.Hall)
                 .FirstOrDefault();
 

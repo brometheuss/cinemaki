@@ -112,6 +112,8 @@ namespace WebMVC.Controllers
         {
             try
             {
+                ViewBag.Halls = getHalls.Execute(new HallQuery { PerPage = 100 }).Data;
+                ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
                 return View(executor.ExecuteQuery(getProjection, id));
             }
             catch (Exception e)

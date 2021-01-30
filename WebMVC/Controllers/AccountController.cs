@@ -4,8 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
 using Application.ICommands;
+using Application.ICommands.HallCommands;
 using Application.ICommands.ProjectionCommands;
 using Application.ICommands.ReservationCommands;
+using Application.ICommands.SeatCommands;
+using Application.ICommands.UserCommands;
 using Application.Queries;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +22,19 @@ namespace WebMVC.Controllers
         private readonly IGetProjectionsCommand getProjections;
         private readonly IGetProjectionCommand getProjection;
         private readonly IGetReservationsCommand getReservations;
+        private readonly IGetHallsCommand getHalls;
+        private readonly IGetSeatsCommand getSeats;
+        private readonly IGetUserCommand getUser;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
             this.getReservations = getReservations;
             this.getProjection = getProjection;
+            this.getHalls = getHalls;
+            this.getSeats = getSeats;
+            this.getUser = getUser;
         }
 
         public IActionResult Index()
@@ -77,11 +86,26 @@ namespace WebMVC.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ShowSeats(int id)
+        public IActionResult MyProfile(int id)
         {
             try
             {
-                ViewBag.Projection = getProjection.Execute(id);
+                return View(getUser.Execute(id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult ShowSeats(int projection, int hall)
+        {
+            try
+            {
+                ViewBag.Projection = getProjection.Execute(projection);
+                ViewBag.Halls = getHalls.Execute(new HallQuery { Id = hall }).Data;
+                ViewBag.Seats = getSeats.Execute(new SeatQuery { HallId = hall, PerPage = 1000 }).Data;
                 return View();
             }
             catch (Exception e)

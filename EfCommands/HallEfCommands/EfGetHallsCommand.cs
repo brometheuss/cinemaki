@@ -3,6 +3,7 @@ using Application.ICommands.HallCommands;
 using Application.Queries;
 using Application.Responses;
 using EfDataAccess;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace EfCommands.HallEfCommands
         public PagedResponse<HallDto> Execute(HallQuery request)
         {
             var query = Context.Halls
+                .Include(s => s.Seats)
                 .AsQueryable();
 
             query = query.Where(h => h.IsDeleted == false);
@@ -35,6 +37,9 @@ namespace EfCommands.HallEfCommands
 
             if (request.MinimumOccupancy > 0)
                 query = query.Where(h => h.MaximumOccupancy > request.MinimumOccupancy);
+
+            if (request.Id > 0)
+                query = query.Where(h => h.Id == request.Id);
 
             var totalCount = query.Count();
 
@@ -51,7 +56,16 @@ namespace EfCommands.HallEfCommands
                 {
                     Id = h.Id,
                     Name = h.Name,
-                    MaximumOccupancy = h.MaximumOccupancy
+                    MaximumOccupancy = h.MaximumOccupancy,
+                    SeatsInfo = h.Seats.Select(s => new SeatDto
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Number = s.Number,
+                        IsBroken = s.IsBroken,
+                        HallId = s.HallId,
+                        HallName = s.Hall.Name
+                    }).ToList()
                 })
             };
         }

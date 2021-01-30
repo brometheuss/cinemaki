@@ -94,17 +94,27 @@
 
             @if (Context.Session.GetString("User") != null)
             {
-                <div class="row">
-                    <div class="list-group col-md-8">
-                        <a href="#" class="list-group-item list-group-item-action active">
-                            Projections
-                        </a>
-                        @foreach (var pr in ViewBag.Projections)
-                        {
-                            <a href="/Account/ShowSeats/@pr.Id" class="list-group-item list-group-item-action">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm") - Make a reservation</a>
-                        }
+        <div class="row">
+            <div class="list-group col-md-8">
+                <a href="#" class="list-group-item list-group-item-action active">
+                    Projections
+                </a>
+                @foreach (var pr in ViewBag.Projections)
+                {
+                    @using (Html.BeginForm("ShowSeats", "Account", FormMethod.Get, new { @class="list-group-item list-group-item-action"}))
+                    {
+                    <div class="row">
+                        <div class="list-group col-md-10">
+                            <a href="#" class="list-group-item list-group-item-action tryit">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm")</a>
+                            <button type="submit" class="list-group-item list-group-item-action tryit">Make a reservation</button>
+                            <input type="hidden" name="projection" value="@pr.Id" />
+                            <input type="hidden" name="hall" value="@pr.HallId" />
+                        </div>
                     </div>
+                    }
+                }
                 </div>
+        </div>
             }
             else
             {
