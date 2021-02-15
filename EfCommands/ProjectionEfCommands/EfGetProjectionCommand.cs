@@ -23,6 +23,7 @@ namespace EfCommands.ProjectionEfCommands
         public ProjectionDto Execute(int request)
         {
             var projection = Context.Projections
+                .Where(p => p.Id == request)
                 .Include(h => h.Hall)
                 .ThenInclude(s => s.Seats)
                 .Include(m => m.Movie)

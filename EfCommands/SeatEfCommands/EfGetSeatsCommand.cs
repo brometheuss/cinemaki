@@ -24,6 +24,8 @@ namespace EfCommands.SeatEfCommands
         public PagedResponse<SeatDto> Execute(SeatQuery request)
         {
             var query = Context.Seats
+                .OrderBy(s => s.Name)
+                .ThenBy(s => s.Number)
                 .Include(h => h.Hall)
                 .AsQueryable();
 

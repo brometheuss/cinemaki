@@ -22,11 +22,12 @@ namespace WebMVC.Controllers
         private readonly IGetProjectionsCommand getProjections;
         private readonly IGetProjectionCommand getProjection;
         private readonly IGetReservationsCommand getReservations;
+        private readonly IAddReservationCommand addReservation;
         private readonly IGetHallsCommand getHalls;
         private readonly IGetSeatsCommand getSeats;
         private readonly IGetUserCommand getUser;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -35,6 +36,7 @@ namespace WebMVC.Controllers
             this.getHalls = getHalls;
             this.getSeats = getSeats;
             this.getUser = getUser;
+            this.addReservation = addReservation;
         }
 
         public IActionResult Index()
@@ -90,6 +92,11 @@ namespace WebMVC.Controllers
         {
             try
             {
+                if(HttpContext.Session.Get<ShowUserDto>("User") == null)
+                {
+                    return RedirectToAction("Index");
+                }
+                ViewBag.Reservations = getReservations.Execute(new ReservationQuery { UserId = id, EndTime = DateTime.Now, PerPage = 50 }).Data;
                 return View(getUser.Execute(id));
             }
             catch (Exception e)
@@ -113,6 +120,20 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult MakeReservation(ReservationDto dto, int userid)
+        {
+            try
+            {
+                addReservation.Execute(dto);
+                return RedirectToAction("MyProfile", new { userid } );
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("Index", "Home"); 
         }
 
         public IActionResult MyReservations(int id)

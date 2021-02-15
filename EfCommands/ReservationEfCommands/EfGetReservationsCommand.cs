@@ -19,7 +19,7 @@ namespace EfCommands.ReservationEfCommands
 
         public int Id => 59;
 
-        public string Name => "Get Reservation using EntityFramework";
+        public string Name => "Get Reservations using EntityFramework";
 
         public PagedResponse<ReservationDto> Execute(ReservationQuery request)
         {
@@ -34,11 +34,22 @@ namespace EfCommands.ReservationEfCommands
 
             query = query.Where(x => x.IsDeleted == false);
 
+            query = query.Where(x => x.Projection.DateEnd > DateTime.Now);
+
+            if (request.StartTime != null)
+                query = query.Where(x => x.Projection.DateBegin > request.StartTime);
+
             if (request.ProjectionId != 0)
                 query = query.Where(x => x.ProjectionId == request.ProjectionId);
 
             if (request.HallId != 0)
                 query = query.Where(x => x.ReservationSeats.Any(s => s.Seat.HallId == request.HallId));
+
+            if (request.UserId != 0)
+                query = query.Where(x => x.UserId == request.UserId);
+
+            if (request.MovieId != 0)
+                query = query.Where(x => x.Projection.MovieId == request.MovieId);
 
             var totalCount = query.Count();
 
@@ -67,7 +78,9 @@ namespace EfCommands.ReservationEfCommands
                         SeatBroken = s.Seat.IsBroken,
                         SeatHallId = s.Seat.HallId,
                         SeatName = s.Seat.Name  
-                    })
+                    }),
+                    ProjectionBegin = x.Projection.DateBegin,
+                    ProjectionEnd = x.Projection.DateEnd
                 })
             };
         }

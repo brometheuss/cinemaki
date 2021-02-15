@@ -1,19 +1,31 @@
-﻿@using Microsoft.AspNetCore.Http;
+﻿@using WebMVC.Session;
+@using Application.DataTransfer;
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Make your reservation";
+    var user = Context.Session.Get<ShowUserDto>("User");
 }
 
 
-<div class="container">
-    <h2>@ViewBag.Projection.HallName </h2>
-    <p> Occupancy: @(ViewBag.Projection.HallOccupancy) seats</p>
-    <hr />
-    @foreach (var x in ViewBag.Seats)
-    {
-        <label class="checkbox-label">
-            @(x.Name)@(x.Number)
-            <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" />
-            <span class="glyphicon glyphicon-unchecked"></span>
-        </label>
-    }
-</div>
+    <div class="container">
+        <h2>@ViewBag.Projection.HallName </h2>
+        <p> Occupancy: @(ViewBag.Projection.HallOccupancy) seats</p>
+        <hr />
+        @using (Html.BeginForm("MakeReservation", "Account", FormMethod.Post))
+        {
+            @Html.Hidden("UserId", user.Id)
+            <input type="hidden" name="projectionid" value="@ViewBag.Projection.Id" />
+            @foreach (var x in ViewBag.Seats)
+            {
+                <label class="checkbox-label">
+                    @(x.Name)@(x.Number)
+                    <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" />
+                    <span class="glyphicon glyphicon-unchecked"></span>
+                </label>
+            }
+            <button type="submit" class="form-control btn btn-lg btn-info" >
+                Make reservation
+            </button>
+        }
+
+    </div>

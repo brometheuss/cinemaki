@@ -1,61 +1,100 @@
-﻿@model Application.DataTransfer.ShowUserDto
+﻿@using WebMVC.Session;
+@using Application.DataTransfer;
+@using Microsoft.AspNetCore.Http;
+@model Application.DataTransfer.ShowUserDto
 
 @{
     ViewData["Title"] = "MyProfile";
+    var user = Context.Session.Get<ShowUserDto>("User");
+
 }
 
 <h1>My Profile</h1>
 
-<div>
+<div class="container">
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoleName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoleName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.RoleId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.RoleId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Identity)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Identity)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-lg-4">
+            @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+            {
+                <table>
+                    @Html.Hidden("UserId", user.Id)
+                    <tr class="col-sm-2 col-md-4">
+                        <td>
+                            @Html.DisplayNameFor(model => model.FirstName)
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="FirstName" value="@user.FirstName" />
+                        </td>
+                    </tr>
+                    <tr class="col-sm-2 col-md-4">
+                        <td>
+                            @Html.DisplayNameFor(model => model.LastName)
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="LastName" value="@user.LastName" />
+                        </td>
+                    </tr>
+                    <tr class="col-sm-2">
+                        <td>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="Email" value="@user.Email" />
+                        </td>
+                    </tr>
+                    @if (user.RoleId == 2)
+                    {
+                        <tr class="col-sm-2">
+                            <td>
+                                @Html.DisplayNameFor(model => model.RoleName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => model.RoleName)
+                            </td>
+                        </tr>
+                        <tr class="col-sm-2">
+                            <td>
+                                @Html.DisplayNameFor(model => model.RoleId)
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="RoleId" value="@user.RoleId" />
+                            </td>
+                        </tr>
+                    }
+                    <tr class="col-sm-2">
+                        <td>
+                            @Html.DisplayNameFor(model => model.Password)
+                        </td>
+                        <td>
+                            <input type="password" class="form-control" name="Password" value="@user.Password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Confirm your password</td>
+                        <td>
+                            <input type="password" class="form-control" />
+                        </td>
+                    </tr>
+                </table><hr />
+                <button type="submit" class="btn-block btn-lg btn-info">Update profile</button>
+            }
+        </div>
+        <div class="col-lg-7">
+            <h3>Active reservations:</h3>
+            @foreach(var r in ViewBag.Reservations)
+            {
+                <div class="alert alert-info" role="alert">
+                    <h4>@r.MovieName - @Convert.ToDateTime(r.ProjectionBegin).ToString("dd-MMM yy. HH:mm")</h4>
+                    <p>Seats: 
+                        @foreach(var s in r.SeatsInfo)
+                        {
+                            @(s.SeatName)@Html.Raw("-")@(s.SeatNumber)@Html.Raw(", ")
+                        }
+                    </p>
+                    <hr/>
+                </div>
+            }
+        </div>
+    </div>
 </div>

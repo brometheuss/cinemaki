@@ -38,7 +38,8 @@ namespace EfCommands.UserEfCommands
                 Email = user.Email,
                 Username = user.Username,
                 Password = user.Password,
-                RoleName = user.Role.Name
+                RoleName = user.Role.Name,
+                RoleId = user.Role.Id
             };
         }
     }
