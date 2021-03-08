@@ -17,13 +17,24 @@
             <input type="hidden" name="projectionid" value="@ViewBag.Projection.Id" />
             @foreach (var x in ViewBag.Seats)
             {
-                <label class="checkbox-label">
+                @foreach (var t in ViewBag.Taken)
+                {
+                    if (x.Id == t.Id)
+                    {
+                        <label class="checkbox-label myPad" for="@x.Id">
+                            @(x.Name)@(x.Number)
+                            <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" disabled />
+                            <span class="fa fa-check"></span>
+                        </label>
+                    }
+                }
+                <label class="checkbox-label myPad" for="@x.Id">
                     @(x.Name)@(x.Number)
                     <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" />
-                    <span class="glyphicon glyphicon-unchecked"></span>
+                    <span class="fa fa-check"></span>
                 </label>
             }
-            <button type="submit" class="form-control btn btn-lg btn-info" >
+            <button type="submit" class="form-control btn btn-lg btn-info">
                 Make reservation
             </button>
         }

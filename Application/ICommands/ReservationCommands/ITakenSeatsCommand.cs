@@ -1,11 +1,12 @@
-﻿using Application.Interfaces;
+﻿using Application.DataTransfer;
+using Application.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Application.ICommands.ReservationCommands
 {
-    //public interface ITakenSeatsCommand : ICommand<>
-    //{
-    //}
+    public interface ITakenSeatsCommand : IQuery<int, IEnumerable<SeatDto>>
+    {
+    }
 }

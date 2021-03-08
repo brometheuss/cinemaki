@@ -26,8 +26,9 @@ namespace WebMVC.Controllers
         private readonly IGetHallsCommand getHalls;
         private readonly IGetSeatsCommand getSeats;
         private readonly IGetUserCommand getUser;
+        private readonly ITakenSeatsCommand takenSeats;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -37,6 +38,7 @@ namespace WebMVC.Controllers
             this.getSeats = getSeats;
             this.getUser = getUser;
             this.addReservation = addReservation;
+            this.takenSeats = takenSeats;
         }
 
         public IActionResult Index()
@@ -110,9 +112,11 @@ namespace WebMVC.Controllers
         {
             try
             {
+                ViewBag.Taken = takenSeats.Execute(projection);
                 ViewBag.Projection = getProjection.Execute(projection);
                 ViewBag.Halls = getHalls.Execute(new HallQuery { Id = hall }).Data;
                 ViewBag.Seats = getSeats.Execute(new SeatQuery { HallId = hall, PerPage = 1000 }).Data;
+                ViewBag.Taken = takenSeats.Execute(projection);
                 return View();
             }
             catch (Exception e)
@@ -127,7 +131,7 @@ namespace WebMVC.Controllers
             try
             {
                 addReservation.Execute(dto);
-                return RedirectToAction("MyProfile", new { userid } );
+                return RedirectToAction("MyProfile", new { userid });
             }
             catch (Exception e)
             {

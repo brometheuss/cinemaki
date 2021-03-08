@@ -78,6 +78,7 @@ namespace WebMVC
 
             //HelperController
             services.AddTransient<IAutoAddSeatValuesCommand, EfAutoAddSeatValuesCommand>();
+            services.AddTransient<ITakenSeatsCommand, EfTakenSeatsCommand>();
 
             //UsersController
             services.AddTransient<IGetUsersCommand, EfGetUsersCommand>();
