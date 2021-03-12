@@ -22,27 +22,37 @@ namespace EfCommands.ReservationEfCommands
 
         public IEnumerable<SeatDto> Execute(int request)
         {
-            var reservation = Context.Reservations
+            var reservations = Context.Reservations
                 .Include(rs => rs.ReservationSeats)
                 .ThenInclude(s => s.Seat)
                 .ThenInclude(s => s.Hall)
-                .FirstOrDefault(r => r.ProjectionId == request);
+                .Where(r => r.ProjectionId == request);
 
-            if(reservation == null)
+            if(reservations == null)
             {
                 throw new EntityNotFoundException("Reservation");
             }
 
-            return reservation.ReservationSeats.Select(x => new SeatDto
+            List<SeatDto> seatList = new List<SeatDto>();
+
+            foreach(var reservation in reservations)
             {
-                Id = x.SeatId,
-                Name = x.Seat.Name,
-                Number = x.Seat.Number,
-                IsBroken = x.Seat.IsBroken,
-                HallId = x.Seat.HallId,
-                HallName = x.Seat.Hall.Name
-            });
-            
+                var seats = reservation.ReservationSeats.Select(s => new SeatDto
+                {
+                    Id = s.SeatId,
+                    Name = s.Seat.Name,
+                    Number = s.Seat.Number,
+                    IsBroken = s.Seat.IsBroken,
+                    HallId = s.Seat.HallId,
+                    HallName = s.Seat.Hall.Name
+                });
+                foreach(var seat in seats)
+                {
+                    seatList.Add(seat);
+                }
+            }
+
+            return seatList;
         }
     }
 }
