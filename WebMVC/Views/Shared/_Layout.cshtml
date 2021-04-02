@@ -52,12 +52,23 @@
                     {
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Actions
+                                Admin Actions
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="@Url.Action("Index", "Users")">Users</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Roles")">Roles</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Movies")">Movies</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Genres")">Genres</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Reservations")">Reservations</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Projections")">Projections</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Halls")">Halls</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Seats")">Seats</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Actors")">Actors</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Countries")">Countries</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Comments")">Comments</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Languages")">Languages</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Writers")">Writers</a>
+                                <a class="dropdown-item" href="@Url.Action("Index", "Posters")">Posters</a>
                             </div>
                         </div>
                     }
@@ -73,7 +84,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - WebMVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - Cinemaki - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

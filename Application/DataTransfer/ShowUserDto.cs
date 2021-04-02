@@ -31,6 +31,8 @@ namespace Application.DataTransfer
         public int RoleId { get; set; }
         [Required]
         public string Password { get; set; }
+        [Required]
+        public string ConfirmPassword { get; set; }
         public List<int> Cases { get; set; }
 
         public string Identity => Username;
