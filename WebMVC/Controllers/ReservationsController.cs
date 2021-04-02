@@ -46,6 +46,9 @@ namespace WebMVC.Controllers
         {
             try
             {
+                ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
+                ViewBag.Halls = getHalls.Execute(new HallQuery { PerPage = 1000 }).Data;
+                ViewBag.Projections = getProjections.Execute(new ProjectionQuery { PerPage = 1000 }).Data;
                 return View(getReservations.Execute(query));
             }
             catch (Exception e)

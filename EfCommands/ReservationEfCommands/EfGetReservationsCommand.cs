@@ -48,6 +48,9 @@ namespace EfCommands.ReservationEfCommands
             if (request.UserId != 0)
                 query = query.Where(x => x.UserId == request.UserId);
 
+            if (request.Username != null)
+                query = query.Where(x => x.User.Username.ToLower().Contains(request.Username.ToLower()));
+
             if (request.MovieId != 0)
                 query = query.Where(x => x.Projection.MovieId == request.MovieId);
 

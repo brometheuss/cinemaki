@@ -10,6 +10,7 @@ namespace Application.Queries
         public int HallId { get; set; }
         public int ProjectionId { get; set; }
         public int UserId { get; set; }
+        public string Username { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
     }

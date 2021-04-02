@@ -7,6 +7,12 @@
 }
 
 <h1>Genres</h1>
+@using(Html.BeginForm("Index", "Genres", FormMethod.Get))
+{
+    <input type="text" name="name" id="name" class="form-control" placeholder="Genre" />
+    <br/>
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
 
 @if (TempData["error"] != null)
 {
