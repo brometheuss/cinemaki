@@ -7,19 +7,42 @@
     ViewData["Action"] = "Index";
 }
 
-@if(TempData["success"] != null)
+@if (TempData["success"] != null)
 {
     <p class="text-success">@TempData["success"]</p>
 }
 
-@*@if (Context.Session.GetString("User") != null)
-{
-    <p>Postoji neka sesija</p>
-}*@
-
 @if (TempData["error"] != null)
 {
     <p class="text-danger">@TempData["error"]</p>
+}
+@using (Html.BeginForm("Index", "Movies", FormMethod.Get))
+{
+<div class="row">
+    <input type="text" name="title" id="title" class="form-control col-sm-2" placeholder="Movie title" />
+    <input type="text" name="description" id="description" class="form-control col-sm-6" placeholder="Movie Description" />
+    <input type="text" name="lengthminutes" id="lengthminutes" class="form-control col-sm-2" placeholder="Length in minutes" />
+    <input type="text" name="is3d" id="is3d" class="form-control col-sm-2" placeholder="Is it in 3D?" />
+</div><br/>
+<div class="row">
+    <span class="col-sm-2">Theatre release after:</span>
+    <span class="col-sm-3">Theatre release before:</span>
+</div>
+<div class="row">
+    <label for="debutdate"></label>
+    <input type="date" name="debutdate" id="debutdate" class="form-control col-sm-2" placeholder="Debut date" />
+    
+    <label for="enddate"></label>
+    <input type="date" name="enddate" id="enddate" class="form-control col-sm-2" placeholder="End date" />
+</div><br/>
+      <div class="row">
+          <input type="text" name="boxoffice" id="boxoffice" class="form-control col-sm-2" placeholder="Budget bigger than" />
+          <input type="text" name="boxofficesmallerthan " id="boxofficesmallerthan" class="form-control col-sm-2" placeholder="Budget lower than" />
+      </div>
+
+
+    <br />
+    <button type="submit" class="form-control btn btn-primary">Search</button>
 }
 
 <p>
@@ -59,10 +82,10 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @item.DebutDate.ToShortDateString()
+                    @item.DebutDate.ToString("dd-MMMM yyyy")
                 </td>
                 <td>
-                    @item.EndDate.ToShortDateString()
+                    @item.EndDate.ToString("dd-MMMM yyyy")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CountryName)

@@ -38,6 +38,27 @@ namespace EfCommands.MovieEfCommands
             if (request.Title != null)
                 query = query.Where(m => m.Title.ToLower().Contains(request.Title.ToLower()));
 
+            if (request.Description != null)
+                query = query.Where(m => m.Description.ToLower().Contains(request.Description.ToLower()));
+
+            if (request.LengthMinutes > 0)
+                query = query.Where(m => m.LengthMinutes == request.LengthMinutes);
+
+            if (request.Is3D != null)
+                query = query.Where(m => m.Is3D == request.Is3D);
+
+            if (request.BoxOffice >= 0)
+                query = query.Where(m => m.BoxOffice > request.BoxOffice);
+
+            if (request.BoxOfficeSmallerThan > 0)
+                query = query.Where(m => m.BoxOffice < request.BoxOfficeSmallerThan);
+
+            if (request.DebutDate != null)
+                query = query.Where(m => m.DebutDate > request.DebutDate);
+
+            if (request.EndDate != null)
+                query = query.Where(m => m.EndDate < request.EndDate);
+
             var totalCount = query.Count();
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);

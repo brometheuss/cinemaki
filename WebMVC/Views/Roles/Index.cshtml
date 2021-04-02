@@ -7,6 +7,13 @@
 }
 
 <h1>Roles</h1>
+@using (Html.BeginForm("Index", "Roles", FormMethod.Get))
+{
+    <input type="text" name="name" id="name" class="form-control col-sm-2" placeholder="Role name" />
+    
+    <br />
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
 
 @if (TempData["error"] != null)
 {
