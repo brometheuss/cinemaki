@@ -12,6 +12,13 @@
 {
     <p class="text-danger">@TempData["error"]</p>
 }
+@using(Html.BeginForm("Index", "Countries", FormMethod.Get))
+{
+    <div class="row">
+        <input type="text" name="name" id="name" class="form-control col-sm-2" placeholder="Country name" />
+    </div><br/>
+    <button type="submit" class="form-control">Search</button>
+}
 
 <p>
     <a asp-action="Create">Add new Country</a>

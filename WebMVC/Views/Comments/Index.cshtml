@@ -4,7 +4,30 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Comments</h1>
+@if (TempData["error"] != null)
+{
+    <p class="text-danger">@TempData["error"]</p>
+}
+
+@using(Html.BeginForm("Index", "Comments", FormMethod.Get))
+{
+    <div class="row">
+        <input type="text" name="text" id="text" class="form-control col-sm-8" placeholder="Comment text" />
+    </div><br/>
+    <div class="row">
+        <input type="text" name="username" id="username" class="form-control col-sm-2" placeholder="Username" />
+        <input type="text" name="userid" id="userid" class="form-control col-sm-2" placeholder="User id" />
+        <input type="text" name="moviename" id="moviename" class="form-control col-sm-2" placeholder="Movie name" />
+        <input type="text" name="movieid" id="movieid" class="form-control col-sm-2" placeholder="Movie id" />
+    </div><br/>
+    <div class="row">
+        <input type="text" name="biggerthan" id="biggerthan" class="form-control col-sm-3" placeholder="Rating bigger than" />
+        <input type="text" name="rating" id="rating" class="form-control col-sm-2" placeholder="Rating equal to" />
+        <input type="text" name="lessthan" id="lessthan" class="form-control col-sm-3" placeholder="Rating less than than" />
+    </div><br/>
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -22,13 +45,7 @@
                 Rating
             </th>
             <th>
-                UserId
-            </th>
-            <th>
                 Username
-            </th>
-            <th>
-                MovieId
             </th>
             <th>
                 MovieName
@@ -37,35 +54,30 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Data) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Text)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MovieName)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MovieName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

@@ -36,9 +36,23 @@ namespace EfCommands.CommentEfCommands
             if (request.Rating != 0)
                 query = query.Where(c => c.Rating == request.Rating);
 
+            if (request.BiggerThan != 0)
+                query = query.Where(c => c.Rating > request.BiggerThan);
+
+            if (request.LessThan != 0)
+                query = query.Where(c => c.Rating < request.LessThan);
+
             if (request.MovieId > 0)
                 query = query.Where(c => c.MovieId == request.MovieId);
 
+            if (request.MovieName != null)
+                query = query.Where(c => c.Movie.Title.ToLower().Contains(request.MovieName.ToLower()));
+
+            if (request.UserId > 0)
+                query = query.Where(c => c.UserId == request.UserId);
+
+            if (request.UserName != null)
+                query = query.Where(c => c.User.Username.ToLower().Contains(request.UserName.ToLower()));
 
             var totalCount = query.Count();
 

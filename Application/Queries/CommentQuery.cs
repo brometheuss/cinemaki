@@ -11,6 +11,7 @@ namespace Application.Queries
         public decimal BiggerThan { get; set; }
         public decimal LessThan { get; set; }
         public string UserName { get; set; }
+        public int UserId { get; set; }
         public string MovieName { get; set; }
         public int MovieId { get; set; }
     }

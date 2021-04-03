@@ -70,7 +70,8 @@ namespace WebMVC.Controllers
         {
             try
             {
-                //ViewBag.Users = getUsers.Execute(new UserQuery()).Data;
+                ViewBag.Users = getUsers.Execute(new UserQuery { PerPage = 100000 }).Data;
+                ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
                 return View();
             }
             catch (Exception e)
