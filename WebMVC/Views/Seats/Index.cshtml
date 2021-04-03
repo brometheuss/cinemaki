@@ -11,6 +11,19 @@
     <p class="text-danger">@TempData["error"]</p>
 }
 
+@using(Html.BeginForm("Index", "Seats", FormMethod.Get))
+{
+    <div class="row">
+        <input type="text" name="name" id="name" class="form-control col-sm-2" placeholder="Seat row letter"/>
+        <input type="text" name="number" id="number" class="form-control col-sm-2" placeholder="Seat number"/>
+        <input type="text" name="hallid" id="hallid" class="form-control col-sm-1 offset-sm-1" placeholder="Hall id"/>
+        <input type="text" name="hallname" id="hallname" class="form-control col-sm-2" placeholder="Hall name"/>
+        <label for="isbroken" class="form-control">Is it broken ?</label>
+        <input type="checkbox" name="isbroken" id="isbroken" class="form-control col-sm-1"/>
+    </div><br/>
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
+
 <p>
     <a asp-action="Create">Add new Seat</a>
 </p>

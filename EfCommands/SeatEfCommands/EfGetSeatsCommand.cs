@@ -37,8 +37,14 @@ namespace EfCommands.SeatEfCommands
             if (request.HallId > 0)
                 query = query.Where(s => s.HallId == request.HallId);
 
+            if (request.HallName != null)
+                query = query.Where(s => s.Hall.Name.ToLower().Contains(request.HallName.ToLower()));
+
             if (request.Number > 0)
                 query = query.Where(s => s.Number == request.Number);
+
+            if (request.IsBroken != null)
+                query = query.Where(s => s.IsBroken == request.IsBroken);
 
             var totalCount = query.Count();
 
