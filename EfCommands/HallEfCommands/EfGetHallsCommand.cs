@@ -29,6 +29,9 @@ namespace EfCommands.HallEfCommands
 
             query = query.Where(h => h.IsDeleted == false);
 
+            if (request.Id > 0)
+                query = query.Where(h => h.Id == request.Id);
+
             if (request.Name != null)
                 query = query.Where(h => h.Name.ToLower().Contains(request.Name.ToLower()));
 
