@@ -40,6 +40,12 @@ namespace EfCommands.ProjectionEfCommands
             if (request.MovieId > 0)
                 query = query.Where(p => p.MovieId == request.MovieId);
 
+            if (request.MovieName != null)
+                query = query.Where(x => x.Movie.Title.ToLower().Contains(request.MovieName.ToLower()));
+
+            if (request.HallName != null)
+                query = query.Where(x => x.Hall.Name.ToLower().Contains(request.HallName.ToLower()));
+
             var totalCount = query.Count();
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);

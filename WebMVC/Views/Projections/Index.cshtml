@@ -13,6 +13,24 @@
     <p class="text-danger">@TempData["error"]</p>
 }
 
+@using(Html.BeginForm("Index", "Projections", FormMethod.Get))
+{
+    <div class="row">
+        <span class="col-sm-3">Begins after:</span>
+        <span class="col-sm-3">Ends before:</span>
+    </div>
+    <div class="row">
+        <input type="date" name="beginsafter" id="beginsafter" class="form-control col-sm-3" />
+        <input type="date" name="endsbefore" id="endsbefore" class="form-control col-sm-3" />
+    </div><br/>
+    <div class="row">
+        <input type="text"name="movieid" id="movieid" class="form-control col-sm-2" placeholder="Movie id" />
+        <input type="text"name="moviename" id="moviename" class="form-control col-sm-3" placeholder="Movie name" />
+        <input type="text"name="hallname" id="hallname" class="form-control col-sm-3" placeholder="Hall name" />
+    </div><br/>
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
+
 <p>
     <a asp-action="Create">Add new Projection</a>
 </p>
