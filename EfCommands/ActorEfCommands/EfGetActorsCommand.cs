@@ -39,6 +39,9 @@ namespace EfCommands.ActorEfCommands
             if (request.MovieId > 0)
                 query = query.Where(a => a.MovieActors.Any(x => x.MovieId == request.MovieId));
 
+            if (request.MovieName != null)
+                query = query.Where(a => a.MovieActors.Any(x => x.Movie.Title.ToLower().Contains(request.MovieName.ToLower())));
+
             var totalCount = query.Count();
 
             query = query.Skip((request.PageNumber - 1) * request.PerPage).Take(request.PerPage);
