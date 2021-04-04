@@ -13,6 +13,14 @@
     <p class="text-danger">@TempData["error"]</p>
 }
 
+@using (Html.BeginForm("Index", "Writers", FormMethod.Get))
+{
+    <div class="row">
+        <input type="text" name="name" id="name" class="form-control col-sm-2" placeholder="Writer name" />
+    </div>
+    <button type="submit" class="form-control btn btn-primary">Search</button>
+}
+
 <p>
     <a asp-action="Create">Add new Writer</a>
 </p>
@@ -31,21 +39,22 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Data) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.Id}) |
-                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Data)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <partial name="_PaginationPartial" model="Model" view-data="ViewData" />
