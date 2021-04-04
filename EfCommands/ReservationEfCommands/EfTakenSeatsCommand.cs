@@ -20,13 +20,13 @@ namespace EfCommands.ReservationEfCommands
 
         public string Name => throw new NotImplementedException();
 
-        public IEnumerable<SeatDto> Execute(int request)
+        public IEnumerable<SeatDto> Execute(int projectionId)
         {
             var reservations = Context.Reservations
                 .Include(rs => rs.ReservationSeats)
                 .ThenInclude(s => s.Seat)
                 .ThenInclude(s => s.Hall)
-                .Where(r => r.ProjectionId == request);
+                .Where(r => r.ProjectionId == projectionId);
 
             if(reservations == null)
             {

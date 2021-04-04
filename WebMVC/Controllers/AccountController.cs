@@ -115,7 +115,7 @@ namespace WebMVC.Controllers
                 ViewBag.Taken = takenSeats.Execute(projection);
                 ViewBag.Projection = getProjection.Execute(projection);
                 ViewBag.Halls = getHalls.Execute(new HallQuery { Id = hall }).Data;
-                ViewBag.Seats = getSeats.Execute(new SeatQuery { HallId = hall, PerPage = 1000 }).Data;
+                ViewBag.Rows = getSeats.Execute(new SeatQuery { HallId = hall, PerPage = 1000 }).Data;
                 ViewBag.Taken = takenSeats.Execute(projection);
                 return View();
             }

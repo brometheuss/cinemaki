@@ -15,24 +15,28 @@
         {
             @Html.Hidden("UserId", user.Id)
             <input type="hidden" name="projectionid" value="@ViewBag.Projection.Id" />
-            @foreach (var x in ViewBag.Seats)
+            @foreach (var x in ViewBag.Rows)
             {
-                @foreach (var t in ViewBag.Taken)
+                <h3>@x.Name</h3>
+                @foreach (var s in x.Seats)
                 {
-                    if (x.Id == t.Id)
+                    @foreach (var t in ViewBag.Taken)
                     {
-                        <label class="checkbox-label myPad" for="@x.Id">
-                            @(x.Name)@(x.Number)
-                            <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" disabled />
-                            <span class="fa fa-check"></span>
-                        </label>
+                        if (s.Id == t.Id)
+                        {
+                            <label class="checkbox-label myPad" for="@s.Id">
+                                @(s.Name)@(s.Number)
+                                <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" disabled />
+                                <span class="far fa-ban"></span>
+                            </label>
+                        }
                     }
+                    <label class="checkbox-label myPad" for="@s.Id">
+                        @(s.Name)@(s.Number)
+                        <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" />
+                        <span class="fa fa-check"></span>
+                    </label>
                 }
-                <label class="checkbox-label myPad" for="@x.Id">
-                    @(x.Name)@(x.Number)
-                    <input type="checkbox" name="ReservationSeats[]" value="@x.Id" id="@x.Id" />
-                    <span class="fa fa-check"></span>
-                </label>
             }
             <button type="submit" class="form-control btn btn-lg btn-info">
                 Make reservation

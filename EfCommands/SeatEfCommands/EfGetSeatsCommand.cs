@@ -21,7 +21,7 @@ namespace EfCommands.SeatEfCommands
 
         public string Name => "Get Seats using EntityFramework";
 
-        public PagedResponse<SeatDto> Execute(SeatQuery request)
+        public PagedResponse<SeatRowDto> Execute(SeatQuery request)
         {
             var query = Context.Seats
                 .OrderBy(s => s.Name)
@@ -52,20 +52,28 @@ namespace EfCommands.SeatEfCommands
 
             var pagesCount = (int)Math.Ceiling((double)totalCount / request.PerPage);
 
-            return new PagedResponse<SeatDto>
+            var rows = query.Select(x => x.Name).Distinct().ToList();
+
+            var seatRows = rows.Select(x => new SeatRowDto
             {
-                CurrentPage = request.PageNumber,
-                PagesCount = pagesCount,
-                TotalCount = totalCount,
-                Data = query.Select(s => new SeatDto
+                Name = x,
+                Seats = query.Where(s => s.Name == x).Select(s => new SeatDto
                 {
                     Id = s.Id,
                     HallId = s.HallId,
                     IsBroken = s.IsBroken,
                     Name = s.Name,
-                    Number  = s.Number,
+                    Number = s.Number,
                     HallName = s.Hall.Name
-                })
+                }).ToList()
+            }).ToList();
+
+            return new PagedResponse<SeatRowDto>
+            {
+                CurrentPage = request.PageNumber,
+                PagesCount = pagesCount,
+                TotalCount = totalCount,
+                Data = seatRows
             };
         }
     }

@@ -13,4 +13,10 @@ namespace Application.DataTransfer
         public int HallId { get; set; }
         public string HallName { get; set; }
     }
+
+    public class SeatRowDto
+    {
+        public string Name { get; set; }
+        public IEnumerable<SeatDto> Seats { get; set; } = new List<SeatDto>();
+    }
 }
