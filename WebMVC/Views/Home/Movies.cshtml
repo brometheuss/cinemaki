@@ -190,6 +190,13 @@
                         @c.Text
                     </div>
                     <i>Posted: <br/>@Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
+                    <span class="rating">
+                        @for (var i = 0; i < @c.Rating; i++)
+                        {
+                            <input id="rating+@c.Rating - @i" type="radio" name="rating" value="@c.Rating - @i">
+                            <label for="@c.Rating - @i">@c.Rating - @i</label>
+                        }
+                    </span>
                 </div>
             }
 

@@ -15,29 +15,42 @@
         {
             @Html.Hidden("UserId", user.Id)
             <input type="hidden" name="projectionid" value="@ViewBag.Projection.Id" />
-            @foreach (var x in ViewBag.Rows)
-            {
-                <h3>@x.Name</h3>
-                @foreach (var s in x.Seats)
-                {
-                    @foreach (var t in ViewBag.Taken)
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <p>Here you can select your preferred seats</p>
+                    <hr class="my-4" />
+                    @foreach (var x in ViewBag.Rows)
                     {
-                        if (s.Id == t.Id)
-                        {
-                            <label class="checkbox-label myPad" for="@s.Id">
-                                @(s.Name)@(s.Number)
-                                <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" disabled />
-                                <span class="far fa-ban"></span>
-                            </label>
-                        }
+                        <div class="row">
+                            <h4 class="col-sm-2">Row: @x.Name</h4>
+                            <div class="col-sm-11">
+                                @foreach (var s in x.Seats)
+                                {
+
+                                    @foreach (var t in ViewBag.Taken)
+                                    {
+                                        if (s.Id == t.Id)
+                                        {
+                                            <label class="checkbox-label myPad" for="@s.Id">
+                                                @(s.Name)@(s.Number)
+                                                <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" disabled />
+                                                <span class="far fa-ban"></span>
+                                            </label>
+                                        }
+                                    }
+                                    <label class="checkbox-label myPad" for="@s.Id">
+                                        @(s.Name)@(s.Number)
+                                        <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" />
+                                        <span class="fa fa-check"></span>
+                                    </label>
+
+                                }
+                            </div>
+                        </div>
+                        <hr class="my-4" />
                     }
-                    <label class="checkbox-label myPad" for="@s.Id">
-                        @(s.Name)@(s.Number)
-                        <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" />
-                        <span class="fa fa-check"></span>
-                    </label>
-                }
-            }
+                </div>
+            </div>
             <button type="submit" class="form-control btn btn-lg btn-info">
                 Make reservation
             </button>

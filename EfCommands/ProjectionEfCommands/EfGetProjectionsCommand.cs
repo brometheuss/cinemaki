@@ -29,7 +29,7 @@ namespace EfCommands.ProjectionEfCommands
                 .OrderByDescending(x => x.DateBegin)
                 .AsQueryable();
 
-            query = query.Where(p => p.IsDeleted == false);
+            query = query.Where(p => p.IsDeleted == false && p.DateBegin > DateTime.Now);
 
             if (request.BeginsAfter != null)
                 query = query.Where(p => p.DateBegin > request.BeginsAfter);
