@@ -224,3 +224,4 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\View
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Account\MyProfile.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Comments\Details.cshtml.g.cs
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Comments\Create.cshtml.g.cs
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Account\SignUpPage.cshtml.g.cs

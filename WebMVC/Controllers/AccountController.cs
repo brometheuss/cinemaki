@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
+using Application.Exceptions;
 using Application.ICommands;
 using Application.ICommands.HallCommands;
 using Application.ICommands.ProjectionCommands;
@@ -27,8 +28,9 @@ namespace WebMVC.Controllers
         private readonly IGetSeatsCommand getSeats;
         private readonly IGetUserCommand getUser;
         private readonly ITakenSeatsCommand takenSeats;
+        private readonly IAddUserCommand addUser;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -39,6 +41,7 @@ namespace WebMVC.Controllers
             this.getUser = getUser;
             this.addReservation = addReservation;
             this.takenSeats = takenSeats;
+            this.addUser = addUser;
         }
 
         public IActionResult Index()
@@ -126,6 +129,7 @@ namespace WebMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost]
         public IActionResult MakeReservation(ReservationDto dto, int userid)
         {
             try
@@ -160,6 +164,63 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        [Route("{action}")]
+        public IActionResult SignUpPage()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        public IActionResult SignUp(AddUserDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction(nameof(SignUpPage));
+            }
+            try
+            {
+                var u = HttpContext.Session.Get<ShowUserDto>("User");
+                if(u != null)
+                {
+                    if (u.RoleId != 2)
+                    {
+                        dto.RoleId = 1;
+                    }
+                    else
+                    {
+                        dto.RoleId = 2;
+                    }
+                }
+                else
+                {
+                    dto.RoleId = 2;
+                }
+
+                addUser.Execute(dto);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction(nameof(SignUpPage));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction(nameof(SignUpPage));
+            }
         }
     }
 }
