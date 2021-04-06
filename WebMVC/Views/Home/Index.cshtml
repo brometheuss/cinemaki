@@ -1,6 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Http;
+@using WebMVC.Session;
+@using Application.DataTransfer;
+
 @{
     ViewData["Title"] = "Home Page";
+    var user = Context.Session.Get<ShowUserDto>("User");
 }
 
 <div class="text-center">
@@ -24,7 +28,7 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">@Html.ActionLink("More", "Movies", "Home", new { id = m.Id })</button>
-                                        @if (Context.Session.GetString("User") != null)
+                                        @if (Context.Session.GetString("User") != null && user.RoleId == 2)
                                         {
                                             <button type="button" class="btn btn-sm btn-outline-                            secondary">@Html.ActionLink("EDIT", "Edit", "Movies", new { id = m.Id })
                                             </button>

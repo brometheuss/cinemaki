@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Http;
 using Application.DataTransfer;
 using WebMVC.Session;
 using Application.ICommands.IHelperCommands;
+using RestSharp;
 
 namespace WebMVC.Controllers
 {
@@ -31,6 +32,7 @@ namespace WebMVC.Controllers
         private readonly IGetActorsCommand getActors;
         private readonly IGetReservationsCommand getReservations;
         private readonly IAutoAddSeatValuesCommand autoAdd;
+        private readonly string _top250Url = "https://imdb-api.com/en/API/Top250Movies/k_fweq5i39";
 
         public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations, IAutoAddSeatValuesCommand autoAdd)
         {
@@ -74,6 +76,29 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public IActionResult Top100Imdb()
+        {
+            try
+            {
+                var request = new RestRequest(_top250Url)
+                {
+                    Method = Method.GET
+                };
+
+                var client = new RestClient();
+                var response = client.Execute<ImdbTop100>(request);
+
+                ViewBag.Movies = response.Data;
+                return View();
+            }
+            catch(Exception e)
+            {
+                TempData["error"] = e.Message;
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         //public IActionResult AddSeatValues()
