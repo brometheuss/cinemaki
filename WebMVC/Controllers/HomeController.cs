@@ -89,7 +89,8 @@ namespace WebMVC.Controllers
                 };
 
                 var client = new RestClient();
-                var response = client.Execute<ImdbTop100>(request);
+                var response = client.Execute<IEnumerable<ImdbTop100>>(request);
+
 
                 ViewBag.Movies = response.Data;
                 return View();
