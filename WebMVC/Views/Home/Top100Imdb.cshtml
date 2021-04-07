@@ -1,15 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Top100Imdb";
+    var imdbUrl = "https://www.imdb.com";
 }
 
-    <div class="card-deck">
+    <div class="container">
         @foreach (var item in ViewBag.Movies.Items)
         {
             if (item.Rank < 11)
             {
                 <div class="row">
-                    
+                    <h2 style="margin-right:10px;">#@item.Rank</h2>
+                    <img class="img-thumbnail imdb-img" src="@item.Image" alt="@item.Title" />
+                    <div style="display: block; margin-left:20px;">
+                        <h4>@item.FullTitle</h4>
+                        @if (item.RankUpDown.Contains("+"))
+                        {
+                            <h5>Rank @item.Rank </h5><p class="text-success"><i class="fas fa-caret-up"></i>(@item.RankUpDown)</p>
+                        }
+                        else
+                        {
+                            <h5>Rank @item.Rank </h5><p class="text-danger"><i class="fas fa-caret-down"></i>(@item.RankUpDown)</p>
+                        }
+                        <p>@item.Crew</p>
+                        <a href="@imdbUrl/@item.Id" class="btn btn-primary">More info</a>
+                    </div>
                 </div>
+                <hr />
             }
         }
     </div>

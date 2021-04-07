@@ -34,9 +34,10 @@ for details on configuring this project to bundle and minify static web assets. 
     opacity: 1;
 }*/
 
-.myPad {
+.img-thumbnail {
+    width: 250px !important; 
+    height: 250px !important;
 }
-
 
 /*begin rating css*/
 
