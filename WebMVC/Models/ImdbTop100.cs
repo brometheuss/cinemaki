@@ -7,14 +7,15 @@ namespace WebMVC.Models
 {
     public class ImdbTop100
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public int Rank { get; set; }
+        public string RankUpDown { get; set; }
         public string Title { get; set; }
         public string FullTitle { get; set; }
         public int Year { get; set; }
         public string Image { get; set; }
         public string Crew { get; set; }
-        public decimal ImdbRating { get; set; }
-        public int ImdbRatingCount { get; set; }
+        public string ImdbRating { get; set; }
+        public string ImdbRatingCount { get; set; }
     }
 }

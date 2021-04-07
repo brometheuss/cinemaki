@@ -3,21 +3,13 @@
 }
 
     <div class="card-deck">
-        @foreach (var movies in ViewBag.Movies)
+        @foreach (var item in ViewBag.Movies.Items)
         {
-            @foreach (var movie in movies.Items)
+            if (item.Rank < 11)
             {
-                <div class="card">
-                    <img class="card-img-top" src="@movie.Image" alt="@movie.Title">
-                    <div class="card-body">
-                        <h5 class="card-title">@movie.FullTitle</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    </div>
-                    <div class="card-footer">
-                        <small class="text-muted">Last updated 3 mins ago</small>
-                    </div>
+                <div class="row">
+                    
                 </div>
             }
         }
     </div>
-
