@@ -15,11 +15,19 @@
                         <h4>@item.FullTitle</h4>
                         @if (item.RankUpDown.Contains("+"))
                         {
-                            <h5>Rank @item.Rank </h5><p class="text-success"><i class="fas fa-caret-up"></i>(@item.RankUpDown)</p>
+                            <h5>Rank @item.Rank <p class="text-success"><i class="fas fa-caret-up"></i>(@item.RankUpDown)</p></h5>
                         }
                         else
                         {
-                            <h5>Rank @item.Rank </h5><p class="text-danger"><i class="fas fa-caret-down"></i>(@item.RankUpDown)</p>
+                            <h5>Rank @item.Rank <p class="text-danger"><i class="fas fa-caret-down"></i>(@item.RankUpDown)</p></h5>
+                        }
+                        @if (item.IMDbRating == "")
+                        {
+                            <p>Not yet rated (@item.IMDbRatingCount votes)</p>
+                        }
+                        else
+                        {
+                            <p>IMDb Rating @item.IMDbRating (@item.IMDbRatingCount votes)</p>
                         }
                         <p>@item.Crew</p>
                         <a href="@imdbUrl/@item.Id" class="btn btn-primary">More info</a>

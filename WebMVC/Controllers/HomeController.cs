@@ -21,6 +21,7 @@ using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Nancy.Json;
+using Application.Exceptions;
 
 namespace WebMVC.Controllers
 {
@@ -78,8 +79,8 @@ namespace WebMVC.Controllers
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
+                return RedirectToAction("Movies", new { id });
             }
-            return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]

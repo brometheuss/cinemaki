@@ -15,7 +15,7 @@ namespace WebMVC.Models
         public int Year { get; set; }
         public string Image { get; set; }
         public string Crew { get; set; }
-        public string ImdbRating { get; set; }
-        public string ImdbRatingCount { get; set; }
+        public string IMDbRating { get; set; }
+        public string IMDbRatingCount { get; set; }
     }
 }

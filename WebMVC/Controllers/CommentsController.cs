@@ -96,6 +96,11 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(addComment, dto);
                 return RedirectToAction(nameof(Details), nameof(MoviesController), new { id = dto.MovieId });
             }
+            catch(EntityAlreadyHasAnEntryException e)
+            {
+                TempData["error"] = "You have already posted a  comment for this movie.";
+                return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -104,7 +109,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
         }
 
         // GET: Comments/Edit/5

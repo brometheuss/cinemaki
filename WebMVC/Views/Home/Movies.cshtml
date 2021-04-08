@@ -11,6 +11,11 @@
 <!-- Page Content -->
 <div class="container">
 
+    @if(TempData["error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["error"]</div>
+    }
+
     <div class="row">
 
         <!-- Post Content Column -->
@@ -21,10 +26,10 @@
 
             <!-- Author -->
             @*<p class="lead">
-                 by
-                 <a href="#">@user.Id</a>
-                 <a href="#">@user.Identity</a>
-            </p>*@
+             by
+             <a href="#">@user.Id</a>
+             <a href="#">@user.Identity</a>
+        </p>*@
 
             <hr>
 
@@ -94,27 +99,27 @@
 
             @if (Context.Session.GetString("User") != null)
             {
-        <div class="row">
-            <div class="list-group col-md-8">
-                <a href="#" class="list-group-item list-group-item-action active">
-                    Projections
-                </a>
-                @foreach (var pr in ViewBag.Projections)
-                {
-                    @using (Html.BeginForm("ShowSeats", "Account", FormMethod.Get, new { @class="list-group-item list-group-item-action"}))
-                    {
-                    <div class="row">
-                        <div class="list-group col-md-10">
-                            <a href="#" class="list-group-item list-group-item-action tryit">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm")</a>
-                            <button type="submit" class="list-group-item list-group-item-action tryit">Make a reservation</button>
-                            <input type="hidden" name="projection" value="@pr.Id" />
-                            <input type="hidden" name="hall" value="@pr.HallId" />
-                        </div>
+                <div class="row">
+                    <div class="list-group col-md-8">
+                        <a href="#" class="list-group-item list-group-item-action active">
+                            Projections
+                        </a>
+                        @foreach (var pr in ViewBag.Projections)
+                        {
+                            @using (Html.BeginForm("ShowSeats", "Account", FormMethod.Get, new { @class = "list-group-item list-group-item-action" }))
+                            {
+                                <div class="row">
+                                    <div class="list-group col-md-10">
+                                        <a href="#" class="list-group-item list-group-item-action tryit">@Convert.ToDateTime(pr.DateBegin).ToString("dd-MMMM HH:mm")</a>
+                                        <button type="submit" class="list-group-item list-group-item-action tryit">Make a reservation</button>
+                                        <input type="hidden" name="projection" value="@pr.Id" />
+                                        <input type="hidden" name="hall" value="@pr.HallId" />
+                                    </div>
+                                </div>
+                            }
+                        }
                     </div>
-                    }
-                }
                 </div>
-        </div>
             }
             else
             {
@@ -134,27 +139,29 @@
 
 
             @*<blockquote class="blockquote">
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-                    <footer class="blockquote-footer">
-                        Someone famous in
-                        <cite title="Source Title">Source Title</cite>
-                    </footer>
-                </blockquote>*@
+            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            <footer class="blockquote-footer">
+                Someone famous in
+                <cite title="Source Title">Source Title</cite>
+            </footer>
+        </blockquote>*@
 
             <hr>
 
             <!-- Comments Form -->
             <div class="card my-4">
-                @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
+                @if (user != null)
                 {
-                    @if (user != null)
+                    @using (Html.BeginForm("Create", "Comments", FormMethod.Post))
                     {
-                        @Html.Hidden("MovieId", Model.Id)
-                        @Html.Hidden("UserId", user.Id)
-                    }
+                        @if (user != null)
+                        {
+                            @Html.Hidden("MovieId", Model.Id)
+                            @Html.Hidden("UserId", user.Id)
+                        }
 
-                    <h5 class="card-header">Leave a Comment:</h5>
-                    <div class="card-body">
+                        <h5 class="card-header">Leave a Comment:</h5>
+                        <div class="card-body">
 
                             <p>Your rating:</p>
                             <span class="rating">
@@ -168,63 +175,78 @@
                                 <label for="rating2">2</label>
                                 <input id="rating1" type="radio" name="rating" value="1">
                                 <label for="rating1">1</label>
-                                <input id="rating0" type="radio" name="rating" value="0"hidden checked>
+                                <input id="rating0" type="radio" name="rating" value="0" hidden checked>
                                 <label for="rating0">0</label>
                             </span>
-                            <hr/>
+                            <hr />
                             <textarea name="text" class="form-control" rows="3"></textarea>
-                        
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <br />
 
-                    </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+
+                        </div>
+                    }
                 }
             </div>
+            @if(user == null)
+            {
+                <div class="alert alert-info" role="alert" style="display: inline-block">
+                    Please login if you wish to post a comment.
+                    @using(Html.BeginForm("Index", "Account", FormMethod.Get))
+                    {
+                        <button type="submit" class="form-control btn btn-info col-sm-3">Login?</button>
+                    }
+                </div>
+            }
 
             <!-- Single Comment -->
             @foreach (var c in ViewBag.Comments)
             {
-                <div class="media mb-4">
-                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                    <div class="media-body">
-                        <h5 class="mt-0">@c.UserName</h5>
-                        @c.Text
-                    </div>
-                    <i>Posted: <br/>@Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
-                    <span class="rating">
-                        @for (var i = 0; i < @c.Rating; i++)
-                        {
-                            <input id="rating+@c.Rating - @i" type="radio" name="rating" value="@c.Rating - @i">
-                            <label for="@c.Rating - @i">@c.Rating - @i</label>
-                        }
-                    </span>
-                </div>
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">@c.UserName</h5>
+                @c.Text
+            </div><hr />
+            <p>Rated: @((int)c.Rating)/5</p>
+            @for (var i = 0; i < @c.Rating; i++)
+            {
+                <i class="fas fa-star text-warning"></i>
+                @*<input id="rating+@c.Rating - @i" type="radio" name="rating" value="@c.Rating - @i" checked>
+            <label for="@c.Rating - @i">@c.Rating - @i</label>*@
+            }
+            <hr /><br/>
+            <div class="col-sm-2">
+                <i>Posted: <br />@Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
+            </div>
+        </div>
             }
 
             <!-- Comment with nested comments -->
             @*<div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+                <h5 class="mt-0">Commenter Name</h5>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+                <div class="media mt-4">
                     <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                     <div class="media-body">
                         <h5 class="mt-0">Commenter Name</h5>
                         Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-
-                        <div class="media mt-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-                            <div class="media-body">
-                                <h5 class="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
-                            </div>
-                        </div>
-
                     </div>
-                </div>*@
+                </div>
+
+                <div class="media mt-4">
+                    <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                    <div class="media-body">
+                        <h5 class="mt-0">Commenter Name</h5>
+                        Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    </div>
+                </div>
+
+            </div>
+        </div>*@
 
         </div>
 
