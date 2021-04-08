@@ -7,6 +7,14 @@
     var user = Context.Session.Get<ShowUserDto>("User");
 }
 
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["error"]</div>
+}
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success" role="alert">@TempData["success"]</div>
+}
 <div class="text-center">
     <h1 class="display-4">Now Showing</h1>
     <div class="album py-5 bg-light">
@@ -30,9 +38,10 @@
                                         <button type="button" class="btn btn-sm btn-outline-secondary">@Html.ActionLink("More", "Movies", "Home", new { id = m.Id })</button>
                                         @if (Context.Session.GetString("User") != null && user.RoleId == 2)
                                         {
-                                            <button type="button" class="btn btn-sm btn-outline-                            secondary">@Html.ActionLink("EDIT", "Edit", "Movies", new { id = m.Id })
-                                            </button>
-                                        }
+                                            <button type="button" class="btn btn-sm btn-outline-                            secondary">
+                                                @Html.ActionLink("EDIT", "Edit", "Movies", new { id = m.Id })
+                                        </button>
+                                    }
                                     </div>
                                     <small class="text-muted">Debuted: @Convert.ToDateTime(m.DebutDate).ToString("dd. MMM yyyy")</small>
                                 </div>

@@ -48,6 +48,11 @@ namespace WebMVC.Controllers
         {
             try
             {
+                if(HttpContext.Session.Get<ShowUserDto>("User") != null)
+                {
+                    TempData["error"] = "You are already logged in.";
+                    return RedirectToAction("Index", "Home");
+                }
                 return View("Index");
             }
             catch (Exception e)
@@ -70,6 +75,11 @@ namespace WebMVC.Controllers
                     TempData["success"] = "Successfully logged in.";
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    TempData["error"] = "Oopps...Somethng went wrong, please try again.";
+                    return RedirectToAction("Index", "Home"); 
+                }
             }
             catch (Exception e)
             {
@@ -82,9 +92,17 @@ namespace WebMVC.Controllers
         {
             try
             {
-                HttpContext.Session.Remove("User");
-                TempData["success"] = "Successfully logged out.";
-                return RedirectToAction("Index");
+                if (HttpContext.Session.Get<ShowUserDto>("User") != null)
+                {
+                    HttpContext.Session.Remove("User");
+                    TempData["success"] = "Successfully logged out.";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["error"] = "You are not logged in.";
+                    return RedirectToAction("Index", "Home");
+                }
             }
             catch (Exception e)
             {
@@ -135,7 +153,8 @@ namespace WebMVC.Controllers
             try
             {
                 addReservation.Execute(dto);
-                return RedirectToAction("MyProfile", new { userid });
+                TempData["success"] = "Success! Your reservation has been confirmed.";
+                return RedirectToAction("MyProfile", new { id = userid });
             }
             catch (Exception e)
             {
@@ -172,6 +191,11 @@ namespace WebMVC.Controllers
         {
             try
             {
+                if (HttpContext.Session.Get<ShowUserDto>("User") != null)
+                {
+                    TempData["error"] = "You are already logged in.";
+                    return RedirectToAction("Index", "Home");
+                }
                 return View();
             }
             catch (Exception e)

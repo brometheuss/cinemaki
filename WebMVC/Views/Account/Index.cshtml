@@ -2,27 +2,31 @@
 
 @{
     ViewBag.Title = "User login";
-
 }
-
-<div class="row">
-    <div class="col-md-6">
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
-        {
-            <form method="post">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <button type="submit" value="Login" class="btn btn-primary">Login</button>
-            </form>
-        }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+                {
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" value="Login" class="btn btn-primary">Login</button>
+                }
+                <br/><br/>
+                @using (Html.BeginForm("SignUpPage", "Account", FormMethod.Get))
+                {
+                    <h5>Don't have an account ?</h5>
+                    <button type="submit" class="form-control btn btn-primary">Sign Up</button>
+                }
+            </div>
+        </div>
     </div>
-</div>
