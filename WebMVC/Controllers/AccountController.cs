@@ -115,11 +115,6 @@ namespace WebMVC.Controllers
 
         public IActionResult MyProfile(int id)
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["error"] = "Check your input.";
-                return RedirectToAction("MyProfile", new { id });
-            }
             try
              {
                 if(HttpContext.Session.Get<ShowUserDto>("User") == null)
@@ -138,8 +133,13 @@ namespace WebMVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult UpdateProfile(ShowUserDto dto)
+        public IActionResult UpdateProfile(UpdateUserDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction("MyProfile", new { dto.Id });
+            }
             try
             {
                 updateUser.Execute(dto);

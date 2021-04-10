@@ -10,6 +10,10 @@
 }
 
 <h1>My Profile</h1>
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger" role="alert">@TempData["error"]</div>
+}
 @if (TempData["success"] != null)
 {
     <div class="alert alert-success" role="alert">@TempData["success"]</div>
@@ -72,17 +76,26 @@
                     }
                     <tr class="col-sm-2">
                         <td>
+                            @Html.DisplayNameFor(model => model.OldPassword)
+                        </td>
+                        <td>
+                            <input class="form-control" type="password" name="OldPassword" />
+                            <span asp-validation-for="OldPassword" class="text-danger"></span>
+                        </td>
+                    </tr>
+                    <tr class="col-sm-2">
+                        <td>
                             @Html.DisplayNameFor(model => model.Password)
                         </td>
                         <td>
-                            <input type="password" class="form-control" name="Password" value="@user.Password" />
+                            <input type="password" class="form-control" name="Password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>Confirm your password</td>
                         <td>
-                            <input type="password" class="form-control" name="ConfirmPassword" value="@user.ConfirmPassword" />
+                            <input type="password" class="form-control" name="ConfirmPassword" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </td>
                     </tr>

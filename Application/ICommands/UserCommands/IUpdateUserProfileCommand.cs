@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Application.ICommands.UserCommands
 {
-    public interface IUpdateUserProfileCommand : ICommand<ShowUserDto>
+    public interface IUpdateUserProfileCommand : ICommand<UpdateUserDto>
     {
     }
 }
