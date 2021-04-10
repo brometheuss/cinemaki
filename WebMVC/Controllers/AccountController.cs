@@ -29,8 +29,9 @@ namespace WebMVC.Controllers
         private readonly IGetUserCommand getUser;
         private readonly ITakenSeatsCommand takenSeats;
         private readonly IAddUserCommand addUser;
+        private readonly IUpdateUserProfileCommand updateUser;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser, IUpdateUserProfileCommand updateUser)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -42,6 +43,7 @@ namespace WebMVC.Controllers
             this.addReservation = addReservation;
             this.takenSeats = takenSeats;
             this.addUser = addUser;
+            this.updateUser = updateUser;
         }
 
         public IActionResult Index()
@@ -113,10 +115,16 @@ namespace WebMVC.Controllers
 
         public IActionResult MyProfile(int id)
         {
-            try
+            if (!ModelState.IsValid)
             {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction("MyProfile", new { id });
+            }
+            try
+             {
                 if(HttpContext.Session.Get<ShowUserDto>("User") == null)
                 {
+                    TempData["error"] = "You must log in order to browse your profile.";
                     return RedirectToAction("Index");
                 }
                 ViewBag.Reservations = getReservations.Execute(new ReservationQuery { UserId = id, EndTime = DateTime.Now, PerPage = 50 }).Data;
@@ -126,7 +134,34 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult UpdateProfile(ShowUserDto dto)
+        {
+            try
+            {
+                updateUser.Execute(dto);
+                TempData["success"] = "You successfully updated your profile.";
+            }
+            catch(EntityCannotBeNullException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (EntityMustHaveConfirmedPassword e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("MyProfile", "Account", new { dto.Id });
         }
 
         public IActionResult ShowSeats(int projection, int hall)

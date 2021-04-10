@@ -19,16 +19,18 @@
     <hr />
     <div class="row">
         <div class="col-lg-4">
-            @using (Html.BeginForm("Edit", "Users", FormMethod.Post))
+            @using (Html.BeginForm("UpdateProfile", "Account", FormMethod.Post))
             {
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <table>
-                    @Html.Hidden("UserId", user.Id)
+                    @Html.Hidden("Id", user.Id)
                     <tr class="col-sm-2 col-md-4">
                         <td>
                             @Html.DisplayNameFor(model => model.FirstName)
                         </td>
                         <td>
                             <input class="form-control" type="text" name="FirstName" value="@user.FirstName" />
+                            <span asp-validation-for="FirstName" class="text-danger"></span>
                         </td>
                     </tr>
                     <tr class="col-sm-2 col-md-4">
@@ -37,6 +39,7 @@
                         </td>
                         <td>
                             <input class="form-control" type="text" name="LastName" value="@user.LastName" />
+                            <span asp-validation-for="LastName" class="text-danger"></span>
                         </td>
                     </tr>
                     <tr class="col-sm-2">
@@ -45,6 +48,7 @@
                         </td>
                         <td>
                             <input class="form-control" type="text" name="Email" value="@user.Email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </td>
                     </tr>
                     @if (user.RoleId == 2)
@@ -72,12 +76,14 @@
                         </td>
                         <td>
                             <input type="password" class="form-control" name="Password" value="@user.Password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
                         </td>
                     </tr>
                     <tr>
                         <td>Confirm your password</td>
                         <td>
-                            <input type="password" class="form-control" name="ConfirmPassword" value="@user.ConfirmPassword"/>
+                            <input type="password" class="form-control" name="ConfirmPassword" value="@user.ConfirmPassword" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                         </td>
                     </tr>
                 </table><hr />
@@ -86,19 +92,24 @@
         </div>
         <div class="col-lg-7">
             <h3>Active reservations:</h3>
-            @foreach(var r in ViewBag.Reservations)
+            @foreach (var r in ViewBag.Reservations)
             {
                 <div class="alert alert-info" role="alert">
                     <h4>@r.MovieName - @Convert.ToDateTime(r.ProjectionBegin).ToString("dd-MMM yy. HH:mm")</h4>
-                    <p>Seats: 
-                        @foreach(var s in r.SeatsInfo)
+                    <p>
+                        Seats:
+                        @foreach (var s in r.SeatsInfo)
                         {
                             @(s.SeatName)@Html.Raw("-")@(s.SeatNumber)@Html.Raw(", ")
                         }
                     </p>
-                    <hr/>
+                    <hr />
                 </div>
             }
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
