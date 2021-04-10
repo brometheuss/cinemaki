@@ -8,6 +8,7 @@ using Application.ICommands;
 using Application.ICommands.HallCommands;
 using Application.ICommands.ProjectionCommands;
 using Application.ICommands.ReservationCommands;
+using Application.ICommands.RoleCommands;
 using Application.ICommands.SeatCommands;
 using Application.ICommands.UserCommands;
 using Application.Queries;
@@ -23,6 +24,7 @@ namespace WebMVC.Controllers
         private readonly IGetProjectionsCommand getProjections;
         private readonly IGetProjectionCommand getProjection;
         private readonly IGetReservationsCommand getReservations;
+        private readonly IGetRolesCommand getRoles;
         private readonly IAddReservationCommand addReservation;
         private readonly IGetHallsCommand getHalls;
         private readonly IGetSeatsCommand getSeats;
@@ -31,7 +33,7 @@ namespace WebMVC.Controllers
         private readonly IAddUserCommand addUser;
         private readonly IUpdateUserProfileCommand updateUser;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser, IUpdateUserProfileCommand updateUser)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser, IUpdateUserProfileCommand updateUser, IGetRolesCommand getRoles)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -44,6 +46,7 @@ namespace WebMVC.Controllers
             this.takenSeats = takenSeats;
             this.addUser = addUser;
             this.updateUser = updateUser;
+            this.getRoles = getRoles;
         }
 
         public IActionResult Index()
@@ -122,6 +125,7 @@ namespace WebMVC.Controllers
                     TempData["error"] = "You must log in order to browse your profile.";
                     return RedirectToAction("Index");
                 }
+                ViewBag.Roles = getRoles.Execute(new RoleQuery { PerPage = 100 }).Data;
                 ViewBag.Reservations = getReservations.Execute(new ReservationQuery { UserId = id, EndTime = DateTime.Now, PerPage = 50 }).Data;
                 return View(getUser.Execute(id));
             }

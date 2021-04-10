@@ -6,7 +6,6 @@
 @{
     ViewData["Title"] = "MyProfile";
     var user = Context.Session.Get<ShowUserDto>("User");
-
 }
 
 <h1>My Profile</h1>
@@ -57,20 +56,25 @@
                     </tr>
                     @if (user.RoleId == 2)
                     {
-                        <tr class="col-sm-2">
+                        <tr class="form-group col-sm-2">
                             <td>
-                                @Html.DisplayNameFor(model => model.RoleName)
+                                @Html.DisplayNameFor(model => model.Email)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => model.RoleName)
-                            </td>
-                        </tr>
-                        <tr class="col-sm-2">
-                            <td>
-                                @Html.DisplayNameFor(model => model.RoleId)
-                            </td>
-                            <td>
-                                <input type="text" class="form-control" name="RoleId" value="@user.RoleId" />
+                                <select name="RoleId" class="form-control">
+                                    @foreach (var c in ViewBag.Roles)
+                                    {
+                                        @if (user.RoleId == c.Id)
+                                        {
+                                            <option value="@c.Id" selected>@c.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@c.Id">@c.Name</option>
+                                        }
+                                    }
+                                </select>
+                                <span asp-validation-for="RoleId" class="text-danger"></span>
                             </td>
                         </tr>
                     }
@@ -104,7 +108,7 @@
             }
         </div>
         <div class="col-lg-7">
-            <h3>Active reservations:</h3>
+            <h3>Active Reservations:</h3>
             @foreach (var r in ViewBag.Reservations)
             {
                 <div class="alert alert-info" role="alert">
