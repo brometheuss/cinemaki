@@ -22,6 +22,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Nancy.Json;
 using Application.Exceptions;
+using Application.Helpers;
 
 namespace WebMVC.Controllers
 {
@@ -36,10 +37,9 @@ namespace WebMVC.Controllers
         private readonly IGetActorsCommand getActors;
         private readonly IGetReservationsCommand getReservations;
         private readonly IAutoAddSeatValuesCommand autoAdd;
-        private readonly string _clientUrl = "https://imdb-api.com/en/API/MostPopularMovies";
-        private readonly string _requestUrl = "/k_fweq5i39";
+        private readonly ImdbTop100Command imdbService;
 
-        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations, IAutoAddSeatValuesCommand autoAdd)
+        public HomeController(ILogger<HomeController> logger, IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IGetPostersCommand getPosters, IGetCommentsCommand getComments, IGetProjectionsCommand getProjections, IGetActorsCommand getActors, IGetReservationsCommand getReservations, IAutoAddSeatValuesCommand autoAdd, ImdbTop100Command imdbService)
         {
             _logger = logger;
             this.getMovies = getMovies;
@@ -50,6 +50,7 @@ namespace WebMVC.Controllers
             this.getActors = getActors;
             this.getReservations = getReservations;
             this.autoAdd = autoAdd;
+            this.imdbService = imdbService;
         }
 
         public ActionResult Index()
@@ -88,10 +89,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                var client = new RestClient(_clientUrl);
-
-                var request = new RestRequest(_requestUrl, Method.GET);
-                var response = client.Execute<ImdbTop100Response>(request);
+                var response = imdbService.GetTop100();
 
                 ViewBag.Movies = response.Data;
 

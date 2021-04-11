@@ -2726,7 +2726,8 @@
         "framework": ".NETCoreApp,Version=v3.0",
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.AspNetCore.Http.Features": "3.1.0"
+          "Microsoft.AspNetCore.Http.Features": "3.1.0",
+          "RestSharp": "106.11.7"
         },
         "compile": {
           "bin/placeholder/Application.dll": {}

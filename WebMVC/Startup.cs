@@ -191,6 +191,9 @@ namespace WebMVC
             services.AddTransient<IEditProjectionCommand, EfEditProjectionCommand>();
             services.AddTransient<IDeleteProjectionCommand, EfDeleteProjectionCommand>();
 
+            //HomeController
+            services.AddTransient<ImdbTop100Command>();
+
             //AccountController
             services.AddHttpContextAccessor();
             services.AddTransient<ILoginUserCommand, EfLoginUserCommand>();
