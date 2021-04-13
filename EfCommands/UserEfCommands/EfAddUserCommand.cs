@@ -29,6 +29,9 @@ namespace EfCommands.UserEfCommands
             if (Context.Users.Any(u => u.Email.ToLower() == request.Email.ToLower()))
                 throw new EntityAlreadyExistsException("User with that email");
 
+            if(request.Password != request.ConfirmPassword)
+                throw new EntityMustHaveConfirmedPassword("Password fields must match.");   
+
             Context.Users.Add(new User
             {
                 FirstName = request.FirstName,

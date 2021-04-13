@@ -23,8 +23,9 @@ namespace WebMVC.Controllers
         private readonly IEditUserCommand editUser;
         private readonly IDeleteUserCommand deleteUser;
         private readonly IGetRolesCommand getRoles;
+        private readonly IAddUserCasesCommand addUserCases;
 
-        public UsersController(IGetUsersCommand getUsers, IGetUserCommand getUser, IAddUserCommand addUser, IGetRolesCommand getRoles, IEditUserCommand editUser, IDeleteUserCommand deleteUser, UseCaseExecutor executor)
+        public UsersController(IGetUsersCommand getUsers, IGetUserCommand getUser, IAddUserCommand addUser, IGetRolesCommand getRoles, IEditUserCommand editUser, IDeleteUserCommand deleteUser, UseCaseExecutor executor, IAddUserCasesCommand addUserCases)
         {
             this.getUsers = getUsers;
             this.getUser = getUser;
@@ -33,6 +34,7 @@ namespace WebMVC.Controllers
             this.editUser = editUser;
             this.deleteUser = deleteUser;
             this.executor = executor;
+            this.addUserCases = addUserCases;
         }
 
         // GET: Users
@@ -91,6 +93,7 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(addUser, dto);
+                addUserCases.Execute(dto.Username);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)

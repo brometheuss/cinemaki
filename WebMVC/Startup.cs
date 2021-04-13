@@ -86,6 +86,7 @@ namespace WebMVC
             services.AddTransient<IAddUserCommand, EfAddUserCommand>();
             services.AddTransient<IEditUserCommand, EfEditUserCommand>();
             services.AddTransient<IDeleteUserCommand, EfDeleteUserCommand>();
+            services.AddTransient<IAddUserCasesCommand, EfAddUserCasesCommand>();
 
             //RolesController
             services.AddTransient<IGetRolesCommand, EfGetRolesCommand>();

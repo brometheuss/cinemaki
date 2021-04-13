@@ -40,6 +40,7 @@ namespace EfCommands.UserEfCommands
             user.Username = request.Username;
             user.Email = request.Email;
             user.Password = request.Password;
+            user.RoleId = request.RoleId;
 
             Context.SaveChanges();
         }
