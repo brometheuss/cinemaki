@@ -11,5 +11,6 @@ namespace Application.Queries
         public string Username { get; set; }
         public string Email { get; set; }
         public string RoleName { get; set; }
+        public int? ISDeleted { get; set; }
     }
 }
