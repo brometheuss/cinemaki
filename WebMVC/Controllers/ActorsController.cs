@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.ICommands.ActorCommands;
 using Application.Interfaces;
 using Application.Queries;
@@ -91,6 +92,7 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(addActor, dto);
+                TempData["success"] = Messages.CREATE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -127,7 +129,8 @@ namespace WebMVC.Controllers
             {
                 dto.Id = id;
                 executor.ExecuteCommand(editActor, dto);
-                return RedirectToAction(nameof(Index));
+                TempData["success"] = Messages.EDIT_SUCCESS;
+                return RedirectToAction("Details", new { id });
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -166,6 +169,7 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(deleteActor, id);
+                TempData["success"] = Messages.DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

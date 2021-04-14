@@ -10,16 +10,22 @@
 
 @if (TempData["error"] != null)
 {
-    <p class="text-danger">@TempData["error"]</p>
+    <div class="alert alert-danger">@TempData["error"]</div>
 }
-@using(Html.BeginForm("Index", "Actors", FormMethod.Get))
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+
+@using (Html.BeginForm("Index", "Actors", FormMethod.Get))
 {
     <div class="row">
-        <input type="text" name="firstname" id="firstname" class="form-control col-sm-2" placeholder="First name"/>
-        <input type="text" name="lastname" id="lastname" class="form-control col-sm-2" placeholder="Last name"/>
-        <input type="text" name="movieid" id="movieid" class="form-control col-sm-1" placeholder="Movie id"/>
-        <input type="text" name="moviename" id="moviename" class="form-control col-sm-2" placeholder="Movie name"/>
-    </div><br/>
+        <input type="text" name="firstname" id="firstname" class="form-control col-sm-2" placeholder="First name" />
+        <input type="text" name="lastname" id="lastname" class="form-control col-sm-2" placeholder="Last name" />
+        <input type="text" name="movieid" id="movieid" class="form-control col-sm-1" placeholder="Movie id" />
+        <input type="text" name="moviename" id="moviename" class="form-control col-sm-2" placeholder="Movie name" />
+    </div>
+    <br />
     <button type="submit" class="form-control btn btn-primary">Search</button>
 }
 

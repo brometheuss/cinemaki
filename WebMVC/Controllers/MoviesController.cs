@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.DataTransfer;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.ICommands.ActorCommands;
 using Application.ICommands.CountryCommands;
 using Application.ICommands.GenreCommands;
@@ -158,7 +159,8 @@ namespace WebMVC.Controllers
             {
                 dto.Id = id;
                 editMovie.Execute(dto);
-                return RedirectToAction(nameof(Index));
+                TempData["success"] = Messages.EDIT_SUCCESS;
+                return RedirectToAction("Details", new { id });
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -197,6 +199,7 @@ namespace WebMVC.Controllers
             try
             {
                 deleteMovie.Execute(id);
+                TempData["success"] = Messages.DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception e)

@@ -4,6 +4,10 @@
     ViewData["Title"] = "Movie details";
 }
 
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
 <h1>Details</h1>
 
 <div>
