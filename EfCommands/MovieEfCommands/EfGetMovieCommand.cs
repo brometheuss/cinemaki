@@ -30,14 +30,12 @@ namespace EfCommands.MovieEfCommands
                 .ThenInclude(w => w.Writer)
                 .Include(ml => ml.MovieLanguages)
                 .ThenInclude(l => l.Language)
+                .Include(ma => ma.MovieActors)
+                .ThenInclude(a => a.Actor)
                 .Include(c => c.Country)
                 .Include(p => p.Production)
                 .Include(r => r.Rated)
                 .FirstOrDefault();
-
-            //var query = Context.Movies
-            //    .Include(mg => mg.MovieGenres)
-            //    .ThenInclude(g => g.Genre);
 
             if (movie == null || movie.IsDeleted == true)
                 throw new EntityNotFoundException("Movie");
@@ -63,6 +61,13 @@ namespace EfCommands.MovieEfCommands
                 {
                     GenreId = g.GenreId,
                     GenreName = g.Genre.Name
+                }),
+                ActorsInfo = movie.MovieActors.Select(a => new MovieActorDto
+                {
+                    ActorId = a.ActorId,
+                    FirstName = a.Actor.FirstName,
+                    LastName = a.Actor.LastName,
+                    Link = a.Actor.Link
                 }),
                 WritersInfo = movie.MovieWriters.Select(w => new MovieWriterDto
                 {
