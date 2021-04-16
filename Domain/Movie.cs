@@ -19,9 +19,9 @@ namespace Domain
         public int RatedId { get; set; }
         public Rated Rated { get; set; }
         public ICollection<MovieGenre> MovieGenres { get; set; } = new HashSet<MovieGenre>();
-        public ICollection<MovieActor> MovieActors { get; set; } = new List<MovieActor>();
-        public ICollection<MovieLanguage> MovieLanguages { get; set; } = new List<MovieLanguage>();
-        public ICollection<MovieWriter> MovieWriters { get; set; } = new List<MovieWriter>();
+        public ICollection<MovieActor> MovieActors { get; set; } = new HashSet<MovieActor>();
+        public ICollection<MovieLanguage> MovieLanguages { get; set; } = new HashSet<MovieLanguage>();
+        public ICollection<MovieWriter> MovieWriters { get; set; } = new HashSet<MovieWriter>();
         public int ProductionId { get; set; }
         public Production Production { get; set; }
         public ICollection<Poster> Posters { get; set; }

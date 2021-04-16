@@ -23,7 +23,17 @@ namespace EfCommands.MovieEfCommands
 
         public void Execute(MovieDto request)
         {
-            var movie = Context.Movies.Where(m => m.Id == request.Id).Include(m => m.MovieGenres).FirstOrDefault();
+            var movie = Context.Movies
+                .Where(m => m.Id == request.Id)
+                .Include(mg => mg.MovieGenres)
+                .ThenInclude(g => g.Genre)
+                .Include(mw => mw.MovieWriters)
+                .ThenInclude(w => w.Writer)
+                .Include(ma => ma.MovieActors)
+                .ThenInclude(a => a.Actor)
+                .Include(ml => ml.MovieLanguages)
+                .ThenInclude(l => l.Language)
+                .FirstOrDefault();
 
             if (movie == null || movie.IsDeleted == true)
                 throw new EntityNotFoundException("Movie");
