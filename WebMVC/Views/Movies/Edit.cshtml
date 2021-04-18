@@ -1,5 +1,5 @@
 ﻿@model Application.DataTransfer.MovieDto
-
+@using System.Linq
 @{
     ViewData["Title"] = "Edit";
 }
@@ -69,9 +69,7 @@
                     <select name="MovieGenres" class="form-control" multiple>
                         @foreach (var c in ViewBag.Genres)
                         {
-                            @foreach (var mg in Model.GenresInfo)
-                            {
-                                @if (mg.GenreId == c.Id)
+                                @if (Model.GenresInfo.Select(x => x.GenreId).Contains((int)c.Id))
                                 {
                                     <option value="@c.Id" selected>@c.Name</option>
                                 }
@@ -79,7 +77,6 @@
                                 {
                                     <option value="@c.Id">@c.Name</option>
                                 }
-                            }
                         }
                     </select>
                     <span asp-validation-for="MovieGenres" class="text-danger"></span>
@@ -87,14 +84,15 @@
                 <div class="form-group col-sm-6 col-md-3">
                     <label asp-for="MovieActors" class="control-label"></label>
                     <select name="MovieActors" class="form-control" multiple>
-                        @foreach (var model in Model.ActorsInfo)
+                        @foreach (var a in ViewBag.Actors)
                         {
-                            @foreach (var ma in ViewBag.Actors)
+                            @if (Model.ActorsInfo.Select(x => x.ActorId).Contains((int)a.Id))
                             {
-                                @if (model.ActorId == ma.Id)
-                                {
-                                    <option value="@ma.Id" selected>@ma.FirstName @ma.LastName</option>
-                                }
+                                <option value="@a.Id" selected>@a.FirstName @a.LastName</option>
+                            }
+                            else
+                            {
+                                <option value="@a.Id">@a.FirstName @a.LastName</option>
                             }
                         }
                     </select>
@@ -103,18 +101,15 @@
                 <div class="form-group col-sm-6 col-md-3">
                     <label asp-for="MovieLanguages" class="control-label"></label>
                     <select name="MovieLanguages" class="form-control" multiple>
-                        @foreach (var a in ViewBag.Languages)
+                        @foreach (var l in ViewBag.Languages)
                         {
-                            @foreach (var ma in Model.LanguagesInfo)
+                            @if (Model.LanguagesInfo.Select(x => x.LanguageId).Contains((int)l.Id))
                             {
-                                @if (ma.LanguageId == a.Id)
-                                {
-                                    <option value="@a.Id" selected>@a.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@a.Id">@a.Name</option>
-                                }
+                                <option value="@l.Id" selected>@l.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@l.Id">@l.Name</option>
                             }
                         }
                     </select>
@@ -125,16 +120,13 @@
                     <select name="MovieWriters" class="form-control" multiple>
                         @foreach (var a in ViewBag.Writers)
                         {
-                            @foreach (var ma in Model.WritersInfo)
+                            @if (Model.WritersInfo.Select(x => x.WriterId).Contains((int)a.Id))
                             {
-                                @if (ma.WriterId == a.Id)
-                                {
-                                    <option value="@a.Id" selected>@a.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@a.Id">@a.Name</option>
-                                }
+                                <option value="@a.Id" selected>@a.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@a.Id">@a.Name</option>
                             }
                         }
                     </select>
