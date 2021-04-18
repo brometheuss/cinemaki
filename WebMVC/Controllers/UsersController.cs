@@ -44,11 +44,14 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getUsers, query));
             }
-            catch (Exception e)
+            catch (EntityNotAllowedException)
             {
-                TempData["error"] = e.Message;
+                return RedirectToAction("PageNotFound", "Redirections");
             }
-            return RedirectToAction("Home", "Index");
+            catch (Exception)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
         }
 
         // GET: Users/Details/5

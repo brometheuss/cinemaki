@@ -17,11 +17,14 @@ namespace EfCommands
         {
             var user = Context.Users.Where(u => u.Username.ToLower() == actor.Identity.ToLower()).FirstOrDefault();
 
+            if (user == null)
+                user.Id = 0;
+
             Context.Logs.Add(new Domain.Log
             {
                 Action = useCase.Name,
                 Date = DateTime.Now,
-                UserId = user.Id,
+                UserId = actor.Id,
                 Success = success
             });
 

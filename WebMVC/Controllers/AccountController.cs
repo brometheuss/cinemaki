@@ -215,7 +215,7 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             return RedirectToAction("MyProfile", "Account", new { dto.Id });
-        }
+         }
 
         public IActionResult ShowSeats(int projection, int hall)
         {
