@@ -231,3 +231,4 @@ C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\EfDataAcce
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\bin\Debug\netcoreapp3.0\Domain.pdb
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.Views.pdb
 C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\WebMVC.csproj.CopyComplete
+C:\Users\Makala\source\repos\BioskopV3\WebMVC\obj\Debug\netcoreapp3.0\Razor\Views\Account\ShowUpdatePassword.cshtml.g.cs

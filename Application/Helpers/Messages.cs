@@ -16,5 +16,12 @@ namespace Application.Helpers
         public const string DELETE_ERROR = "An error has occurred, try again.";
 
         #endregion
+
+        #region User
+
+        public const string UPDATE_PASSWORD_DIFFERENT = "New password and Confirm new password fields must be identical";
+        public const string UPDATE_PASSWORD_OLD_NOT_CORRECT = "Your current password is incorrect.";
+
+        #endregion
     }
 }

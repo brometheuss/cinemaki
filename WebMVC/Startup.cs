@@ -199,6 +199,7 @@ namespace WebMVC
             services.AddHttpContextAccessor();
             services.AddTransient<ILoginUserCommand, EfLoginUserCommand>();
             services.AddTransient<IUpdateUserProfileCommand, EfUpdateUserProfileCommand>();
+            services.AddTransient<IUpdateUserPasswordCommand, EfUpdateUserPasswordCommand>();
             services.AddTransient<UseCaseExecutor>();
             services.AddTransient<IUseCaseLogger, EfUseCaseLoggerCommand>();
             services.AddTransient<IApplicationActor>(x =>

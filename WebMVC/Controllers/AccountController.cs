@@ -32,8 +32,9 @@ namespace WebMVC.Controllers
         private readonly ITakenSeatsCommand takenSeats;
         private readonly IAddUserCommand addUser;
         private readonly IUpdateUserProfileCommand updateUser;
+        private readonly IUpdateUserPasswordCommand updateUserPassword;
 
-        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser, IUpdateUserProfileCommand updateUser, IGetRolesCommand getRoles)
+        public AccountController(ILoginUserCommand loginUser, IGetProjectionsCommand getProjections, IGetReservationsCommand getReservations, IGetProjectionCommand getProjection, IGetHallsCommand getHalls, IGetSeatsCommand getSeats, IGetUserCommand getUser, IAddReservationCommand addReservation, ITakenSeatsCommand takenSeats, IAddUserCommand addUser, IUpdateUserProfileCommand updateUser, IGetRolesCommand getRoles, IUpdateUserPasswordCommand updateUserPassword)
         {
             this.loginUser = loginUser;
             this.getProjections = getProjections;
@@ -47,6 +48,7 @@ namespace WebMVC.Controllers
             this.addUser = addUser;
             this.updateUser = updateUser;
             this.getRoles = getRoles;
+            this.updateUserPassword = updateUserPassword;
         }
 
         public IActionResult Index()
@@ -154,6 +156,53 @@ namespace WebMVC.Controllers
                 TempData["error"] = e.Message;
             }
             catch (EntityAlreadyExistsException e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (EntityMustHaveConfirmedPassword e)
+            {
+                TempData["error"] = e.Message;
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("MyProfile", "Account", new { dto.Id });
+        }
+
+        [HttpGet]
+        public IActionResult ShowUpdatePassword(int id)
+        {
+            try
+            {
+                if (HttpContext.Session.Get<ShowUserDto>("User") == null)
+                {
+                    TempData["error"] = "You must log in order to browse your profile.";
+                    return RedirectToAction("Index");
+                }
+                return View();
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult UpdatePassword(UpdatePasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = "Check your input.";
+                return RedirectToAction("MyProfile", new { dto.Id });
+            }
+            try
+            {
+                updateUserPassword.Execute(dto);
+                TempData["success"] = "You successfully updated your profile.";
+            }
+            catch (EntityCannotBeNullException e)
             {
                 TempData["error"] = e.Message;
             }

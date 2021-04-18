@@ -58,7 +58,7 @@
                     {
                         <tr class="form-group col-sm-2">
                             <td>
-                                @Html.DisplayNameFor(model => model.Email)
+                                @Html.DisplayNameFor(model => model.RoleName)
                             </td>
                             <td>
                                 <select name="RoleId" class="form-control">
@@ -78,34 +78,15 @@
                             </td>
                         </tr>
                     }
-                    <tr class="col-sm-2">
-                        <td>
-                            @Html.DisplayNameFor(model => model.OldPassword)
-                        </td>
-                        <td>
-                            <input class="form-control" type="password" name="OldPassword" />
-                            <span asp-validation-for="OldPassword" class="text-danger"></span>
-                        </td>
-                    </tr>
-                    <tr class="col-sm-2">
-                        <td>
-                            @Html.DisplayNameFor(model => model.Password)
-                        </td>
-                        <td>
-                            <input type="password" class="form-control" name="Password" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Confirm your password</td>
-                        <td>
-                            <input type="password" class="form-control" name="ConfirmPassword" />
-                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-                        </td>
-                    </tr>
                 </table><hr />
                 <button type="submit" class="btn-block btn-lg btn-info">Update profile</button>
             }
+            <br/>
+            <br/>
+            <hr/>
+            <div class="alert alert-light">
+                <p>You can change your password <a href="@Url.Action("ShowUpdatePassword", "Account", new { user.Id })">HERE</a></p>
+            </div>
         </div>
         <div class="col-lg-7">
             <h3>Active Reservations:</h3>
