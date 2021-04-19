@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain;
 using EfDataAccess;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,6 @@ namespace EfCommands
         public void Log(IUseCase useCase, IApplicationActor actor, bool success)
         {
             var user = Context.Users.Where(u => u.Username.ToLower() == actor.Identity.ToLower()).FirstOrDefault();
-
-            if (user == null)
-                user.Id = 0;
 
             Context.Logs.Add(new Domain.Log
             {

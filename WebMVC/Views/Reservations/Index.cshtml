@@ -6,10 +6,7 @@
     ViewData["Action"] = "Index";
 }
 
-@if(TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
+<h1>Reservations</h1>
 
 @using(Html.BeginForm("Index", "Reservations", FormMethod.Get))
 {

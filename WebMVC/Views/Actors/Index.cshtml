@@ -8,15 +8,6 @@
 
 <h1>Actors</h1>
 
-@if (TempData["error"] != null)
-{
-    <div class="alert alert-danger">@TempData["error"]</div>
-}
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success">@TempData["success"]</div>
-}
-
 @using (Html.BeginForm("Index", "Actors", FormMethod.Get))
 {
     <div class="row">

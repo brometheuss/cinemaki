@@ -8,11 +8,6 @@
 
 <h1>Halls</h1>
 
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
-
 @using(Html.BeginForm("Index", "Halls", FormMethod.Get))
 {
 <div class="row">

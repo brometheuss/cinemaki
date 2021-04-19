@@ -7,14 +7,6 @@
     var user = Context.Session.Get<ShowUserDto>("User");
 }
 
-@if (TempData["error"] != null)
-{
-    <div class="alert alert-danger" role="alert">@TempData["error"]</div>
-}
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success" role="alert">@TempData["success"]</div>
-}
 <div class="text-center">
     <h1 class="display-4">Now Showing</h1>
     <div class="album py-5 bg-light">

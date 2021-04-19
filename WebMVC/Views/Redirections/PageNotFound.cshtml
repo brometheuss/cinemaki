@@ -3,7 +3,7 @@
 }
 
 @{
-    ViewData["Title"] = "PageNotFound";
+    ViewData["Title"] = "404 Not Found";
 }
 
     <div class="container">
@@ -12,9 +12,9 @@
                 <div class="notfound-404">
                     <h1>4<span></span>4</h1>
                 </div>
-                <h2>Oops! Page Not Be Found</h2>
-                <p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
-                <a href="#">Back to homepage</a>
+                <h2>Oops! We couldn't find the page you were looking for...</h2>
+                <p>But fear not, we have dispatched our most elite ninjas in order to get to the bottom of this.</p>
+                <a href="@Url.Action("Index", "Home")">Back to homepage</a>
             </div>
         </div>
 

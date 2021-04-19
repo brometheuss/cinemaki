@@ -1,17 +1,12 @@
 ﻿@model Application.Responses.PagedResponse<Application.DataTransfer.ProjectionDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Projections";
     ViewData["Controller"] = "projections";
     ViewData["Action"] = "Index";
 }
 
 <h1>Projections</h1>
-
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
 
 @using(Html.BeginForm("Index", "Projections", FormMethod.Get))
 {

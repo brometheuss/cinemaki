@@ -1,14 +1,10 @@
 ﻿@model Application.Responses.PagedResponse<Application.DataTransfer.CommentDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Comments";
 }
 
 <h1>Comments</h1>
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
 
 @using(Html.BeginForm("Index", "Comments", FormMethod.Get))
 {

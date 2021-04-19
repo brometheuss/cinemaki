@@ -7,15 +7,8 @@
     ViewData["Action"] = "Index";
 }
 
-@if (TempData["success"] != null)
-{
-    <div class="alert alert-success">@TempData["success"]</div>
-}
+<h1>Movies</h1>
 
-@if (TempData["error"] != null)
-{
-    <div class="alert alert-error">@TempData["error"]</div>
-}
 @using (Html.BeginForm("Index", "Movies", FormMethod.Get))
 {
     <div class="row">

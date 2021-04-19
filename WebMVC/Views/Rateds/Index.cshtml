@@ -1,17 +1,12 @@
 ﻿@model Application.Responses.PagedResponse<Application.DataTransfer.RatedDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Rateds";
     ViewData["Controller"] = "rateds";
     ViewData["Action"] = "Index";
 }
 
 <h1>Rateds</h1>
-
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
 
 <p>
     <a asp-action="Create">Add new Rated</a>

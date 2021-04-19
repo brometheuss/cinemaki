@@ -40,8 +40,6 @@ namespace EfCommands.UserEfCommands
                     });
                 }
             }
-            else
-                throw new EntityNotFoundException("User");
 
             Context.SaveChanges();
         }

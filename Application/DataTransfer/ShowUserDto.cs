@@ -25,7 +25,6 @@ namespace Application.DataTransfer
         [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
         [Display(Name = "Role")]
         public string RoleName { get; set; }
         public int RoleId { get; set; }

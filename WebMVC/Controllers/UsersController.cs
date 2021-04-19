@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.ICommands.RoleCommands;
 using Application.ICommands.UserCommands;
 using Application.Queries;
@@ -61,11 +62,14 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getUser, id));
             }
-            catch (Exception e)
+            catch (EntityNotAllowedException)
             {
-                TempData["error"] = e.Message;
+                return RedirectToAction("PageNotFound", "Redirections");
             }
-            return RedirectToAction(nameof(Index));
+            catch (Exception)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
         }
 
         // GET: Users/Create
@@ -75,6 +79,10 @@ namespace WebMVC.Controllers
             {
                 ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -90,24 +98,29 @@ namespace WebMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["error"] = "Check your input.";
+                TempData["error"] = Messages.INPUT_ERROR;
                 return RedirectToAction(nameof(Create));
             }
             try
             {
                 executor.ExecuteCommand(addUser, dto);
                 addUserCases.Execute(dto.Username);
+                TempData["success"] = Messages.USER_CREATE_SUCCESS;
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                TempData["error"] = e.Message;
+                TempData["error"] = Messages.USER_CREATE_ERROR;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Create");
         }
 
         // GET: Users/Edit/5
@@ -117,6 +130,10 @@ namespace WebMVC.Controllers
             {
                 ViewBag.Roles = getRoles.Execute(new RoleQuery()).Data;
                 return View(executor.ExecuteQuery(getUser, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -130,21 +147,31 @@ namespace WebMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, ShowUserDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                TempData["error"] = Messages.INPUT_ERROR;
+                return RedirectToAction(nameof(Create));
+            }
             try
             {
                 dto.Id = id;
                 executor.ExecuteCommand(editUser, dto);
-                return RedirectToAction(nameof(Index));
+                TempData["success"] = Messages.USER_EDIT_SUCCESS;
+                return RedirectToAction("Details", "Users", new { id });
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                TempData["error"] = e.Message;
+                TempData["error"] = Messages.USER_EDIT_ERROR;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Edit", "Users", new { id });
         }
 
         // GET: Users/Delete/5
@@ -153,6 +180,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getUser, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -173,13 +204,18 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(deleteUser, id);
+                TempData["success"] = Messages.USER_DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
-                TempData["error"] = e.Message;
+                TempData["error"] = Messages.USER_DELETE_ERROR;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Delete", "Users", new { id });
         }
     }
 }

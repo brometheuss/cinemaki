@@ -1,14 +1,9 @@
 ﻿@model Application.Responses.PagedResponse<Application.DataTransfer.SeatRowDto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Seats";
     ViewData["Controller"] = "seats";
     ViewData["Action"] = "Index";
-}
-
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
 }
 
 @using(Html.BeginForm("Index", "Seats", FormMethod.Get))

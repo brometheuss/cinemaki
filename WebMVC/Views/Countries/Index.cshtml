@@ -6,12 +6,8 @@
     ViewData["Action"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Countries</h1>
 
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
-}
 @using(Html.BeginForm("Index", "Countries", FormMethod.Get))
 {
     <div class="row">
