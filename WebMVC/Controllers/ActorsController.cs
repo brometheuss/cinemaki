@@ -40,9 +40,9 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getActors, query));
             }
-            catch (EntityNotAllowedException e)
+            catch (EntityNotAllowedException)
             {
-                TempData["error"] = e.Message;
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -58,6 +58,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getActor, id));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -71,6 +75,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -95,6 +103,10 @@ namespace WebMVC.Controllers
                 TempData["success"] = Messages.CREATE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -112,6 +124,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getActor, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -132,6 +148,10 @@ namespace WebMVC.Controllers
                 TempData["success"] = Messages.EDIT_SUCCESS;
                 return RedirectToAction("Details", new { id });
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -149,6 +169,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getActor ,id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -171,6 +195,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(deleteActor, id);
                 TempData["success"] = Messages.DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

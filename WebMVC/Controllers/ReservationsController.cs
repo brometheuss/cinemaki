@@ -49,7 +49,7 @@ namespace WebMVC.Controllers
                 ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
                 ViewBag.Halls = getHalls.Execute(new HallQuery { PerPage = 1000 }).Data;
                 ViewBag.Projections = getProjections.Execute(new ProjectionQuery { PerPage = 1000 }).Data;
-                return View(getReservations.Execute(query));
+                return View(executor.ExecuteQuery(getReservations, query));
             }
             catch (Exception e)
             {
@@ -63,7 +63,11 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getReservation.Execute(id));
+                return View(executor.ExecuteQuery(getReservation, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -81,6 +85,10 @@ namespace WebMVC.Controllers
                 ViewBag.Users = getUsers.Execute(new UserQuery()).Data;
                 ViewBag.Projections = getProjections.Execute(new ProjectionQuery()).Data;
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -103,6 +111,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(addReservation, dto);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityAlreadyExistsException e)
             {
@@ -145,6 +157,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getReservation, id));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityNotFoundException e)
             {
                 TempData["error"] = e.Message;
@@ -166,6 +182,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(deleteReservation, id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

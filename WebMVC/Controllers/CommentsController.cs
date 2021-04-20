@@ -44,6 +44,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getComments, query));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -57,6 +61,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getComment, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -73,6 +81,10 @@ namespace WebMVC.Controllers
                 ViewBag.Users = getUsers.Execute(new UserQuery { PerPage = 100000 }).Data;
                 ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -96,7 +108,11 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(addComment, dto);
                 return RedirectToAction(nameof(Details), nameof(MoviesController), new { id = dto.MovieId });
             }
-            catch(EntityAlreadyHasAnEntryException e)
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
+            catch (EntityAlreadyHasAnEntryException e)
             {
                 TempData["error"] = "You have already posted a  comment for this movie.";
                 return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
@@ -119,6 +135,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getComment, id));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -137,6 +157,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(editComment, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -154,6 +178,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getComment, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -175,6 +203,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(deleteComment, id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

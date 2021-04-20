@@ -44,6 +44,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getProjections, query));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -57,6 +61,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getProjection, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -73,6 +81,10 @@ namespace WebMVC.Controllers
                 ViewBag.Halls = getHalls.Execute(new HallQuery()).Data;
                 ViewBag.Movies = getMovies.Execute(new MovieQuery()).Data;
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -96,6 +108,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(addProjection, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -116,6 +132,10 @@ namespace WebMVC.Controllers
                 ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
                 return View(executor.ExecuteQuery(getProjection, id));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -134,6 +154,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(editProjection, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -151,6 +175,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getProjection, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -172,6 +200,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(deleteProjection, id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

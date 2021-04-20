@@ -38,6 +38,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getProductions, query));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -66,6 +70,10 @@ namespace WebMVC.Controllers
             {
                 return View();
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -88,6 +96,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(addProduction, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -105,6 +117,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getProduction, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -124,6 +140,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(editProduction, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -141,6 +161,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getProduction, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -162,6 +186,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(deleteProduction, id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

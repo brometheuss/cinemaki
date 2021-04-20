@@ -38,6 +38,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getSeats, query));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -52,6 +56,10 @@ namespace WebMVC.Controllers
             {
                 return View(executor.ExecuteQuery(getSeat, id));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -65,6 +73,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -88,6 +100,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(addSeat, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -105,6 +121,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getSeat, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -124,6 +144,10 @@ namespace WebMVC.Controllers
                 executor.ExecuteCommand(editSeat, dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -141,6 +165,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(executor.ExecuteQuery(getSeat, id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -162,6 +190,10 @@ namespace WebMVC.Controllers
             {
                 executor.ExecuteCommand(deleteSeat, id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

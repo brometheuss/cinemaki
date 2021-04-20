@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
 using Application.Helpers;
@@ -21,6 +22,7 @@ namespace WebMVC.Controllers
 {
     public class MoviesController : Controller
     {
+        private readonly UseCaseExecutor executor;
         private readonly IGetMoviesCommand getMovies;
         private readonly IGetMovieCommand getMovie;
         private readonly IAddMovieCommand addMovie;
@@ -34,7 +36,7 @@ namespace WebMVC.Controllers
         private readonly IGetCountriesCommand getCountries;
         private readonly IGetRatedsCommand getRateds;
 
-        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProductions, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds)
+        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProductions, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds, UseCaseExecutor executor)
         {
             this.getMovies = getMovies;
             this.getMovie = getMovie;
@@ -48,6 +50,7 @@ namespace WebMVC.Controllers
             this.getProductions = getProductions;
             this.getCountries = getCountries;
             this.getRateds = getRateds;
+            this.executor = executor;
         }
 
         // GET: Movies
@@ -55,7 +58,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                return View(getMovies.Execute(query));
+                return View(executor.ExecuteQuery(getMovies, query));
             }
             catch (Exception e)
             {
@@ -73,7 +76,7 @@ namespace WebMVC.Controllers
                 ViewBag.Actors = getActors.Execute(new ActorQuery()).Data;
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
                 ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;*/
-                return View(getMovie.Execute(id));
+                return View(executor.ExecuteQuery(getMovie, id));
             }
             catch (Exception e)
             {
@@ -115,7 +118,7 @@ namespace WebMVC.Controllers
             }
             try
             {
-                addMovie.Execute(dto);
+                executor.ExecuteCommand(addMovie, dto);
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityAlreadyExistsException e)
@@ -158,7 +161,7 @@ namespace WebMVC.Controllers
             try
             {
                 dto.Id = id;
-                editMovie.Execute(dto);
+                executor.ExecuteCommand(editMovie, dto);
                 TempData["success"] = Messages.EDIT_SUCCESS;
                 return RedirectToAction("Details", new { id });
             }
@@ -198,7 +201,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                deleteMovie.Execute(id);
+                executor.ExecuteCommand(deleteMovie, id);
                 TempData["success"] = Messages.DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }

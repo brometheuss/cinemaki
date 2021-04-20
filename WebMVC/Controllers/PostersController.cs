@@ -41,6 +41,10 @@ namespace WebMVC.Controllers
             {
                 return View(getPosters.Execute(query));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (Exception e)
             {
                 TempData["error"] = e.Message;
@@ -54,6 +58,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(getPoster.Execute(id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -69,6 +77,10 @@ namespace WebMVC.Controllers
             {
                 ViewBag.Movies = getMovies.Execute(new MovieQuery()).Data;
                 return View();
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -92,6 +104,10 @@ namespace WebMVC.Controllers
                 addPoster.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -109,6 +125,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(getPoster.Execute(id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {
@@ -128,6 +148,10 @@ namespace WebMVC.Controllers
                 editPoster.Execute(dto);
                 return RedirectToAction(nameof(Index));
             }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;
@@ -145,6 +169,10 @@ namespace WebMVC.Controllers
             try
             {
                 return View(getPoster.Execute(id));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (EntityNotFoundException e)
             {
@@ -166,6 +194,10 @@ namespace WebMVC.Controllers
             {
                 deletePoster.Execute(id);
                 return RedirectToAction(nameof(Index));
+            }
+            catch (EntityNotAllowedException)
+            {
+                return RedirectToAction("PageNotFound", "Redirections");
             }
             catch (Exception e)
             {

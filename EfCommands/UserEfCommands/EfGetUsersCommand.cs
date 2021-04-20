@@ -27,6 +27,8 @@ namespace EfCommands.UserEfCommands
                 .Include(r => r.Role)
                 .AsQueryable();
 
+            query = query.Where(x => x.IsDeleted != false);
+
             if(request.ISDeleted != null)
             {
                 if (request.ISDeleted == 1)
