@@ -66,6 +66,19 @@ namespace WebMVC.Controllers
             return View();
         }
 
+        public ActionResult About()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
         public ActionResult Movies(int id)
         {
             try
