@@ -197,24 +197,25 @@
             <!-- Single Comment -->
             @foreach (var c in ViewBag.Comments)
             {
-        <div class="media mb-4">
-            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
-            <div class="media-body">
-                <h5 class="mt-0">@c.UserName</h5>
-                @c.Text
-            </div><hr />
-            <p>Rated: @((int)c.Rating)/5</p>
-            @for (var i = 0; i < @c.Rating; i++)
-            {
-                <i class="fas fa-star text-warning"></i>
-                @*<input id="rating+@c.Rating - @i" type="radio" name="rating" value="@c.Rating - @i" checked>
-            <label for="@c.Rating - @i">@c.Rating - @i</label>*@
-            }
-            <hr /><br/>
-            <div class="col-sm-2">
-                <i>Posted: <br />@Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
+        <div class="row media mb-4">
+            <div class="col-sm-8">
+                <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                <div class="media-body">
+                    <h5 class="mt-0">@c.UserName</h5>
+                    @c.Text
+                </div>
+                <div style="margin-top:20px;">
+                    <i style="margin-top: 30px;">Posted: @Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>
+                </div>
             </div>
-        </div>
+            <div class="col-sm-4">
+                <p>Rated: @((int)c.Rating)/5</p>
+                @for (var i = 0; i < @c.Rating; i++)
+                {
+                    <i class="fas fa-star text-warning"></i>
+                }
+            </div>
+        </div><hr/>
             }
 
             <!-- Comment with nested comments -->

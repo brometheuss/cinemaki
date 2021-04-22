@@ -1,6 +1,6 @@
 ﻿@using WebMVC.Session;
 @using Application.DataTransfer;
-@using Microsoft.AspNetCore.Http;
+@using System.Linq;
 @{
     ViewData["Title"] = "Make your reservation";
     var user = Context.Session.Get<ShowUserDto>("User");
@@ -31,7 +31,7 @@
                                     {
                                         if (s.Id == t.Id)
                                         {
-                                            <label class="checkbox-label myPad" for="@s.Id">
+                                            <label class="checkbox-label myPad" for="@s.Id" style="color: red;">
                                                 @(s.Name)@(s.Number)
                                                 <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id"checked disabled />
                                                 <span class="fas fa-lock"></span>
@@ -43,7 +43,6 @@
                                         <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" />
                                         <span class="fa fa-check"></span>
                                     </label>
-
                                 }
                             </div>
                         </div>
