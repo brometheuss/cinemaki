@@ -27,7 +27,14 @@ namespace Application.Helpers
         public const string USER_EDIT_SUCCESS = "User successfully updated.";
         public const string USER_EDIT_ERROR = "There has been an error while trying to update user.";
         public const string USER_DELETE_SUCCESS = "User successfully deleted.";
-        public const string USER_DELETE_ERROR = "There has been an error while trying to delete user."; 
+        public const string USER_DELETE_ERROR = "There has been an error while trying to delete user.";
+
+        #endregion
+
+        #region Comment
+
+        public const string COMMENT_CREATE_ERROR_ALREADY_CREATED = "Looks like you've already made a comment for this movie. Plenty of other movies around though.";
+        public const string COMMENT_CREATE_SUCCESS = "Your comment has been posted.";
 
         #endregion
     }

@@ -173,8 +173,21 @@
                                 <input id="rating0" type="radio" name="rating" value="0" hidden checked>
                                 <label for="rating0">0</label>
                             </span>
-                            <hr />
-                            <textarea name="text" class="form-control" rows="3"></textarea>
+                            <hr />    <textarea id="summernote" name="text"></textarea>
+                            <script>
+                              $('#summernote').summernote({
+                                placeholder: 'You can share your thoughts on the movie here..',
+                                tabsize: 2,
+                                height: 120,
+                                toolbar: [
+                                  ['style', ['style']],
+                                  ['font', ['bold', 'underline', 'clear']],
+                                  ['color', ['color']],
+                                  ['para', ['ul', 'ol', 'paragraph']],
+                                  ['view', ['fullscreen', 'codeview', 'help']]
+                                ]
+                              });
+                            </script>
                             <br />
 
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -202,7 +215,7 @@
                 <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
                 <div class="media-body">
                     <h5 class="mt-0">@c.UserName</h5>
-                    @c.Text
+                    @Html.Raw(c.Text)
                 </div>
                 <div style="margin-top:20px;">
                     <i style="margin-top: 30px;">Posted: @Convert.ToDateTime(c.Posted).ToString("dd-MMM yyyy HH:mm")</i>

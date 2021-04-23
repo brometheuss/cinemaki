@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application;
 using Application.DataTransfer;
 using Application.Exceptions;
+using Application.Helpers;
 using Application.ICommands.CommentCommands;
 using Application.ICommands.MovieCommands;
 using Application.ICommands.UserCommands;
@@ -100,24 +101,24 @@ namespace WebMVC.Controllers
         {
             if (!ModelState.IsValid)
             {
-                TempData["error"] = "Check your input.";
+                TempData["error"] = Messages.CREATE_ERROR;
                 return RedirectToAction(nameof(Create));
             }
             try
             {
                 executor.ExecuteCommand(addComment, dto);
-                return RedirectToAction(nameof(Details), nameof(MoviesController), new { id = dto.MovieId });
+                TempData["success"] = Messages.COMMENT_CREATE_SUCCESS;
             }
             catch (EntityNotAllowedException)
             {
                 return RedirectToAction("PageNotFound", "Redirections");
             }
-            catch (EntityAlreadyHasAnEntryException e)
+            catch (EntityAlreadyHasAnEntryException)
             {
-                TempData["error"] = "You have already posted a  comment for this movie.";
-                return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
+                TempData["error"] = Messages.COMMENT_CREATE_ERROR_ALREADY_CREATED;
+                return RedirectToAction("Movies", "Home", new { dto.MovieId });
             }
-            catch (EntityAlreadyExistsException e)
+            catch (EntityNotFoundException e)
             {
                 TempData["error"] = e.Message;
             }
@@ -125,7 +126,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
+            return RedirectToAction("Movies", "Home", new { dto.MovieId });
         }
 
         // GET: Comments/Edit/5
@@ -133,6 +134,8 @@ namespace WebMVC.Controllers
         {
             try
             {
+                ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 1000 }).Data;
+                ViewBag.Users = getUsers.Execute(new UserQuery { PerPage = 100000 }).Data;
                 return View(executor.ExecuteQuery(getComment, id));
             }
             catch (EntityNotAllowedException)
