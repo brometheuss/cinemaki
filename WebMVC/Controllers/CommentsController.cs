@@ -158,7 +158,8 @@ namespace WebMVC.Controllers
             {
                 dto.Id = id;
                 executor.ExecuteCommand(editComment, dto);
-                return RedirectToAction(nameof(Index));
+                TempData["success"] = Messages.EDIT_SUCCESS;
+                return RedirectToAction("Details", "Comments", new { id });
             }
             catch (EntityNotAllowedException)
             {
@@ -172,7 +173,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Details", "Comments", new { id });
         }
 
         // GET: Comments/Delete/5
@@ -205,6 +206,7 @@ namespace WebMVC.Controllers
             try
             {
                 executor.ExecuteCommand(deleteComment, id);
+                TempData["success"] = Messages.DELETE_SUCCESS;
                 return RedirectToAction(nameof(Index));
             }
             catch (EntityNotAllowedException)
