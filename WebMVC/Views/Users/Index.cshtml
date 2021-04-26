@@ -20,18 +20,13 @@
         <label for="ISDeleted">
             Only deleted users:
         </label>
-        <select name="ISDeleted" class="form-control col-sm-2">
+        <select name="ISDeleted" class="form-control col-sm-2" style="margin-left: 10px;">
             <option value="2">No</option>
             <option value="1">Yes</option>
         </select>
     </div>
     <br/>
     <button type="submit" class="form-control btn btn-primary">Search</button>
-}
-
-@if (TempData["error"] != null)
-{
-    <p class="text-danger">@TempData["error"]</p>
 }
 
 <p>
