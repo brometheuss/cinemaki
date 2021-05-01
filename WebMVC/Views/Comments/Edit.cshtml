@@ -13,7 +13,20 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Text" class="control-label"></label>
-                <input asp-for="Text" class="form-control" />
+                <input id="summernote" asp-for="Text" class="form-control" />
+                <script>
+                              $('#summernote').summernote({
+                                tabsize: 2,
+                                height: 120,
+                                toolbar: [
+                                  ['style', ['style']],
+                                  ['font', ['bold', 'underline', 'clear']],
+                                  ['color', ['color']],
+                                  ['para', ['ul', 'ol', 'paragraph']],
+                                  ['view', ['fullscreen', 'codeview', 'help']]
+                                ]
+                              });
+                </script>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
             <div class="form-group">
