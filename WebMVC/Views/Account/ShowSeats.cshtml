@@ -26,23 +26,21 @@
                             <div class="col-sm-11">
                                 @foreach (var s in x.Seats)
                                 {
-
-                                    @foreach (var t in ViewBag.Taken)
+                                    if ((ViewBag.Taken as List<SeatDto>).Any(x => x.Id == s.Id))
                                     {
-                                        if (s.Id == t.Id)
-                                        {
-                                            <label class="checkbox-label myPad" for="@s.Id" style="color: red;">
-                                                @(s.Name)@(s.Number)
-                                                <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id"checked disabled />
-                                                <span class="fas fa-lock"></span>
-                                            </label>
-                                        }
+                                <label class="checkbox-label myPad" for="@s.Id" style="color: red;">
+                                    @(s.Name)@(s.Number)
+                                    <span class="fas fa-lock">&nbsp;&nbsp;</span>
+                                </label>
                                     }
+                                    else 
+                                    { 
                                     <label class="checkbox-label myPad" for="@s.Id">
                                         @(s.Name)@(s.Number)
                                         <input type="checkbox" name="ReservationSeats[]" value="@s.Id" id="@s.Id" />
-                                        <span class="fa fa-check"></span>
+                                        <span class="fas fa-chair">&nbsp;&nbsp;</span>
                                     </label>
+                                    }
                                 }
                             </div>
                         </div>
