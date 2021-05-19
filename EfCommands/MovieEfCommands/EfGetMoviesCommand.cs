@@ -35,6 +35,9 @@ namespace EfCommands.MovieEfCommands
 
             query = query.Where(m => m.IsDeleted == false);
 
+            if (request.IsActive != null)
+                query = query.Where(m => m.IsActive == request.IsActive);
+
             if (request.Title != null)
                 query = query.Where(m => m.Title.ToLower().Contains(request.Title.ToLower()));
 

@@ -5,6 +5,22 @@
 }
 
 <h1>Details</h1>
+@if (Model.IsActive == true)
+{
+    <form asp-action="ActivateDeactivate">
+        <input type="submit" value="Deactivate" class="btn btn-danger" />
+        @Html.Hidden("IsActive", Model.IsActive)
+        @Html.Hidden("Id", Model.Id)
+    </form>
+}
+else
+{
+    <form asp-action="ActivateDeactivate">
+        <input type="submit" value="Activate" class="btn btn-success" />
+        @Html.Hidden("IsActive", Model.IsActive)
+        @Html.Hidden("Id", Model.Id)
+    </form>
+}
 
 <div>
     <hr />

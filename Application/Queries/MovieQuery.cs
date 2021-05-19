@@ -12,6 +12,7 @@ namespace Application.Queries
         public string Plot { get; set; }
         public decimal BoxOffice { get; set; }
         public decimal BoxOfficeSmallerThan { get; set; }
+        public bool? IsActive { get; set; }
         public DateTime? DebutDate { get; set; }
         public DateTime? EndDate { get; set; }
         public bool? Is3D { get; set; }

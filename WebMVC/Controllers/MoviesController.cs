@@ -35,8 +35,9 @@ namespace WebMVC.Controllers
         private readonly IGetProductionsCommand getProductions;
         private readonly IGetCountriesCommand getCountries;
         private readonly IGetRatedsCommand getRateds;
+        private readonly IActivateMovieCommand activateMovie;
 
-        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProductions, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds, UseCaseExecutor executor)
+        public MoviesController(IGetMoviesCommand getMovies, IGetMovieCommand getMovie, IAddMovieCommand addMovie, IEditMovieCommand editMovie, IDeleteMovieCommand deleteMovie, IGetGenresCommand getGenres, IGetActorsCommand getActors, IGetLanguagesCommand getLanguages, IGetWritersCommand getWriters, IGetProductionsCommand getProductions, IGetCountriesCommand getCountries, IGetRatedsCommand getRateds, UseCaseExecutor executor, IActivateMovieCommand activateMovie)
         {
             this.getMovies = getMovies;
             this.getMovie = getMovie;
@@ -51,6 +52,7 @@ namespace WebMVC.Controllers
             this.getCountries = getCountries;
             this.getRateds = getRateds;
             this.executor = executor;
+            this.activateMovie = activateMovie;
         }
 
         // GET: Movies
@@ -77,6 +79,20 @@ namespace WebMVC.Controllers
                 ViewBag.Languages = getLanguages.Execute(new LanguageQuery()).Data;
                 ViewBag.Writers = getWriters.Execute(new WriterQuery()).Data;*/
                 return View(executor.ExecuteQuery(getMovie, id));
+            }
+            catch (Exception e)
+            {
+                TempData["error"] = e.Message;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        public ActionResult ActivateDeactivate(MovieDto dto)
+        {
+            try
+            {
+                activateMovie.Execute(dto);
+                return RedirectToAction("Details", new { dto.Id });
             }
             catch (Exception e)
             {

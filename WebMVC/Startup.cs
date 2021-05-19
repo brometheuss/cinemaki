@@ -136,6 +136,7 @@ namespace WebMVC
             services.AddTransient<IAddMovieCommand, EfAddMovieCommand>();
             services.AddTransient<IEditMovieCommand, EfEditMovieCommand>();
             services.AddTransient<IDeleteMovieCommand, EfDeleteMovieCommand>();
+            services.AddTransient<IActivateMovieCommand, EfActivateMovieCommand>();
 
             //CountriesController
             services.AddTransient<IGetCountriesCommand, EfGetCountriesCommand>();

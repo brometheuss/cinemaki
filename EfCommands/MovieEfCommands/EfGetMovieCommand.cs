@@ -57,6 +57,7 @@ namespace EfCommands.MovieEfCommands
                 CountryName = movie.Country.Name,
                 ProductionName = movie.Production.Name,
                 RatedName = movie.Rated.Name,
+                IsActive = movie.IsActive,
                 GenresInfo = movie.MovieGenres.Select(g => new MovieGenreDto
                 {
                     GenreId = g.GenreId,

@@ -57,7 +57,7 @@ namespace WebMVC.Controllers
         {
             try
             {
-                ViewBag.Movies = getMovies.Execute(new MovieQuery()).Data;
+                ViewBag.Movies = getMovies.Execute(new MovieQuery { PerPage = 20, IsActive = true }).Data;
             }
             catch (Exception e)
             {
