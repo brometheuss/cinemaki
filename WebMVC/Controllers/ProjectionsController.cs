@@ -112,6 +112,10 @@ namespace WebMVC.Controllers
             {
                 return RedirectToAction("PageNotFound", "Redirections");
             }
+            catch(EntityAlreadyHasAnEntryException e)
+            {
+                TempData["error"] = e.Message;
+            }
             catch (EntityAlreadyExistsException e)
             {
                 TempData["error"] = e.Message;

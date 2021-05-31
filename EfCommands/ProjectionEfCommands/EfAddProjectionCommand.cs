@@ -33,6 +33,9 @@ namespace EfCommands.ProjectionEfCommands
             if (query.Any(p => p.DateEnd >= request.DateBegin && p.DateEnd <= request.DateEnd))
                 throw new EntityAlreadyHasAnEntryException("projection at that time.");
 
+            if (request.DateBegin >= request.DateEnd)
+                throw new Exception("Projection cannot end before it even starts.");
+
             Context.Projections.Add(new Projection
             {
                 DateBegin = request.DateBegin,
