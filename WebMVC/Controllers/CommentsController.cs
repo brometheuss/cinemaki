@@ -116,7 +116,7 @@ namespace WebMVC.Controllers
             catch (EntityAlreadyHasAnEntryException)
             {
                 TempData["error"] = Messages.COMMENT_CREATE_ERROR_ALREADY_CREATED;
-                return RedirectToAction("Movies", "Home", new { dto.MovieId });
+                //return RedirectToAction("Movies", "Home", new { dto.MovieId });
             }
             catch (EntityNotFoundException e)
             {
@@ -126,7 +126,7 @@ namespace WebMVC.Controllers
             {
                 TempData["error"] = e.Message;
             }
-            return RedirectToAction("Movies", "Home", new { dto.MovieId });
+            return RedirectToAction("Movies", "Home", new { id = dto.MovieId });
         }
 
         // GET: Comments/Edit/5
